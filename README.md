@@ -1,7 +1,7 @@
 # Refactoring_Scrooge_Server
 
-* 기존 사용 스택: JavaScript, nodejs, express, Sequelize, mysql
-* 리팩토링 사용 스택: TypeScript, nodejs, express, Sequlize, mysql
+* 기존 사용 스택: javaScript, nodejs, express, sequelize, mysql
+* 리팩토링 사용 스택: typeScript, nodejs, express, sequlize, joi, typedi, mysql
 
 ### 리팩토링 목적
 * 기존에 적용하지 못한 스택인 TypeScript를 프로젝트에 적용하는 실습을 한다. 
