@@ -7,7 +7,7 @@
 #### Tools: VScode, ESlint, Git
 
 ### 리팩토링 목적
-* OOP, FP를 적극적으로 활용한다.
+* OOP, FP, Class를 적극적으로 활용한다.
 * Docker, Docker-compose 사용
 * CI / CD 적용 (AWS CodeCommit, CodeBuild, CodeDeploy, Pipeline)
 * TypeScript를 프로젝트에 적용하는 실습을 한다.
