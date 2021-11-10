@@ -1,10 +1,10 @@
 # Refactoring_Scrooge_Server
 
 * 기존 사용 스택: javaScript, nodejs, express, sequelize, mysql
-* 리팩토링 사용 스택: 
-### Server: typeScript, javaScript, nodejs, express, typeORM, joi, Jest, typedi, mysql2, Docker, pm2
-### DevOps: AWS (EC2, RDS, CodePipeline)
-### Tools: VScode, ESlint, Git
+### 리팩토링 사용 스택: 
+#### Server: typeScript, javaScript, nodejs, express, typeORM, joi, Jest, typedi, mysql2, Docker, pm2
+#### DevOps: AWS (EC2, RDS, CodePipeline)
+#### Tools: VScode, ESlint, Git
 
 ### 리팩토링 목적
 * OOP, FP를 적극적으로 활용한다.
