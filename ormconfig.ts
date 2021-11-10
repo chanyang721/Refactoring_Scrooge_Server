@@ -11,12 +11,12 @@ export default {
     "synchronize": false,
     "logging": false,
     "entities": [
-       "src/database/entity/**/*.ts"
+        "src/database/entity/**/*.ts"
     ],
     "migrations": [
-       "src/database/migration/**/*.ts"
+        "src/database/migration/**/*.ts"
     ],
     "subscribers": [
-       "src/database/subscriber/**/*.ts"
+        "src/database/subscriber/**/*.ts"
     ]
- }
+}
