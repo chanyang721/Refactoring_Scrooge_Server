@@ -1,6 +1,6 @@
 import { Entity, Column, ManyToOne, JoinColumn ,Index, Unique, BeforeInsert } from "typeorm"
 import { BaseColumn } from "./default"
-import { User } from "./User";
+import { User } from "./user";
 
 @Entity({ name: "feedback" })
 export class Feedback extends BaseColumn {

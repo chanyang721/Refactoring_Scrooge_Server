@@ -1,7 +1,7 @@
 import { Entity, Column, ManyToOne, JoinColumn } from "typeorm"
 import { Category } from "./category";
 import { BaseColumn } from "./default";
-import { User } from "./User"
+import { User } from "./user"
 
 @Entity({ name: "money" })
 export class Money extends BaseColumn {
