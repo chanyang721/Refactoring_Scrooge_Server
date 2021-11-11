@@ -1,7 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import Joi from 'joi';
 import { Container } from "typedi"
-// import db from "../../database"
 // const { } = Container.get()
 
 export const defaultVaildations = async (req: Request, res: Response, next: NextFunction): Promise<any> => {

@@ -1,6 +1,5 @@
 import "reflect-metadata";
 import express from "express";
-import expressMiddlewares from "./loaders/express";
 import loaders from "./loaders"
 
 const server = async () => {
