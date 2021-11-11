@@ -1,6 +1,30 @@
 import { Router } from "express";
-const router = Router();
-import { } from "../controllers";
-import { } from "../../middlewares/vaildations"
+// import { } from "../controllers";
+// import { } from "../../middlewares/vaildations"
 
-router.post("", )
+const userRouters = Router();
+
+export default (router: Router) => {
+    router.use("/user", userRouters)
+
+    userRouters.post("/signup", )
+
+    userRouters.post("/login", )
+    
+    userRouters.post("/findpassword", )
+
+    userRouters.put("/changepassword", )
+    
+    userRouters.put("/fixuserinfo", )
+    
+    userRouters.post("/checkemail", )
+
+    userRouters.get("/refresh", )
+
+    userRouters.delete("/", )
+
+    userRouters.get("/initialize", )
+
+    userRouters.get("/signout", )
+
+}

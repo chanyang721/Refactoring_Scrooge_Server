@@ -20,7 +20,7 @@ export default async (app: Express) => {
         credentials: true
     }))
 
-    app.use(config.api.prefix, routers);
+    app.use(config.api.prefix, routers());
     
     app.all("*", (req: Request, res: Response, next: NextFunction) => {
           res

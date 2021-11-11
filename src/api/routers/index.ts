@@ -1,22 +1,22 @@
 import { Router } from "express";
-// import userRouters from "./user";
-// import categoryRouters from "./category";
-// import settingRouters from "./setting"
+import userRouters from "./user";
+import categoryRouters from "./category";
+import settingRouters from "./settings"
+import dayRouters from "./day";
+import monthRouters from "./month";
+import yearRouters from "./year";
+import oauthRouters from "./oauth"
 
+export default () => {
+    const router = Router();
 
-export default (app: Router) => {
+    userRouters(router);
+    oauthRouters(router);
+    categoryRouters(router);
+    settingRouters(router);
+    dayRouters(router);
+    monthRouters(router);
+    yearRouters(router);
 
-//     app.use("/", hello);
-
-//     app.use("/api", userRouters);
-
-//     app.use("/api", categoryRouters);
-
-//     app.use("/api", settingRouters);
-
-//     app.use("/api", dayRouters);
-    
-//     app.use("/api", monthRouters);
-
-//     app.use("/api", yearRouters);
+    return router
 }
