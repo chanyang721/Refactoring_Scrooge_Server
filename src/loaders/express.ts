@@ -14,8 +14,6 @@ export default async (app: Express) => {
     app.use(cors({
         origin: "*",
         methods: ["GET", "POST", "PATCH", "DELETE", "OPTIONS"],
-        allowedHeaders: ["Origin, X-Requested-With, Content-Type, Accept, Authorization, x-lifeplan-key"],
-        exposedHeaders: "x-lifeplan-key",
         maxAge: 3600 * 5,
         credentials: true
     }))
