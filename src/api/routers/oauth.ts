@@ -7,7 +7,7 @@ const oauthRouters = Router();
 export default (router: Router) => {
     router.use("/oauth", oauthRouters)
 
-    oauthRouters.post("/socialsignup", )
+    oauthRouters.post("/signup", )
 
     oauthRouters.post("/googlelogin", )
 

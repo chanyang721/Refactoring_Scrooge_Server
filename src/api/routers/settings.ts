@@ -7,7 +7,7 @@ const settingRouters = Router();
 export default (router: Router) => {
     router.use("/setting", settingRouters)
 
-    settingRouters.put("/changemainpage", )
+    settingRouters.put("/mainpage", )
 
     settingRouters.put("/darkmode", )
 

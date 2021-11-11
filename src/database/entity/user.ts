@@ -4,6 +4,8 @@ import { BaseColumn } from "./default";
 import { Feedback } from "./feedback";
 import { Category } from "./category";
 import { Money } from "./money";
+import { Level } from "./level";
+import { Achievement } from "./achievement";
 
 @Entity({ name: "user" })
 export class User extends BaseColumn {
@@ -54,4 +56,9 @@ export class User extends BaseColumn {
     @OneToMany(() => Category, (category) => category.user, { onDelete: "CASCADE" })
     category: Category[]
 
+    @OneToMany(() => Level, (level) => level.user, { onDelete: "CASCADE" })
+    level: Level[]
+
+    @OneToMany(() => Achievement, (achievement) => achievement.user, { onDelete: "CASCADE" })
+    achievement: Achievement[]
 }

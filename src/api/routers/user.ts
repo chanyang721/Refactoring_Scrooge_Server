@@ -15,7 +15,7 @@ export default (router: Router) => {
 
     userRouters.put("/changepassword", )
     
-    userRouters.put("/fixuserinfo", )
+    userRouters.put("/info", )
     
     userRouters.post("/checkemail", )
 
