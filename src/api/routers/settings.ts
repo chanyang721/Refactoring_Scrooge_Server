@@ -1,11 +1,14 @@
 import { Router } from "express";
+import Container from "typedi";
+import { Auth } from "../../middlewares/auth"
 // import { } from "../controllers";
 // import { } from "../../middlewares/vaildations"
+const isUser = Container.get(Auth).isAuthorized
 
 const settingRouters = Router();
 
 export default (router: Router) => {
-    router.use("/setting", settingRouters)
+    router.use("/setting", isUser, settingRouters)
 
     settingRouters.put("/mainpage", )
 

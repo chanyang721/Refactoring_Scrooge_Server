@@ -7,23 +7,6 @@ dotenv.config();
 @Service()
 export default class Jwt {
 
-    constructor() {}
-
-    public isAuthorized = (req: Request, res: Response) => {
-        const authorization = req.headers["authorization"];
-        if (!authorization) {
-            return res.status(401).send({ message: "Unauthorized" });
-        }
-        const token = authorization.split(" ")[1];
-        const data = verify(token, process.env.ACCESS_SECRET);
-        if (!data) {
-            return res
-                .status(400)
-                .send({ message: "토큰이 없는 잘못된 접근입니다." });
-        }
-        return data;
-    }
-
     public generateAccessToken = (data: string) => {
         return sign(data, process.env.ACCESS_SECRET, { expiresIn: "1h" });
     }
@@ -45,8 +28,8 @@ export default class Jwt {
 
     public resendAccessToken = (res: Response, accessToken: string, data: string) => {
         return res.send({
-          data: { accessToken, user: data },
-          message: "accessToken 재발급 완료",
+            data: { accessToken, user: data },
+            message: "accessToken 재발급 완료",
         });
     }
 

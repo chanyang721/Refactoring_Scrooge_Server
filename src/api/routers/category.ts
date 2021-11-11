@@ -1,11 +1,14 @@
 import { Router } from "express";
+import Container from "typedi";
+import { Auth } from "../../middlewares/auth"
 // import { } from "../controllers";
 // import { } from "../../middlewares/vaildations"
+const isUser = Container.get(Auth).isAuthorized
 
 const categoryRouters = Router();
 
 export default (router: Router) => {
-    router.use("/category", categoryRouters)
+    router.use("/category", isUser, categoryRouters)
 
     categoryRouters.post("/", )
 
@@ -16,5 +19,5 @@ export default (router: Router) => {
     categoryRouters.post("/sort", )
 
     categoryRouters.get("/budget", )
-    
+
 }

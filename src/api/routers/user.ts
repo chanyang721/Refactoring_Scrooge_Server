@@ -1,7 +1,10 @@
 import { Router } from "express";
+import Container from "typedi";
+import { Auth } from "../../middlewares/auth"
 // import { } from "../controllers";
 // import { } from "../../middlewares/vaildations"
 
+const isUser = Container.get(Auth).isAuthorized
 const userRouters = Router();
 
 export default (router: Router) => {
@@ -11,20 +14,20 @@ export default (router: Router) => {
 
     userRouters.post("/login", )
     
-    userRouters.post("/findpassword", )
+    userRouters.post("/findpassword", isUser)
 
-    userRouters.put("/changepassword", )
+    userRouters.put("/changepassword", isUser)
     
-    userRouters.put("/info", )
+    userRouters.put("/info", isUser)
     
     userRouters.post("/checkemail", )
 
-    userRouters.get("/refresh", )
+    userRouters.get("/refresh", isUser)
 
-    userRouters.delete("/", )
+    userRouters.delete("/", isUser)
 
-    userRouters.get("/initialize", )
+    userRouters.get("/initialize", isUser)
 
-    userRouters.get("/signout", )
+    userRouters.get("/signout", isUser)
 
 }
