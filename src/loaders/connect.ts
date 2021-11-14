@@ -5,10 +5,12 @@ import config from "../config"
 
 
 const connection = async () => {
+
     // useContainer(Container)
     const connection = await createConnection();
 
     typedi.Container.set("connection", connection);
+
 }
 
 export default connection

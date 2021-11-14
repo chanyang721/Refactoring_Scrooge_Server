@@ -13,7 +13,7 @@ export class User extends BaseColumn {
     @Column()
     name: string;
 
-    @Column({ unique: true  })
+    @Column()
     @Index()
     email: string;
 
@@ -29,16 +29,16 @@ export class User extends BaseColumn {
     @Column()
     sex: string;
 
-    @Column()
+    @Column({ default: "photos" })
     photos: string;
 
-    @Column()
+    @Column({ default: "/main" })
     rediract: string;
 
-    @Column()
+    @Column({ default: false })
     darkmode: boolean;
 
-    @Column()
+    @Column({ default: 0 })
     experience: number;
 
     @BeforeInsert()

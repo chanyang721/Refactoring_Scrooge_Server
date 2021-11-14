@@ -1,10 +1,11 @@
-import { Request, Response, NextFunction } from "express";
-import Joi from 'joi';
-import { Container } from "typedi"
+import { Request, Response, NextFunction } from "express"
+import Joi from "joi"
 
-export const defaultVaildations = async (req: Request, res: Response, next: NextFunction): Promise<any> => {
+
+export const userVaildation =  async (req: Request, res: Response, next: NextFunction): Promise<any> => {
 
     const schema = Joi.object({
+        name: Joi.string().required(),
         email: Joi.string().email().trim().max(30).required()
     })
 
@@ -14,7 +15,6 @@ export const defaultVaildations = async (req: Request, res: Response, next: Next
     }
 
     req.body = value;
-    const { email } = req.body
 
     next();
 }

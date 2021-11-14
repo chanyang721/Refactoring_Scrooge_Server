@@ -1,6 +1,6 @@
 import { Router } from "express";
 import Container from "typedi";
-import { Auth } from "../../middlewares/auth"
+import { Auth } from "../../helper/middlewares/auth"
 // import { } from "../controllers";
 // import { } from "../../middlewares/vaildations"
 const isUser = Container.get(Auth).isAuthorized

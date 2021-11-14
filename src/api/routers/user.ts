@@ -1,8 +1,8 @@
 import { Router } from "express";
 import Container from "typedi";
-import { Auth } from "../../middlewares/auth"
-// import { } from "../controllers";
-// import { } from "../../middlewares/vaildations"
+import { Auth } from "../../helper/middlewares/auth"
+import { createUser } from "../controllers/userControllers";
+
 
 const isUser = Container.get(Auth).isAuthorized
 const userRouters = Router();
@@ -10,7 +10,7 @@ const userRouters = Router();
 export default (router: Router) => {
     router.use("/user", userRouters)
 
-    userRouters.post("/signup", )
+    userRouters.post("/signup", createUser)
 
     userRouters.post("/login", )
     
