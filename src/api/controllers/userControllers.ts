@@ -5,7 +5,6 @@ import { UserService } from "../../services/userService";
 
 export const createUser = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        
         const userServiceInstance = Container.get(UserService)
 
         await userServiceInstance.insertUser(req.body);

@@ -2,7 +2,7 @@ import { Service } from "typedi";
 import { User } from "../database/entity/user";
 import { BaseRepository } from "../database/baseRepository"
 import Jwt from "../helper/utils/jwt";
-import { UserDTO } from "../interface/user";
+import { UserDTO } from "./interface/user";
 
 @Service()
 export class UserService extends BaseRepository<User> {

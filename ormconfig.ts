@@ -11,7 +11,8 @@ export default {
     "synchronize": false,
     "logging": false,
     "entities": [
-        "src/database/entity/**/*.ts"
+        "src/database/entity/**/*.ts",
+        "dist/database/entity/**/*.js"
     ],
     "migrations": [
         "src/database/migration/**/*.ts"
