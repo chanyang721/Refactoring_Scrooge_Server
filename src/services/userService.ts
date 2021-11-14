@@ -14,14 +14,13 @@ export class UserService extends BaseRepository<User> {
     }
     
     public async insertUser(data: UserDTO) {
-        console.log(data)
-        const user = await this.repository
+        const newUser = await this.repository
             .createQueryBuilder()
             .insert()
             .into(User)
             .values(data)
             .execute();
 
-        return { user };
+        return { newUser };
     }
 } 
