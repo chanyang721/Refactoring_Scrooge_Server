@@ -41,11 +41,8 @@ export class User extends BaseColumn {
     @Column({ default: 0 })
     experience: number;
 
-    @BeforeInsert()
-    setPassword(password: string) {
-        const salt = bcrypt.genSaltSync(10)
-        this.password = bcrypt.hashSync(password || this.password, salt)
-    }
+
+    
 
     @OneToMany(() => Feedback, (feedback) => feedback.user, { onDelete: "CASCADE" })
     feedback: Feedback[]

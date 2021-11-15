@@ -1,19 +1,22 @@
-import { Service } from "typedi";
+import Container, { Service } from "typedi";
 import { User } from "../database/entity/user";
 import { BaseRepository } from "../database/baseRepository"
 import Jwt from "../helper/utils/jwt";
+import Hashing from "../helper/utils/hashing"
 import { UserDTO } from "./interface/user";
 
 @Service()
 export class UserService extends BaseRepository<User> {
-    private jwt: Jwt;
 
-    constructor() {
+    constructor(private jwt: Jwt, private hash: Hashing) {
         super(User)
-        this.jwt = new Jwt()
     }
-    
+
+
     public async insertUser(data: UserDTO) {
+        const hash: Hashing = Container.get(Hashing)    
+        data.password = await hash.hashingPassword(data.password);
+
         const newUser = await this.repository
             .createQueryBuilder()
             .insert()
@@ -23,4 +26,6 @@ export class UserService extends BaseRepository<User> {
 
         return { newUser };
     }
-} 
+
+    // public async 
+}
