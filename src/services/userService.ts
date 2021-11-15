@@ -12,7 +12,6 @@ export class UserService extends BaseRepository<User> {
         super(User)
     }
 
-
     public async insertUser(data: UserDTO) {
         const hash: Hashing = Container.get(Hashing)    
         data.password = await hash.hashingPassword(data.password);
@@ -27,5 +26,10 @@ export class UserService extends BaseRepository<User> {
         return { newUser };
     }
 
-    // public async 
+    public async login (data: UserDTO) {
+        const jwt: Jwt = Container.get(Jwt);
+        const token = jwt.generateAccessToken(data);
+
+        return { token };
+    }
 }

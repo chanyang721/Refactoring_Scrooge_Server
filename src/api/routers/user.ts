@@ -1,6 +1,7 @@
 import { Router } from "express";
 import Container from "typedi";
 import { Auth } from "../../helper/middlewares/auth"
+import { loginVaildation } from "../../helper/middlewares/vaildations/userVaildation"
 import { createUser, login } from "../controllers/userControllers";
 
 
@@ -12,15 +13,15 @@ export default (router: Router) => {
 
     userRouters.post("/signup", createUser)
 
-    userRouters.post("/login", login)
+    userRouters.post("/login", loginVaildation, login)
     
-    userRouters.post("/findpassword", isUser)
+    userRouters.get("/find/:password", isUser)
 
-    userRouters.put("/changepassword", isUser)
+    userRouters.put("/change/password", isUser)
     
     userRouters.put("/info", isUser)
     
-    userRouters.post("/checkemail", )
+    userRouters.get("/check/:email", )
 
     userRouters.get("/refresh", isUser)
 

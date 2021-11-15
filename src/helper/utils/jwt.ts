@@ -7,8 +7,8 @@ dotenv.config();
 @Service()
 export default class Jwt {
 
-    public generateAccessToken = (data: string) => {
-        return sign(data, process.env.ACCESS_SECRET, { expiresIn: "1h" });
+    public generateAccessToken = (data: object) => {
+        return sign(data, process.env.ACCESS_SECRET, { expiresIn: "1d" });
     }
 
     public generateRefreshToken = (data: string) => {
