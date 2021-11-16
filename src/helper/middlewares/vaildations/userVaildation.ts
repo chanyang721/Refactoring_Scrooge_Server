@@ -37,12 +37,12 @@ export const loginVaildation = async(req: Request, res: Response, next: NextFunc
             email: Joi.string().email().trim().required(),
             password: Joi.string().required()
         })
-    
+
         const { value, error } = schema.validate(req.body)
         if (error) return res.status(403).json({ error });
     
         req.body = value;
-        const { email, password } = req.body
+        const { email, password } = req.body;
         
         const userRepo = getRepository(User);
         const registeredUser = await userRepo.findOne({ email });
@@ -54,7 +54,7 @@ export const loginVaildation = async(req: Request, res: Response, next: NextFunc
         const verifyPassword = await hashing.comparePassword(password, registeredUser.password)
         // 비밀번호 일치 확인 //
         if(!verifyPassword) throw new UserVaildationError(403, "비밀번호를 확인해주세요");
-    
+
         next();
     }
     catch (error) {

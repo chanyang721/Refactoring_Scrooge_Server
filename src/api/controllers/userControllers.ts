@@ -22,9 +22,19 @@ export const login = async (req: Request, res: Response, next: NextFunction): Pr
 
         const userServiceInstance = Container.get(UserService)
 
-        const { token } = await userServiceInstance.login({ id })
+        const { accessToken, refreshToken } = await userServiceInstance.login({ id })
         
-        res.status(200).send({ token, message: "로그인 성공" })
+        res.status(200)
+            .cookie("refreshToken", refreshToken, {
+                sameSite: "none",
+                secure: true,
+                httpOnly: true,
+            })
+            .send({ 
+                accessToken, 
+                refreshToken, 
+                message: "로그인 성공" 
+            })
     }
     catch (error) {
         res.status(400).send({ error: "로그인 에러" })

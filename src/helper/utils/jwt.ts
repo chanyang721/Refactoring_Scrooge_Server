@@ -11,7 +11,7 @@ export default class Jwt {
         return sign(data, process.env.ACCESS_SECRET, { expiresIn: "1d" });
     }
 
-    public generateRefreshToken = (data: string) => {
+    public generateRefreshToken = (data: object) => {
         return sign(data, process.env.REFRESH_SECRET, { expiresIn: "2h" });
     }
 
