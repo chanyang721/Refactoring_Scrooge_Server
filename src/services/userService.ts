@@ -33,9 +33,5 @@ export class UserService extends BaseRepository<User> {
 
         return { accessToken, refreshToken };
     }
-
-    public async temporaryLogin (data: UserDTO) {
-        const { email, password } = data;
-        
-    }
+    
 }
