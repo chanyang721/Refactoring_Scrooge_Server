@@ -1,7 +1,7 @@
 import { Router } from "express";
 import Container from "typedi";
 import { Auth } from "../../helper/middlewares/auth"
-import { loginVaildation } from "../../helper/middlewares/vaildations/userVaildation"
+import { createVaildation, loginVaildation } from "../../helper/middlewares/vaildations/userVaildation"
 import { createUser, login } from "../controllers/userControllers";
 
 
@@ -11,7 +11,7 @@ const userRouters = Router();
 export default (router: Router) => {
     router.use("/user", userRouters)
 
-    userRouters.post("/signup", createUser)
+    userRouters.post("/signup", createVaildation, createUser)
 
     userRouters.post("/login", loginVaildation, login)
     
