@@ -1,7 +1,7 @@
 import express, { Express, Request, Response, NextFunction } from "express";
 import morgan from "morgan"
 import cors from "cors";
-import errorHandler from "errorhandler";
+// import errorHandler from "errorhandler";
 import cookieParser from "cookie-parser";
 import routers from "../api/routers"
 import config from "../config"
@@ -26,5 +26,5 @@ export default async (app: Express) => {
             .json({ message: "Invalid Request" })
     });
 
-    app.use(errorHandler)
+    // app.use(errorHandler)
 }

@@ -3,7 +3,7 @@ dotenv.config();
 
 export default {
     "type": "mysql",
-    "host": "localhost",
+    "host": process.env.HOST || "localhost",
     "port": process.env.PORT || 3306,
     "username": process.env.USERNAME || "root",
     "password": process.env.PASSWORD || "1q2w",
