@@ -8,13 +8,13 @@ import { Level } from "./level";
 import { Achievement } from "./achievement";
 
 @Entity({ name: "user" })
+@Index(["email", "phonenumber"], { unique: true })
 export class User extends BaseColumn {
 
     @Column()
     name: string;
 
-    @Column()
-    @Index()
+    @Column({ unique: true })
     email: string;
 
     @Column()
@@ -27,7 +27,7 @@ export class User extends BaseColumn {
     phonenumber: string;
 
     @Column()
-    sex: string;
+    gender: string;
 
     @Column({ default: "photos" })
     photos: string;
@@ -42,7 +42,6 @@ export class User extends BaseColumn {
     experience: number;
 
 
-    
 
     @OneToMany(() => Feedback, (feedback) => feedback.user, { onDelete: "CASCADE" })
     feedback: Feedback[]

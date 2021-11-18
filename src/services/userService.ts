@@ -39,6 +39,6 @@ export class UserService extends BaseRepository<User> {
 
         const deletedRow = await this.repository.softDelete(id)
 
-        return { deletedRow };
+        return { affected: deletedRow.affected };
     }
 }
