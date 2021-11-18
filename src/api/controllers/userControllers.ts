@@ -18,11 +18,11 @@ export const createUser = async (req: Request, res: Response, next: NextFunction
 
 export const login = async (req: Request, res: Response, next: NextFunction): Promise<any> => {
     try {
-        const { id } = req.body.registeredUser
+        const { id } = req.body.registeredUser;
 
-        const userServiceInstance = Container.get(UserService)
+        const userServiceInstance = Container.get(UserService);
 
-        const { accessToken, refreshToken } = await userServiceInstance.login({ id })
+        const { accessToken, refreshToken } = await userServiceInstance.login({ id });
         
         res.status(200)
             .cookie("refreshToken", refreshToken, {
@@ -34,9 +34,22 @@ export const login = async (req: Request, res: Response, next: NextFunction): Pr
                 accessToken, 
                 refreshToken, 
                 message: "로그인 성공" 
-            })
+            });
     }
     catch (error) {
         res.status(400).send({ error: "로그인 에러" })
+    }
+}
+
+export const deleteUser = async(req: Request, res: Response, next: NextFunction): Promise<any> => {
+    try {
+        const { id } = req.params;
+
+        const userServiceInstance = Container.get(UserService);
+
+        await userServiceInstance.
+    }
+    catch (error) {
+
     }
 }

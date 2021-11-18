@@ -35,6 +35,7 @@ export const createVaildation = async(req: Request, res: Response, next: NextFun
         next();
     }
     catch (error) {
+        console.log(error)
         res.status(400).send({ error })
     }
 }
@@ -67,6 +68,7 @@ export const loginVaildation = async(req: Request, res: Response, next: NextFunc
         next();
     }
     catch (error) {
+        console.log(error)
         res.status(400).send({ error })
     }
 }

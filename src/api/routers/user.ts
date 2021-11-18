@@ -1,11 +1,10 @@
 import { Router } from "express";
 import Container from "typedi";
-import { Auth } from "../../helper/middlewares/auth"
+import { isAuthorized } from "../../helper/middlewares/auth"
 import { createVaildation, loginVaildation } from "../../helper/middlewares/vaildations/userVaildation"
 import { createUser, login } from "../controllers/userControllers";
 
 
-const isUser = Container.get(Auth).isAuthorized
 const userRouters = Router();
 
 export default (router: Router) => {
@@ -15,20 +14,20 @@ export default (router: Router) => {
 
     userRouters.post("/login", loginVaildation, login)
     
-    userRouters.get("/find/:password", isUser)
+    userRouters.get("/find/:password", isAuthorized, )
 
-    userRouters.put("/change/password", isUser)
+    userRouters.put("/change/password", isAuthorized, )
     
-    userRouters.put("/info", isUser)
+    userRouters.put("/info", isAuthorized, )
     
     userRouters.get("/check/:email", )
 
-    userRouters.get("/refresh", isUser)
+    userRouters.get("/refresh", isAuthorized, )
 
-    userRouters.delete("/", isUser)
+    userRouters.delete("/", isAuthorized, )
 
-    userRouters.get("/initialize", isUser)
+    userRouters.get("/initialize", isAuthorized, )
 
-    userRouters.get("/signout", isUser)
+    userRouters.get("/signout", isAuthorized, )
 
 }
