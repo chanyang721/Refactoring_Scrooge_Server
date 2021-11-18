@@ -17,6 +17,7 @@ export const isAuthorized = (req: Request, res: Response, next: NextFunction) =>
                 .status(400)
                 .send({ message: "토큰이 없는 잘못된 접근입니다." });
         }
+        req.body.data = data;
 
         next();
     }

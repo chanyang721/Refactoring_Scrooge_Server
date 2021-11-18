@@ -33,5 +33,12 @@ export class UserService extends BaseRepository<User> {
 
         return { accessToken, refreshToken };
     }
-    
+
+    public async softDeleteUser (data: UserDTO) {
+        const { id } = data;
+
+        const deletedRow = await this.repository.softDelete(id)
+
+        return { deletedRow };
+    }
 }
