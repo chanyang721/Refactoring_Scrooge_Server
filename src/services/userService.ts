@@ -37,18 +37,25 @@ export class UserService extends BaseRepository<User> {
     public async softDeleteUser (data: UserDTO) {
         const { id } = data;
 
-        const deletedRow = await this.repository
+        const { affected } = await this.repository
             .createQueryBuilder()
             .softDelete()
             .where("id = :id", { id })
             .execute()
 
-        return { affected: deletedRow.affected };
+        return { affected };
     }
 
     public async updateUserInfo (data: UserDTO) {
-        console.log(data)
-        // const { auth: { id:  } } = data;
+        const { id } = data;
 
+        const { affected } = await this.repository
+            .createQueryBuilder()
+            .update(User)
+            .set(data)
+            .where("id = :id", { id })
+            .execute()
+
+        return { affected };
     }
 }

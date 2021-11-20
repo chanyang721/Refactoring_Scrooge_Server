@@ -10,14 +10,15 @@ export const isAuthorized = (req: Request, res: Response, next: NextFunction) =>
         }
 
         const token = authorization.split(" ")[1];
-        const auth = verify(token, process.env.ACCESS_SECRET);
+        const auth: any = verify(token, process.env.ACCESS_SECRET);
         
         if (!auth) {
             return res
                 .status(400)
                 .send({ message: "토큰이 없는 잘못된 접근입니다." });
         }
-        req.body.auth = auth;
+
+        req.body.id = auth.id;
 
         next();
     }
