@@ -12,6 +12,7 @@ export const createUser = async (req: Request, res: Response, next: NextFunction
         res.status(200).send({ message: "회원가입 성공" })
     }
     catch (error) {
+        console.log(error)
         res.status(400).send({ error: error.message })
     }
 }
@@ -37,6 +38,7 @@ export const login = async (req: Request, res: Response, next: NextFunction): Pr
             });
     }
     catch (error) {
+        console.log(error)
         res.status(400).send({ error: error.message })
     }
 }
@@ -52,6 +54,17 @@ export const softDeleteUser = async(req: Request, res: Response, next: NextFunct
         res.status(200).send({ message: "삭제되었습니다" })
     }
     catch (error) {
+        console.log(error)
+        res.status(400).send({ error: error.message })
+    }
+}
+
+export const updateUserInfo = async(req: Request, res: Response, next: NextFunction): Promise<any> => {
+    try {
+        
+    }
+    catch (error) {
+        console.log(error)
         res.status(400).send({ error: error.message })
     }
 }

@@ -18,7 +18,7 @@ export default (router: Router) => {
 
     userRouters.put("/change/password", isAuthorized, )
     
-    userRouters.put("/info", isAuthorized, )
+    userRouters.put("/Info", isAuthorized, )
     
     userRouters.get("/check/:email", )
 
