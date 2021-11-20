@@ -15,7 +15,7 @@ export const createVaildation = async(req: Request, res: Response, next: NextFun
             name: Joi.string().trim().min(1).max(10).required(),
             birthday: Joi.string().trim().required(),
             phonenumber: Joi.string().trim().required(),
-            sex: Joi.number().integer().less(2).required()
+            gender: Joi.number().integer().less(2).required()
         })
         
         const { value, error } = schema.validate(req.body)

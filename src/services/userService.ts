@@ -36,7 +36,7 @@ export class UserService extends BaseRepository<User> {
 
     public async softDeleteUser (data: UserDTO) {
         const { id } = data;
-        
+
         const deletedRow = await this.repository
             .createQueryBuilder()
             .softDelete()
@@ -44,5 +44,11 @@ export class UserService extends BaseRepository<User> {
             .execute()
 
         return { affected: deletedRow.affected };
+    }
+
+    public async updateUserInfo (data: UserDTO) {
+        console.log(data)
+        // const { auth: { id:  } } = data;
+
     }
 }

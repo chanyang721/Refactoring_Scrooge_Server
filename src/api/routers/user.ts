@@ -2,7 +2,7 @@ import { Router } from "express";
 import Container from "typedi";
 import { isAuthorized } from "../../helper/middlewares/auth"
 import { createVaildation, loginVaildation } from "../../helper/middlewares/vaildations/userVaildation"
-import { createUser, login, softDeleteUser } from "../controllers/userControllers";
+import { createUser, login, softDeleteUser, updateUserInfo } from "../controllers/userControllers";
 
 
 const userRouters = Router();
@@ -18,7 +18,7 @@ export default (router: Router) => {
 
     userRouters.put("/change/password", isAuthorized, )
     
-    userRouters.put("/Info", isAuthorized, )
+    userRouters.put("/Info", isAuthorized, updateUserInfo)
     
     userRouters.get("/check/:email", )
 

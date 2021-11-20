@@ -10,4 +10,5 @@ export interface UserDTO {
     rediract?: string;
     darkmode?: boolean;
     experience?: number;
+    auth?: number
 }

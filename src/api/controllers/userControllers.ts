@@ -61,7 +61,11 @@ export const softDeleteUser = async(req: Request, res: Response, next: NextFunct
 
 export const updateUserInfo = async(req: Request, res: Response, next: NextFunction): Promise<any> => {
     try {
-        
+        const userServiceInstance = Container.get(UserService);
+
+        await userServiceInstance.updateUserInfo(req.body)
+
+        res.status(200).send({ message: "수정되었습니다" })
     }
     catch (error) {
         console.log(error)
