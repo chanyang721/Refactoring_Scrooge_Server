@@ -72,3 +72,20 @@ export const updateUserInfo = async(req: Request, res: Response, next: NextFunct
         res.status(400).send({ error: error.message })
     }
 }
+
+export const restoreUser = async(req: Request, res: Response, next: NextFunction): Promise<any> => {
+    try {
+        const { id } = req.params
+
+        const userServiceInstance = Container.get(UserService);
+    
+        const { result } = await userServiceInstance.restoreUser(id);
+
+        res.status(200).send({ message: "복구되었습니다", result })
+    }
+    catch (error) {
+        console.log(error)
+        res.status(400).send({ error: error.message })
+    }
+
+}

@@ -1,11 +1,10 @@
-
 import dotenv from "dotenv";
 dotenv.config();
 
 export default {
-    port: parseInt(process.env.PORT || "4000"),
+    port: process.env.PORT || "4000",
 
-    HOST: parseInt(process.env.HOST || "root"),
+    host: process.env.HOST || "127.0.0.1",
 
     api: {
         prefix: "/api"

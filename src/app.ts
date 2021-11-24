@@ -1,17 +1,23 @@
 import "reflect-metadata";
 import express from "express";
 import loaders from "./loaders"
+import config from "./config"
 
 const server = async () => {
-    const app = express();
-    const port = process.env.PORT || 3000;
-    const host = process.env.HOST || "127.0.0.1";
-
-    await loaders(app);
-
-    app.listen(port, () => {
-        console.log(`server start on [ http://${host}:${port} ]`)
-    });
+    try {
+        const app = express();
+        const port = config.port;
+        const host = config.host;
+    
+        await loaders(app);
+    
+        app.listen(port, () => {
+            console.log(`server start on [ http://${host}:${port} ]`)
+        });
+    }
+    catch(error) {
+        console.log(error)
+    }
 }
 
 server();
