@@ -10,5 +10,4 @@ export default async (app: Express) => {
     await databaseConnection();
     console.log("Database Connection loaded")
 
-    // injector
 }

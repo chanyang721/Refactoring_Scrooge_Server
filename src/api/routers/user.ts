@@ -10,23 +10,23 @@ const userRouters = Router();
 export default (router: Router) => {
     router.use("/user", userRouters)
 
-    userRouters.post("/signup", createVaildation, createUser)
+    userRouters.post("/signup", createVaildation, createUser) //
 
-    userRouters.post("/login", loginVaildation, login)
+    userRouters.post("/login", loginVaildation, login) //
     
     userRouters.get("/find/:password", isAuthorized, )
 
     userRouters.put("/change/password", isAuthorized, )
     
-    userRouters.put("/Info", isAuthorized, updateUserInfo)
+    userRouters.put("/Info", isAuthorized, updateUserInfo) // 
     
     userRouters.get("/check/:email", )
 
     userRouters.get("/refresh", isAuthorized, )
 
-    userRouters.delete("/", isAuthorized, softDeleteUser)
+    userRouters.delete("/", isAuthorized, softDeleteUser) //
 
-    userRouters.put("/restore/:id", restoreUser)
+    userRouters.put("/restore/:id", restoreUser) // 
 
     userRouters.get("/initialize", isAuthorized, )
 

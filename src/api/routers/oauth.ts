@@ -9,12 +9,12 @@ export default (router: Router) => {
 
     oauthRouters.post("/signup", )
 
-    oauthRouters.post("/googlelogin", )
+    oauthRouters.post("/google/login", )
 
-    oauthRouters.post("/googlecheck", )
+    oauthRouters.get("/google/check/:email", )
 
-    oauthRouters.post("/kakaologin", )
+    oauthRouters.post("/kakao/login", )
 
-    oauthRouters.post("/kakaocheck", )
+    oauthRouters.get("/kakao/check/:email", )
 
 }

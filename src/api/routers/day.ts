@@ -11,7 +11,7 @@ export default (router: Router) => {
 
     dayRouters.post("/spend", )
 
-    dayRouters.delete("/spend", )
+    dayRouters.delete("/spend/:id", )
 
     dayRouters.put("/spend", )
 

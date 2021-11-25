@@ -14,7 +14,7 @@ export default (router: Router) => {
 
     categoryRouters.put("/", )
 
-    categoryRouters.delete("/", )
+    categoryRouters.delete("/:id", )
 
     categoryRouters.post("/sort", )
 
