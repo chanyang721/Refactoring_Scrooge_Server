@@ -11,10 +11,7 @@ export class Money extends BaseColumn {
 
     @Column()
     memo: string;
-
-    @Column()
-    data: string;
-
+    
     @Column()
     categoryId: number;
 

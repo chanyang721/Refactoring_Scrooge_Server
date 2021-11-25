@@ -14,7 +14,7 @@ export class User extends BaseColumn {
     @Column()
     name: string;
 
-    @Column({ unique: true })
+    @Column()
     email: string;
 
     @Column()
@@ -23,10 +23,10 @@ export class User extends BaseColumn {
     @Column()
     birthday: string;
 
-    @Column({ unique: true })
+    @Column({ default: "010-1234-1234" })
     phonenumber: string;
 
-    @Column()
+    @Column({ default: "남"})
     gender: string;
 
     @Column({ default: "photos" })
@@ -40,7 +40,6 @@ export class User extends BaseColumn {
 
     @Column({ default: 0 })
     experience: number;
-
 
 
     @OneToMany(() => Feedback, (feedback) => feedback.user, { onDelete: "CASCADE" })
