@@ -19,7 +19,7 @@ export const createUser = async (req: Request, res: Response, next: NextFunction
 
 export const login = async (req: Request, res: Response, next: NextFunction): Promise<any> => {
     try {
-        const { id } = req.body.registeredUser;
+        const { id } = req.body;
 
         const userServiceInstance = Container.get(UserService);
 
@@ -45,7 +45,7 @@ export const login = async (req: Request, res: Response, next: NextFunction): Pr
 
 export const softDeleteUser = async(req: Request, res: Response, next: NextFunction): Promise<any> => {
     try {
-        const { id } = req.body.data;
+        const { id } = req.body;
 
         const userServiceInstance = Container.get(UserService);
 
@@ -79,13 +79,12 @@ export const restoreUser = async(req: Request, res: Response, next: NextFunction
 
         const userServiceInstance = Container.get(UserService);
     
-        const { result } = await userServiceInstance.restoreUser(id);
+        const { affected } = await userServiceInstance.restoreUser(id);
 
-        res.status(200).send({ message: "복구되었습니다", result })
+        res.status(200).send({ message: "복구되었습니다", affected })
     }
     catch (error) {
         console.log(error)
         res.status(400).send({ error: error.message })
     }
-
 }

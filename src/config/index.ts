@@ -1,10 +1,11 @@
+
 import dotenv from "dotenv";
 dotenv.config();
 
 export default {
-    port: process.env.PORT || "4000",
+    port: process.env.PORT,
 
-    host: process.env.HOST || "127.0.0.1",
+    host: process.env.HOST,
 
     api: {
         prefix: "/api"
@@ -19,14 +20,14 @@ export default {
         }
     },
 
-    database: {
-        mysql: {
-            host: process.env.HOST || "localhost",
-            port: process.env.PORT || 3306,
-            username: process.env.USERNAME || "root",
-            password: process.env.PASSWORD || "",
-            database: process.env.DATABASE || "test_database",
-        }
-    },
+    // database: {
+    //     mysql: {
+    //         host: process.env.HOST || "localhost",
+    //         port: process.env.PORT || 3306,
+    //         username: process.env.USERNAME || "root",
+    //         password: process.env.PASSWORD || "",
+    //         database: process.env.DATABASE || "test_database",
+    //     }
+    // },
 
 }

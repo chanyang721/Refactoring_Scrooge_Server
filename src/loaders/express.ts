@@ -21,7 +21,7 @@ export default async (app: Express) => {
     app.use(config.api.prefix, routers());
     
     app.all("*", (req: Request, res: Response, next: NextFunction) => {
-          res
+        res
             .status(404)
             .json({ message: "Invalid Request" })
     });

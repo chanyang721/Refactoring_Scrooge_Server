@@ -61,12 +61,12 @@ export class UserService extends BaseRepository<User> {
     
     public async restoreUser(id: string) {
 
-        const result = await this.repository
+        const { affected } = await this.repository
             .createQueryBuilder()
             .where("id = :id", { id })
             .restore()
             .execute()
             
-        return { result }
+        return { affected }
     }
 }
