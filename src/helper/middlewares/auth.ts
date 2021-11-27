@@ -18,11 +18,11 @@ export const isAuthorized = (req: Request, res: Response, next: NextFunction) =>
     }
     
     if (!authorization) { // 엑세스 토큰이 없다면 리프레시 토큰 검증 후 엑세스 토큰 재발급
-        refreshTokenDate = JwtInstance.checkToken(refreshToken, process.env.REFRESH_SECRET)
+        refreshTokenDate = JwtInstance.decodeToken(refreshToken, process.env.REFRESH_SECRET)
 
         if (refreshTokenDate) {
             const accessToken = authorization.split(" ")[1];
-            accessTokenData = JwtInstance.checkToken(accessToken, process.env.ACCESS_SECRET)
+            accessTokenData = JwtInstance.decodeToken(accessToken, process.env.ACCESS_SECRET)
         }
         throw new UserVaildationError(400, "invalid refresh token, please log in again")
     }
