@@ -1,19 +1,36 @@
 import dotenv from "dotenv";
 import { Request, Response } from "express";
-import { sign, verify } from "jsonwebtoken";
+import { sign, verify, Algorithm, SignOptions, JwtPayload } from "jsonwebtoken";
 import { Service } from "typedi";
+import config from "../../config"
 dotenv.config();
 
 @Service()
 export default class Jwt {
 
-    public generateAccessToken = (data: object) => {
-        return sign(data, process.env.ACCESS_SECRET, { expiresIn: "1d" });
+    public tokenGenerator = (subject: string, expiresIn: string) => {
+        const algorithm = config.jwt.algorithm as Algorithm;
+        const JwtOptions: SignOptions = { algorithm, expiresIn, subject }
+
+        if(subject === "ACCESSS_TOKEN") {
+            return ({ idx, id }: JwtPayload) => 
+                sign({ idx, id }, config.jwt.secret, JwtOptions);
+        }
+        if(subject === "REFRESH_TOKEN") {
+            return ({ id }: JwtPayload) =>
+                sign({ id }, config.jwt.secret, JwtOptions);
+        }
+
+        return () => sign({}, config.jwt.secret, JwtOptions);
     }
 
-    public generateRefreshToken = (data: object) => {
-        return sign(data, process.env.REFRESH_SECRET, { expiresIn: "2h" });
-    }
+    // public generateAccessToken = (data: object) => {
+    //     return sign(data, process.env.ACCESS_SECRET, { expiresIn: "10h" });
+    // }
+
+    // public generateRefreshToken = (data: object) => {
+    //     return sign(data, process.env.REFRESH_SECRET, { expiresIn: "90d" });
+    // }
 
     public sendToken = (res: Response, accessToken: string, refreshToken: string) => {
         return res
@@ -33,9 +50,9 @@ export default class Jwt {
         });
     }
 
-    public checkRefreshToken = (refreshToken: string) => {
+    public checkToken = (token: string, secret: string) => {
         try {
-            return verify(refreshToken, process.env.REFRESH_SECRET);
+            return verify(token, secret);
         } catch (err) {
             return null;
         }

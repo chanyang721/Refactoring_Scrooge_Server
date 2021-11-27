@@ -22,8 +22,6 @@ export default (router: Router) => {
     
     userRouters.get("/check/:email", )
 
-    userRouters.get("/refresh", isAuthorized, )
-
     userRouters.delete("/", isAuthorized, softDeleteUser) //
 
     userRouters.put("/restore/:id", restoreUser) // 
