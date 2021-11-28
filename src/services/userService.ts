@@ -28,8 +28,8 @@ export class UserService extends BaseRepository<User> {
 
     public async login (data: UserDTO) {
         const jwt: Jwt = Container.get(Jwt);
-        const accessToken = jwt.tokenGenerator("ACCESSS_TOKEN", "10h");
-        const refreshToken = jwt.tokenGenerator("REFRESH_TOKEN", "90d");
+        const accessToken = jwt.genAccessToken("ACCESS_TOKEN", "10h");
+        const refreshToken = jwt.genAccessToken("REFRESH_TOKEN", "90d");
 
         return { accessToken, refreshToken };
     }

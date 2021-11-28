@@ -2,16 +2,33 @@ import dotenv from "dotenv";
 import { sign, verify, Algorithm, SignOptions, VerifyOptions, JwtPayload } from "jsonwebtoken";
 import { Service } from "typedi";
 import config from "../../config"
+import { ErrorFormat } from "./errorformat";
 dotenv.config();
+
+interface TokenDTO {
+    subject?: string
+    expiresIn?: string
+    token?: string
+}
 
 @Service()
 export default class Jwt {
+    
+    public getAuthorization = ({ BearerToken }): string => {
+        if (!BearerToken) throw new ErrorFormat(401, "Unauthorized");
 
-    public tokenGenerator = (subject: string, expiresIn: string) => {
+        return BearerToken.split(" ")[1];
+    }
+
+    public genAccessToken = (subject: string, expiresIn: string) => {
+        return this.tokenGenerator({ subject, expiresIn });
+    }
+
+    private tokenGenerator = ({ subject, expiresIn }: TokenDTO) => {
         const algorithm = config.jwt.algorithm as Algorithm;
         const jwtOptions: SignOptions = { algorithm, expiresIn, subject }
 
-        if(subject === "ACCESSS_TOKEN") {
+        if(subject === "ACCESS_TOKEN") {
             return ({ id }) => sign({ id }, config.jwt.secret, jwtOptions);
         }
         if(subject === "REFRESH_TOKEN") {
@@ -21,10 +38,11 @@ export default class Jwt {
         return () => sign({}, config.jwt.secret, jwtOptions);
     }
 
-    public decodeToken = (subject: string, token: string) => {
+    public decodeToken = ({ token }: TokenDTO) => {
         const algorithm = config.jwt.algorithm as Algorithm;
-        const jwtOptions: VerifyOptions = { algorithms: [algorithm], subject }
-        
+        const jwtOptions: VerifyOptions = { algorithms: [ algorithm ] };     
+
         return verify(token, config.jwt.secret, jwtOptions);
     }
+
 }

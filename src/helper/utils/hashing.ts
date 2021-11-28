@@ -5,15 +5,14 @@ import { Service } from "typedi"
 export default class Hashing {
 
     public hashingPassword = async(password: string) => {
-        const saltrounds = 10
-        const salt = genSaltSync(saltrounds)
+        const salt = genSaltSync(11, "a")
         const hashedPassword = hashSync(password, salt)
         
         return hashedPassword
     }
 
-    public comparePassword = async(password: string, hashedPassword: string) => {
+    public comparePassword = (password: string, hashedPassword: string): boolean => {
         const compare = compareSync(password, hashedPassword)
-        return compare;
+        return compare || false;
     }
 }

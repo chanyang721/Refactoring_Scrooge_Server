@@ -1,6 +1,6 @@
 
 
-export class UserVaildationError extends Error {
+export class ErrorFormat extends Error {
     public statusCode: number;
     public message: string;
 
@@ -8,5 +8,6 @@ export class UserVaildationError extends Error {
         super();
         this.statusCode = statusCode;
         this.message = message
+        Error.captureStackTrace(this, this.constructor)
     }
 }

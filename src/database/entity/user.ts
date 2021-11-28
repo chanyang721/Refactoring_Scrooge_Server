@@ -8,7 +8,7 @@ import { Level } from "./level";
 import { Achievement } from "./achievement";
 
 @Entity({ name: "user" })
-@Index(["email", "phonenumber"], { unique: true })
+@Index(["email", "phoneNumber"], { unique: true })
 export class User extends BaseColumn {
 
     @Column()
@@ -24,7 +24,7 @@ export class User extends BaseColumn {
     birthday: string;
 
     @Column({ default: "010-1234-1234" })
-    phonenumber: string;
+    phoneNumber: string;
 
     @Column({ default: "남"})
     gender: string;
@@ -33,10 +33,10 @@ export class User extends BaseColumn {
     photos: string;
 
     @Column({ default: "/main" })
-    rediract: string;
+    redirect: string;
 
     @Column({ default: false })
-    darkmode: boolean;
+    darkMode: boolean;
 
     @Column({ default: 0 })
     experience: number;
