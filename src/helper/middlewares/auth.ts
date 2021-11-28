@@ -5,7 +5,7 @@ import { ErrorFormat } from "../utils/errorformat";
 import Jwt from "../utils/jwt"
 
 
-export const isAuthorized = (req: Request, res: Response, next: NextFunction) => {
+export const isAuth = (req: Request, res: Response, next: NextFunction) => {
     const JwtInstance = Container.get(Jwt)
     const { authorization } = req.headers;
 

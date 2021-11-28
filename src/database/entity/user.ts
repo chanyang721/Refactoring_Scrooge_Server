@@ -1,5 +1,4 @@
 import { Entity, Column, OneToMany, Index, Unique, BeforeInsert } from "typeorm";
-import bcrypt from "bcrypt"
 import { BaseColumn } from "./default";
 import { Feedback } from "./feedback";
 import { Category } from "./category";
@@ -8,7 +7,7 @@ import { Level } from "./level";
 import { Achievement } from "./achievement";
 
 @Entity({ name: "user" })
-@Index(["email", "phoneNumber"], { unique: true })
+@Index(["email", "phonenumber"], { unique: true })
 export class User extends BaseColumn {
 
     @Column()

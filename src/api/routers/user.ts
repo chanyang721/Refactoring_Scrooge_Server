@@ -1,8 +1,8 @@
 import { Router } from "express";
 import Container from "typedi";
-import { isAuthorized } from "../../helper/middlewares/auth"
+import { isAuth } from "../../helper/middlewares/auth"
 import { createVaildation, loginVaildation } from "../../helper/middlewares/vaildations/userVaildation"
-import { createUser, login, softDeleteUser, updateUserInfo, restoreUser } from "../controllers/userControllers";
+import { createUser, login, softDeleteUser, updateUserInfo, restoreUser, refreshToken} from "../controllers/userControllers";
 
 
 const userRouters = Router();
@@ -13,21 +13,23 @@ export default (router: Router) => {
     userRouters.post("/signup", createVaildation, createUser) //
 
     userRouters.post("/login", loginVaildation, login) //
-    
-    userRouters.get("/find/:password", isAuthorized, )
 
-    userRouters.put("/change/password", isAuthorized, )
+    userRouters.get("/refresh", refreshToken)
     
-    userRouters.put("/Info", isAuthorized, updateUserInfo) // 
+    userRouters.get("/find/:password", isAuth, )
+
+    userRouters.put("/change/password", isAuth, )
+    
+    userRouters.put("/Info", isAuth, updateUserInfo) // 
     
     userRouters.get("/check/:email", )
 
-    userRouters.delete("/", isAuthorized, softDeleteUser) //
+    userRouters.delete("/", isAuth, softDeleteUser) //
 
     userRouters.put("/restore/:id", restoreUser) // 
 
-    userRouters.get("/initialize", isAuthorized, )
+    userRouters.get("/initialize", isAuth, )
 
-    userRouters.get("/signout", isAuthorized, )
+    userRouters.get("/signout", isAuth, )
 
 }

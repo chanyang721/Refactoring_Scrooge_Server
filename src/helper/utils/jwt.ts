@@ -42,7 +42,10 @@ export default class Jwt {
         const algorithm = config.jwt.algorithm as Algorithm;
         const jwtOptions: VerifyOptions = { algorithms: [ algorithm ] };     
 
-        return verify(token, config.jwt.secret, jwtOptions);
+        const decodedToken = verify(token, config.jwt.secret, jwtOptions);
+        if (!decodedToken) throw new ErrorFormat(400, "token expired");
+
+        return decodedToken;
     }
 
 }

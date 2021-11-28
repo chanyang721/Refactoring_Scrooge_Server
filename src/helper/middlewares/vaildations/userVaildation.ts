@@ -14,7 +14,7 @@ export const createVaildation = async(req: Request, res: Response, next: NextFun
             password: Joi.string().trim().alphanum().required(),
             name: Joi.string().trim().min(1).max(10).required(),
             birthday: Joi.string().trim().required(),
-            phoneNumber: Joi.string().trim().required(),
+            phonenumber: Joi.string().trim().required(),
             gender: Joi.number().integer().less(2).required()
         })
         
@@ -22,11 +22,11 @@ export const createVaildation = async(req: Request, res: Response, next: NextFun
         if (error) return res.status(403).send({ error });
         
         req.body = value;
-        const { email, phoneNumber } = req.body
+        const { email, phonenumber } = req.body
     
         const userRepo = getRepository(User);
         const duplicEmail = await userRepo.findOne({ email });
-        const duplicPhoneNumber = await userRepo.findOne({ phoneNumber });
+        const duplicPhoneNumber = await userRepo.findOne({ phonenumber });
         // 중복 유저 확인 //
         if(duplicEmail) throw new ErrorFormat(403, "이미 사용중인 이메일입니다.");
         if(duplicPhoneNumber) throw new ErrorFormat(403, "이미 등록된 전화번호입니다.");

@@ -31,7 +31,10 @@ export class UserService extends BaseRepository<User> {
         const accessToken = jwt.genAccessToken("ACCESS_TOKEN", "10h");
         const refreshToken = jwt.genAccessToken("REFRESH_TOKEN", "90d");
 
-        return { accessToken, refreshToken };
+        return { 
+            accessToken: accessToken({ id: data.id }), 
+            refreshToken: refreshToken({ id: data.id })
+        };
     }
 
     public async softDeleteUser (data: UserDTO) {
@@ -69,4 +72,5 @@ export class UserService extends BaseRepository<User> {
             
         return { affected }
     }
+
 }

@@ -12,7 +12,7 @@ export default {
     },
 
     jwt: {
-        algorithm: process.env.JWT_ALGORITHM || "RS256",
+        algorithm: process.env.JWT_ALGORITHM || "HS256",
         secret: process.env.SECRET || "Scrooge",
         expire: {
             access: parseFloat(process.env.JWT_ACCESS_TOKEN || "0"),

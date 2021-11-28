@@ -1,6 +1,6 @@
 import { Router } from "express";
 import Container from "typedi";
-import { isAuthorized } from "../../helper/middlewares/auth"
+import { isAuth } from "../../helper/middlewares/auth"
 // import { } from "../controllers";
 // import { } from "../../middlewares/vaildations"
 
@@ -8,7 +8,7 @@ import { isAuthorized } from "../../helper/middlewares/auth"
 const yearRouters = Router();
 
 export default (router: Router) => {
-    router.use("/year", isAuthorized, yearRouters)
+    router.use("/year", isAuth, yearRouters)
 
     yearRouters.get("/data", )
 

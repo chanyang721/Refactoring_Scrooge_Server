@@ -5,7 +5,7 @@ import settingRouters from "./settings"
 import dayRouters from "./day";
 import monthRouters from "./month";
 import yearRouters from "./year";
-import oauthRouters from "./oauth"
+import oauthRouters from "./oauth";
 
 export default () => {
     const router = Router();
