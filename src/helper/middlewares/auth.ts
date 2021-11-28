@@ -9,7 +9,7 @@ export const isAuthorized = (req: Request, res: Response, next: NextFunction) =>
     const JwtInstance = Container.get(Jwt)
     const { authorization } = req.headers;
 
-    const token: string = JwtInstance.getAuthorization({ 
+    const token: string = JwtInstance.unpackBearer({ 
         BearerToken: authorization 
     })
 

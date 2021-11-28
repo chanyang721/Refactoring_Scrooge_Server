@@ -1,5 +1,5 @@
 import dotenv from "dotenv";
-import { sign, verify, Algorithm, SignOptions, VerifyOptions, JwtPayload } from "jsonwebtoken";
+import { sign, verify, Algorithm, SignOptions, VerifyOptions } from "jsonwebtoken";
 import { Service } from "typedi";
 import config from "../../config"
 import { ErrorFormat } from "./errorformat";
@@ -14,7 +14,7 @@ interface TokenDTO {
 @Service()
 export default class Jwt {
     
-    public getAuthorization = ({ BearerToken }): string => {
+    public unpackBearer = ({ BearerToken }): string => {
         if (!BearerToken) throw new ErrorFormat(401, "Unauthorized");
 
         return BearerToken.split(" ")[1];
