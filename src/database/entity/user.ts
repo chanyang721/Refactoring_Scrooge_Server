@@ -24,7 +24,7 @@ export class User extends BaseColumn {
     birthday: string;
 
     @Column({ default: "010-1234-1234" })
-    phoneNumber: string;
+    phonenumber: string;
 
     @Column({ default: "남"})
     gender: string;
