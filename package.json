@@ -9,7 +9,13 @@
     "test": "jest --detectOpenHandles --setupFiles dotenv/config --forceExit",
     "typeorm": "node --require ts-node/register ./node_modules/typeorm/cli.js",
     "schema:sync": "ts-node ./node_modules/typeorm/cli.js schema:sync",
-    "seed": "ts-node ./node_modules/typeorm-seeding/dist/cli.js seed"
+    "seed": "ts-node ./node_modules/typeorm-seeding/dist/cli.js seed",
+    "ecr_login": "aws ecr get-login-password --region ap-northeast-2 | docker login --username AWS --password-stdin 209490711359.dkr.ecr.ap-northeast-2.amazonaws.com",
+    "docker:build": "docker build -t scrooge-server .",
+    "docker:tagging": "docker tag scrooge-server:latest 209490711359.dkr.ecr.ap-northeast-2.amazonaws.com/scrooge-server:latest",
+    "docker:push": "docker push 209490711359.dkr.ecr.ap-northeast-2.amazonaws.com/scrooge-server:latest",
+    "docker:remove": "docker rmi -f $(docker ps -aq)",
+    "docker:upload": "npm run ecr_login && npm run docker:build && npm run docker:tagging && npm run docker:push"
   },
   "repository": {
     "type": "git",
