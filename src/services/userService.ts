@@ -22,8 +22,8 @@ export class UserService {
     }
 
     public async login (data: UserDTO) {
-        const accessToken = this.jwt.genAccessToken("ACCESS_TOKEN", "10h");
-        const refreshToken = this.jwt.genAccessToken("REFRESH_TOKEN", "90d");
+        const accessToken = this.jwt.genToken("ACCESS_TOKEN", "10h");
+        const refreshToken = this.jwt.genToken("REFRESH_TOKEN", "90d");
 
         return { 
             accessToken: accessToken({ id: data.id }), 

@@ -100,7 +100,7 @@ export const refreshToken = async (req: Request, res: Response, next: NextFuncti
 
         const { id }: any = JwtInstance.decodeToken({ token: refreshToken });
 
-        const newAccessToken = JwtInstance.genAccessToken("ACCESS_TOKEN", "10h")
+        const newAccessToken = JwtInstance.genToken("ACCESS_TOKEN", "10h")
 
         res.status(200).send({
             accessToken: newAccessToken({ id }),

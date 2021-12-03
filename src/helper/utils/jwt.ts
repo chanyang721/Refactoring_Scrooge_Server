@@ -20,7 +20,7 @@ export default class Jwt {
         return BearerToken.split(" ")[1];
     }
 
-    public genAccessToken = (subject: string, expiresIn: string) => {
+    public genToken = (subject: string, expiresIn: string) => {
         return this.tokenGenerator({ subject, expiresIn });
     }
 
