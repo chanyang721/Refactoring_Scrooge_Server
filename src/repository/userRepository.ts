@@ -33,7 +33,7 @@ export class UserRepository extends BaseRepository<User> {
 
         const { affected } = await this.repository
             .createQueryBuilder()
-            .update(User)
+            .update(entity)
             .set(data)
             .where("id = :id", { id: data.id })
             .execute()

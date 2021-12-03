@@ -7,21 +7,17 @@ import { UserDTO } from "./interface/user";
 import { UserRepository } from "../repository/userRepository"
 
 @Service()
-export class UserService extends BaseRepository<User> {
+export class UserService {
 
     constructor(
         private jwt: Jwt, 
         private hash: Hashing,
         private repo: UserRepository
-    ) {
-        super(User)
-    }
+    ) { }
 
     public async insertUser(data: UserDTO) {  
         data.password = await this.hash.hashingPassword(data.password);
-
         const newUser = await this.repo.insertRow(User, data)
-
         return { newUser };
     }
 
