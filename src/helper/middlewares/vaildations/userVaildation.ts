@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from "express"
 import Joi from "joi"
 import Container from "typedi"
 import { getRepository } from "typeorm"
+import { UserService } from "src/services/userService"
 import { User } from "../../../database/entity/user"
 import { ErrorFormat } from "../../utils/errorformat"
 import Hashing from "../../utils/hashing"
@@ -19,7 +20,7 @@ export const createVaildation = async(req: Request, res: Response, next: NextFun
         })
         
         const { value, error } = schema.validate(req.body)
-        if (error) return res.status(403).send({ error });
+        if (error) throw new ErrorFormat(400, "입력값을 확인해주세요");
         
         req.body = value;
         const { email, phonenumber } = req.body
@@ -36,7 +37,7 @@ export const createVaildation = async(req: Request, res: Response, next: NextFun
     }
     catch (error) {
         console.log(error)
-        res.status(400).send({ error })
+        res.status(400).send({ error: error.message })
     }
 }
 
@@ -49,7 +50,7 @@ export const loginVaildation = async(req: Request, res: Response, next: NextFunc
         })
 
         const { value, error } = schema.validate(req.body)
-        if (error) return res.status(403).send({ error });
+        if (error) throw new ErrorFormat(400, "입력값을 확인해주세요");
     
         req.body = value;
         const { email, password } = req.body;
@@ -69,6 +70,35 @@ export const loginVaildation = async(req: Request, res: Response, next: NextFunc
     }
     catch (error) {
         console.log(error)
-        res.status(400).send({ error })
+        res.status(400).send({ error: error.message })
+    }
+}
+
+
+export const passwordVaildation = async(req: Request, res: Response, next: NextFunction): Promise<any> => {
+    try {
+        const schema = Joi.object({
+            id: Joi.number().optional(),
+            password: Joi.string().trim().min(5).max(15).alphanum().optional(),
+            newPassword: Joi.ref("password")
+        })
+        
+        const { value, error } = schema.validate(req.body, { abortEarly: true, allowUnknown: true });
+        if (error) throw new ErrorFormat(400, "입력값을 확인해주세요");
+
+        req.body = value;
+        const { password, newPassword, id } = req.body;
+
+        const userServiceInstance = Container.get(UserService);
+        const userInfo = await userServiceInstance.getUserInfoById(id);
+        await userServiceInstance.comparePassword(password, userInfo.password);
+        const hashedNewPassword = await userServiceInstance.hashPassword(newPassword);
+
+        req.body.newPassword = hashedNewPassword;
+        next();
+    }
+    catch (error) {
+        console.log(error);
+        res.status(400).send({ error: error.message })
     }
 }

@@ -1,7 +1,11 @@
 import { Router } from "express";
 import Container from "typedi";
 import { isAuth } from "../../helper/middlewares/auth"
-import { createVaildation, loginVaildation } from "../../helper/middlewares/vaildations/userVaildation"
+import { 
+    createVaildation, 
+    loginVaildation,
+    passwordVaildation
+} from "../../helper/middlewares/vaildations/userVaildation"
 import { 
     createUser, 
     login, 
@@ -9,7 +13,8 @@ import {
     updateUserInfo, 
     restoreUser, 
     refreshToken,
-    sendNewPassword
+    sendNewPassword,
+    updatePassword
 } from "../controllers/userControllers";
 
 
@@ -22,11 +27,11 @@ export default (router: Router) => {
 
     userRouters.post("/login", loginVaildation, login) //
 
-    userRouters.get("/refresh", refreshToken)
+    userRouters.get("/refresh", refreshToken) //
     
     userRouters.get("/find/password/:email", isAuth, sendNewPassword) //
 
-    userRouters.put("/change/password", isAuth, )
+    userRouters.put("/password", isAuth, passwordVaildation, updatePassword) //
     
     userRouters.put("/Info", isAuth, updateUserInfo) // 
     

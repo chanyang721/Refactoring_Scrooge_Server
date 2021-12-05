@@ -133,17 +133,11 @@ export const sendNewPassword = async (req: Request, res: Response, next: NextFun
 
 export const updatePassword = async (req: Request, res: Response, next: NextFunction) => {
     try { 
-        const { id, password, newPassword } = req.body;
+        const { id, newPassword } = req.body;
     
         const userServiceInstance = Container.get(UserService);
-    
-        const userInfo = await userServiceInstance.getUserInfoById(id);
-    
-        await userServiceInstance.comparePassword(password, userInfo.password);
 
-        const hashedNewPassword = await userServiceInstance.hashPassword(newPassword);
-
-        const { affected } = await userServiceInstance.updateUserInfo({ id, password: hashedNewPassword })
+        const { affected } = await userServiceInstance.updateUserInfo({ id, password: newPassword })
 
         res.status(200).send({ affected, message: "비밀번호가 변경되었습니다" })
     }
