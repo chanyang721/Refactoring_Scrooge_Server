@@ -1,4 +1,5 @@
 import Container, { Service } from "typedi";
+import AWS from "aws-sdk";
 import { User } from "../database/entity/user";
 import { BaseRepository } from "../database/baseRepository"
 import Jwt from "../helper/utils/jwt";
@@ -13,7 +14,7 @@ export class UserService {
         private jwt: Jwt, 
         private hash: Hashing,
         private repo: UserRepository
-    ) { }
+    ) {}
 
     public async insertUser(data: UserDTO) {  
         data.password = await this.hash.hashingPassword(data.password);
@@ -46,4 +47,42 @@ export class UserService {
         return { affected }
     }
 
+    public async resetPassword(email: string) {
+        const SES = new AWS.SES({
+            region: "ap-northeast-2",
+            apiVersion: "2010-12-01",
+            maxRetries: 2,
+        });
+
+        const newPassword = String(Math.floor(Math.random() * (100000 - 999999 + 1)));
+
+        const title = `Scrooge 임시 비밀번호 입니다.`
+        const body = `
+            <p>
+                <span>
+                    고객님의 임시 비밀번호는 ${newPassword} 입니다.
+                </span>
+            </p>
+        `
+
+        const messageInfo = {
+            Destination: { ToAddresses: [ email ] },
+            Message: {
+                Body: {
+                    Html: {
+                        Charset: "UTF-8",
+                        Data: `<div>${body}</div>`,
+                    },
+                },
+                Subject: {
+                    Charset: "UTF-8",
+                    Data: `[ Team Scrooge ] ${title}`,
+                },
+            },
+            Source: "Scrooge@gmail.com",
+        }
+
+        const response = await SES.sendEmail(messageInfo).promise();
+        return { response, newPassword };
+    }
 }

@@ -2,7 +2,14 @@ import { Router } from "express";
 import Container from "typedi";
 import { isAuth } from "../../helper/middlewares/auth"
 import { createVaildation, loginVaildation } from "../../helper/middlewares/vaildations/userVaildation"
-import { createUser, login, softDeleteUser, updateUserInfo, restoreUser, refreshToken} from "../controllers/userControllers";
+import { 
+    createUser, 
+    login, 
+    softDeleteUser, 
+    updateUserInfo, 
+    restoreUser, 
+    refreshToken,
+} from "../controllers/userControllers";
 
 
 const userRouters = Router();
@@ -16,7 +23,7 @@ export default (router: Router) => {
 
     userRouters.get("/refresh", refreshToken)
     
-    userRouters.get("/find/:password", isAuth, )
+    userRouters.get("/find/password/:email", isAuth, )
 
     userRouters.put("/change/password", isAuth, )
     

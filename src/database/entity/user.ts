@@ -35,7 +35,7 @@ export class User extends BaseColumn {
     redirect: string;
 
     @Column({ default: false })
-    darkMode: boolean;
+    darkmode: boolean;
 
     @Column({ default: 0 })
     experience: number;

@@ -15,8 +15,8 @@ export default {
         algorithm: process.env.JWT_ALGORITHM || "HS256",
         secret: process.env.SECRET || "Scrooge",
         expire: {
-            access: parseFloat(process.env.JWT_ACCESS_TOKEN || "0"),
-            refresh: parseFloat(process.env.JWT_REFRESH_TOKEN || "0")
+            access: process.env.JWT_ACCESS_TOKEN,
+            refresh: process.env.JWT_REFRESH_TOKEN
         }
     },
 

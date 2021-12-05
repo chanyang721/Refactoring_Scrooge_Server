@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction } from "express"
-import { ErrorFormat } from "../../helper/utils/errorformat"
-import Jwt from "../../helper/utils/jwt";
 import { Container } from "typedi";
+import { ErrorFormat } from "../../helper/utils/errorformat"
 import { UserService } from "../../services/userService";
+import Jwt from "../../helper/utils/jwt";
 
 export const createUser = async (req: Request, res: Response, next: NextFunction): Promise<any>=> {
     try {
@@ -106,6 +106,24 @@ export const refreshToken = async (req: Request, res: Response, next: NextFuncti
             accessToken: newAccessToken({ id }),
             message: "토큰 재발급 성공"
         })
+    }
+    catch (error) {
+        console.log(error)
+        res.status(400).send({ error: error.message })
+    }
+}
+
+export const changePassword = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const { email } = req.params;
+    
+        const userServiceInstance = Container.get(UserService);
+    
+        const { response, newPassword } = await userServiceInstance.resetPassword(email)
+
+        await userServiceInstance.updateUserInfo({ password: newPassword })
+
+        res.status(200).send({ response, message: "입력한 이메일로 임시 비밀번호를 전송했습니다" })
     }
     catch (error) {
         console.log(error)

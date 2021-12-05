@@ -7,7 +7,7 @@ export interface UserDTO {
     phonenumber?: string;
     gender?: string;
     photos?: string;
-    rediract?: string;
+    redirect?: string;
     darkmode?: boolean;
     experience?: number;
 }
