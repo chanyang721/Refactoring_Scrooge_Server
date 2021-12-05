@@ -9,6 +9,7 @@ import {
     updateUserInfo, 
     restoreUser, 
     refreshToken,
+    sendNewPassword
 } from "../controllers/userControllers";
 
 
@@ -23,7 +24,7 @@ export default (router: Router) => {
 
     userRouters.get("/refresh", refreshToken)
     
-    userRouters.get("/find/password/:email", isAuth, )
+    userRouters.get("/find/password/:email", isAuth, sendNewPassword) //
 
     userRouters.put("/change/password", isAuth, )
     

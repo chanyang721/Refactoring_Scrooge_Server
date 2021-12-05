@@ -6,6 +6,7 @@ import Jwt from "../helper/utils/jwt";
 import Hashing from "../helper/utils/hashing"
 import { UserDTO } from "./interface/user";
 import { UserRepository } from "../repository/userRepository"
+import { ErrorFormat } from "src/helper/utils/errorformat";
 
 @Service()
 export class UserService {
@@ -30,6 +31,11 @@ export class UserService {
             accessToken: accessToken({ id: data.id }), 
             refreshToken: refreshToken({ id: data.id })
         };
+    }
+
+    public async getUserInfoById (id: string) {
+        const { rowInfo } = await this.repo.fetchRow(User, id)
+        return rowInfo
     }
 
     public async softDeleteUser (data: UserDTO) {
@@ -84,5 +90,17 @@ export class UserService {
 
         const response = await SES.sendEmail(messageInfo).promise();
         return { response, newPassword };
+    }
+
+    public async comparePassword(password: string, hashedPassword: string) {
+        const compareResult = this.hash.comparePassword(password, hashedPassword);
+        if (!compareResult) throw new ErrorFormat(400, "비밀번호가 틀렸습니다");
+
+        return compareResult
+    }
+
+    public async hashPassword(password: string) {
+        const hashed = await this.hash.hashingPassword(password);
+        return String(hashed);
     }
 }

@@ -113,17 +113,39 @@ export const refreshToken = async (req: Request, res: Response, next: NextFuncti
     }
 }
 
-export const changePassword = async (req: Request, res: Response, next: NextFunction) => {
+export const sendNewPassword = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const { email } = req.params;
+        const { params: { email }, body: { id }  } = req;
     
         const userServiceInstance = Container.get(UserService);
     
         const { response, newPassword } = await userServiceInstance.resetPassword(email)
 
-        await userServiceInstance.updateUserInfo({ password: newPassword })
+        await userServiceInstance.updateUserInfo({ password: newPassword, id })
 
         res.status(200).send({ response, message: "입력한 이메일로 임시 비밀번호를 전송했습니다" })
+    }
+    catch (error) {
+        console.log(error)
+        res.status(400).send({ error: error.message })
+    }
+}
+
+export const updatePassword = async (req: Request, res: Response, next: NextFunction) => {
+    try { 
+        const { id, password, newPassword } = req.body;
+    
+        const userServiceInstance = Container.get(UserService);
+    
+        const userInfo = await userServiceInstance.getUserInfoById(id);
+    
+        await userServiceInstance.comparePassword(password, userInfo.password);
+
+        const hashedNewPassword = await userServiceInstance.hashPassword(newPassword);
+
+        const { affected } = await userServiceInstance.updateUserInfo({ id, password: hashedNewPassword })
+
+        res.status(200).send({ affected, message: "비밀번호가 변경되었습니다" })
     }
     catch (error) {
         console.log(error)

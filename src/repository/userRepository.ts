@@ -6,6 +6,15 @@ import { Service } from "typedi";
 @Service()
 export class UserRepository extends BaseRepository<User> {
 
+    public async fetchRow(entity, id: string) {
+        const rowInfo = await this.repository
+            .createQueryBuilder()
+            .where("id = :id", { id })
+            .getOne()
+
+        return { rowInfo }
+    }
+
     public async insertRow(entity, data: UserDTO) {
 
         const newRow = await this.repository
