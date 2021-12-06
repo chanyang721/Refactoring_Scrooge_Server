@@ -1,7 +1,6 @@
-import Container, { Service } from "typedi";
+import { Service } from "typedi";
 import AWS from "aws-sdk";
 import { User } from "../database/entity/user";
-import { BaseRepository } from "../database/baseRepository"
 import Jwt from "../helper/utils/jwt";
 import Hashing from "../helper/utils/hashing"
 import { UserDTO } from "./interface/user";
