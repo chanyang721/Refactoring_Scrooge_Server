@@ -1,5 +1,5 @@
-# FROM 209490711359.dkr.ecr.ap-northeast-2.amazonaws.com/app_test:latest
-FROM node:12.18.1
+FROM 209490711359.dkr.ecr.ap-northeast-2.amazonaws.com/app_test:latest
+# FROM node:12.18.1
 
 ENV NODE_ENV=production
 
