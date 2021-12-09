@@ -6,15 +6,16 @@ import { User } from "./user";
 export class Achievement extends BaseColumn {
 
     @Column()
-    scrooge: number;
+    scrooge?: number;
 
     @Column()
-    leastspend: number;
+    leastspend?: number;
 
     @Column()
-    userId: number
+    userId?: number
 
     @ManyToOne(() => User, (user) => user.achievement, { onDelete: "CASCADE" })
     @JoinColumn({ name: "userId" })
     user: User[]
+    
 }
