@@ -7,16 +7,16 @@ import { User } from "./user"
 export class Money extends BaseColumn {
 
     @Column()
-    cost: number;
+    cost?: number;
 
     @Column()
-    memo: string;
+    memo?: string;
     
     @Column()
-    categoryId: number;
+    categoryId?: number;
 
     @Column()
-    userId: number;
+    userId?: number;
 
     @ManyToOne(() => User, (user) => user.money, { onDelete: "CASCADE" })
     @JoinColumn({ name: "userId" })

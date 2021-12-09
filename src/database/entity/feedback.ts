@@ -6,10 +6,10 @@ import { User } from "./user";
 export class Feedback extends BaseColumn {
 
     @Column()
-    feedback: string;
+    feedback?: string;
 
     @Column()
-    userId: number;
+    userId?: number;
 
     @ManyToOne(() => User, (user) => user.feedback, { onDelete: "CASCADE" })
     @JoinColumn({ name: "userId" })

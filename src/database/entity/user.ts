@@ -11,34 +11,34 @@ import { Achievement } from "./achievement";
 export class User extends BaseColumn {
 
     @Column()
-    name: string;
+    name?: string;
 
     @Column()
-    email: string;
+    email?: string;
 
     @Column()
-    password: string;
+    password?: string;
 
     @Column()
-    birthday: string;
+    birthday?: string;
 
     @Column({ default: "010-1234-1234" })
-    phonenumber: string;
+    phonenumber?: string;
 
     @Column({ default: "남"})
-    gender: string;
+    gender?: string;
 
     @Column({ default: "photos" })
-    photos: string;
+    photos?: string;
 
     @Column({ default: "/main" })
-    redirect: string;
+    redirect?: string;
 
     @Column({ default: false })
-    darkmode: boolean;
+    darkmode?: boolean;
 
     @Column({ default: 0 })
-    experience: number;
+    experience?: number;
 
 
     @OneToMany(() => Feedback, (feedback) => feedback.user, { onDelete: "CASCADE" })

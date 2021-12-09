@@ -8,16 +8,16 @@ import { User } from "./user";
 export class Category extends BaseColumn {
 
     @Column()
-    name: string
+    name?: string
 
     @Column()
-    budget: number
+    budget?: number
 
     @Column()
-    emoji: string
+    emoji?: string
 
     @Column()
-    userId: number;
+    userId?: number;
 
     @ManyToOne(() => User, (user) => user.category, { onDelete: "CASCADE" })
     @JoinColumn({ name: "userId" })

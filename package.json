@@ -11,8 +11,8 @@
     "schema:sync": "ts-node ./node_modules/typeorm/cli.js schema:sync",
     "seed": "ts-node ./node_modules/typeorm-seeding/dist/cli.js seed",
     "ecr_login": "aws ecr get-login-password --region ap-northeast-2 | docker login --username AWS --password-stdin 209490711359.dkr.ecr.ap-northeast-2.amazonaws.com",
-    "docker:tagging": "docker tag app_test:latest 209490711359.dkr.ecr.ap-northeast-2.amazonaws.com/app_test:latest",
     "docker:build": "docker build -t app_test .",
+    "docker:tagging": "docker tag app_test:latest 209490711359.dkr.ecr.ap-northeast-2.amazonaws.com/app_test:latest",
     "docker:push": "docker push 209490711359.dkr.ecr.ap-northeast-2.amazonaws.com/app_test:latest",
     "docker:remove": "docker rmi -f $(docker ps -aq)",
     "docker:upload": "npm run ecr_login && npm run docker:build && npm run docker:tagging && npm run docker:push"

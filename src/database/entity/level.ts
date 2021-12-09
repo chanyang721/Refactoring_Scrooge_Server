@@ -7,16 +7,16 @@ import { User } from "./user";
 export class Level extends BaseColumn {
 
     @Column()
-    level: number;
+    level?: number;
 
     @Column()
-    theme: boolean;
+    theme?: boolean;
 
     @Column()
-    explore: boolean;
+    explore?: boolean;
 
     @Column()
-    userId: number;
+    userId?: number;
 
     @ManyToOne(() => User, (user) => user.level, { onDelete: "CASCADE" })
     @JoinColumn({ name: "userId" })
