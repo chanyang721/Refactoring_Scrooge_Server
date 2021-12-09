@@ -3,7 +3,6 @@ version 0.2
 phases:
   pre_build:
     commands:
-      - docker login -u AWS -p gotqks5091@ https://chanyang.signin.aws.amazon.com/console.dkr.ecr.ap-northeast-2.amazonaws.com
       - echo Logging in to Amazon ECR...
       - aws ecr get-login-password --region ap-northeast-2 | docker login --username AWS --password-stdin 209490711359.dkr.ecr.ap-northeast-2.amazonaws.com
       - REPOSITORY_URI = 209490711359.dkr.ecr.ap-northeast-2.amazonaws.com/app_test
