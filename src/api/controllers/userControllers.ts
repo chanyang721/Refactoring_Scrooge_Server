@@ -146,3 +146,19 @@ export const updatePassword = async (req: Request, res: Response, next: NextFunc
         res.status(400).send({ error: error.message })
     }
 }
+
+export const checkEmail = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const { email } = req.body;
+
+        const userServiceInstance = Container.get(UserService);
+
+        const duplicEmail = await userServiceInstance.checkEmail(email);
+
+        res.status(200).send({ email: duplicEmail, message: "이미 등록된 이메일입니다" })
+    }
+    catch (error) {
+        console.log(error);
+        res.status(400).send({ error: error.message })
+    }
+}

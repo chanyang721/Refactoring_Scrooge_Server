@@ -14,7 +14,8 @@ import {
     restoreUser, 
     refreshToken,
     sendNewPassword,
-    updatePassword
+    updatePassword,
+    checkEmail
 } from "../controllers/userControllers";
 
 
@@ -35,7 +36,7 @@ export default (router: Router) => {
     
     userRouters.put("/Info", isAuth, updateUserInfo) // 
     
-    userRouters.get("/check/:email", )
+    userRouters.get("/check/:email", checkEmail) //
 
     userRouters.delete("/", isAuth, softDeleteUser) //
 

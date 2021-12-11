@@ -15,6 +15,15 @@ export class UserRepository extends BaseRepository<User> {
         return { rowInfo }
     }
 
+    public async fetchRowByEmail(entity, email: string) {
+        const rowInfo = await this.repository
+            .createQueryBuilder()
+            .where("email = :email", { email })
+            .getOne()
+
+        return { rowInfo }
+    }
+
     public async insertRow(entity, data: UserDTO) {
 
         const newRow = await this.repository

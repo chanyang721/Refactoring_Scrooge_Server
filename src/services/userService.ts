@@ -102,4 +102,9 @@ export class UserService {
         const hashed = await this.hash.hashingPassword(password);
         return String(hashed);
     }
+
+    public async checkEmail(email: string) {
+        const { rowInfo } = await this.repo.fetchRowByEmail(User, email);
+        return rowInfo;
+    }
 }
