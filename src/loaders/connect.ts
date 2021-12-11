@@ -1,4 +1,4 @@
-import { createConnection, useContainer } from "typeorm";
+import {createConnection, useContainer} from "typeorm";
 import * as typedi from "typedi";
 // import { Container } from "typeorm-typedi-extensions";
 
@@ -8,10 +8,9 @@ const connection = async () => {
         const connection = await createConnection();
 
         typedi.Container.set("connection", connection);
+    } catch (error) {
+        console.log(error.message);
     }
-    catch (error) {
-        console.log(error.message)
-    }
-}
+};
 
-export default connection
+export default connection;

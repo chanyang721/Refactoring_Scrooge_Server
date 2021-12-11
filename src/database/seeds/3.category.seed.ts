@@ -1,21 +1,20 @@
-import { Factory, Seeder } from "typeorm-seeding";
-import { Connection, getRepository } from "typeorm";
-import { Category } from "../entity/category"
+import {Factory, Seeder} from "typeorm-seeding";
+import {Connection, getRepository} from "typeorm";
+import {Category} from "../entity/category";
 
 export default class CreateCategory implements Seeder {
-
-	public async run(factory: Factory, connection: Connection): Promise<any> {
-		const CategoryData = [
+    public async run(factory: Factory, connection: Connection): Promise<any> {
+        const CategoryData = [
             {
                 name: "지정되지 않은 카테고리",
-                budget: 10000,                
-                userId: 1,                
+                budget: 10000,
+                userId: 1,
                 emoji: "grey_question",
             },
             {
                 name: "식비",
                 budget: 40000,
-                userId: 1,                
+                userId: 1,
                 emoji: "Bento",
             },
             {
@@ -325,14 +324,14 @@ export default class CreateCategory implements Seeder {
                 budget: 48000,
                 userId: 5,
                 emoji: "house",
-            }
-                ////////////////// user 5 End ///////////////////
-		];
-        const getRepo = getRepository(Category)
-		
-		await getRepo.query("SET foreign_key_checks = 0")
-        await getRepo.clear()
-		await getRepo.save(CategoryData);
-		await getRepo.query("SET foreign_key_checks = 1")
-	}
+            },
+            ////////////////// user 5 End ///////////////////
+        ];
+        const getRepo = getRepository(Category);
+
+        await getRepo.query("SET foreign_key_checks = 0");
+        await getRepo.clear();
+        await getRepo.save(CategoryData);
+        await getRepo.query("SET foreign_key_checks = 1");
+    }
 }

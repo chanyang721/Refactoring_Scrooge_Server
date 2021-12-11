@@ -1,21 +1,19 @@
-import { Router } from "express";
+import {Router} from "express";
 import Container from "typedi";
-import { isAuth } from "../../helper/middlewares/auth"
+import {isAuth} from "../../helper/middlewares/auth";
 // import { } from "../controllers";
 // import { } from "../../middlewares/vaildations"
-
 
 const settingRouters = Router();
 
 export default (router: Router) => {
-    router.use("/setting", isAuth, settingRouters)
+    router.use("/setting", isAuth, settingRouters);
 
-    settingRouters.put("/mainpage", )
+    settingRouters.put("/mainpage");
 
-    settingRouters.put("/darkmode", )
+    settingRouters.put("/darkmode");
 
-    settingRouters.get("/importexcel", )
+    settingRouters.get("/importexcel");
 
-    settingRouters.delete("/data", )
-
-}
+    settingRouters.delete("/data");
+};

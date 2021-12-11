@@ -2,7 +2,6 @@
 // import { ErrorFormat } from "../utils/errorformat";
 // import Jwt from "../utils/jwt";
 
-
 // export const refreshToken = async (req: Request, res: Response, next: NextFunction) => {
 //     try {
 //         const { decodeToken, genAccessToken } = new Jwt();

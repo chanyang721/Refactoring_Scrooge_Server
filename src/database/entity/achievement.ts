@@ -1,10 +1,9 @@
-import { Entity, Column, ManyToOne, JoinColumn } from "typeorm"
-import { BaseColumn } from "./default";
-import { User } from "./user";
+import {Entity, Column, ManyToOne, JoinColumn} from "typeorm";
+import {BaseColumn} from "./default";
+import {User} from "./user";
 
 @Entity()
 export class Achievement extends BaseColumn {
-
     @Column()
     scrooge?: number;
 
@@ -12,10 +11,9 @@ export class Achievement extends BaseColumn {
     leastspend?: number;
 
     @Column()
-    userId?: number
+    userId?: number;
 
-    @ManyToOne(() => User, (user) => user.achievement, { onDelete: "CASCADE" })
-    @JoinColumn({ name: "userId" })
-    user: User[]
-    
+    @ManyToOne(() => User, (user) => user.achievement, {onDelete: "CASCADE"})
+    @JoinColumn({name: "userId"})
+    user: User[];
 }

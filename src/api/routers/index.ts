@@ -1,7 +1,7 @@
-import { Router } from "express";
+import {Router} from "express";
 import userRouters from "./user";
 import categoryRouters from "./category";
-import settingRouters from "./settings"
+import settingRouters from "./settings";
 import dayRouters from "./day";
 import monthRouters from "./month";
 import yearRouters from "./year";
@@ -18,5 +18,5 @@ export default () => {
     monthRouters(router);
     yearRouters(router);
 
-    return router
-}
+    return router;
+};

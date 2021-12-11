@@ -1,14 +1,13 @@
-import { 
-    Entity, 
-    PrimaryGeneratedColumn, 
-    CreateDateColumn, 
-    UpdateDateColumn, 
-    DeleteDateColumn
-} from "typeorm"
+import {
+    Entity,
+    PrimaryGeneratedColumn,
+    CreateDateColumn,
+    UpdateDateColumn,
+    DeleteDateColumn,
+} from "typeorm";
 
 @Entity()
 export class BaseColumn {
-
     @PrimaryGeneratedColumn()
     id: number;
 
@@ -20,5 +19,4 @@ export class BaseColumn {
 
     @DeleteDateColumn()
     deletedAt: number;
-    
 }

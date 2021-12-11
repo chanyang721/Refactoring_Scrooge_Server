@@ -1,11 +1,10 @@
-import { Factory, Seeder } from "typeorm-seeding";
-import { Connection, getRepository } from "typeorm";
-import { Money } from "../entity/money"
+import {Factory, Seeder} from "typeorm-seeding";
+import {Connection, getRepository} from "typeorm";
+import {Money} from "../entity/money";
 
 export default class CreateMoney implements Seeder {
-
-	public async run(factory: Factory, connection: Connection): Promise<any> {
-		const MoneyData = [
+    public async run(factory: Factory, connection: Connection): Promise<any> {
+        const MoneyData = [
             {
                 ////////////////// user 1 Start /////////////////
                 cost: 50000,
@@ -634,14 +633,12 @@ export default class CreateMoney implements Seeder {
                 categoryId: 52,
                 ////////////////// user 5 End ///////////////////
             },
-		];
-        const getRepo = getRepository(Money)
-        
-		await getRepo.query("SET foreign_key_checks = 0")
-        await getRepo.clear()
-		await getRepo.save(MoneyData);
-		await getRepo.query("SET foreign_key_checks = 1")
+        ];
+        const getRepo = getRepository(Money);
 
-
-	}
+        await getRepo.query("SET foreign_key_checks = 0");
+        await getRepo.clear();
+        await getRepo.save(MoneyData);
+        await getRepo.query("SET foreign_key_checks = 1");
+    }
 }

@@ -1,15 +1,13 @@
-import { Router } from "express";
+import {Router} from "express";
 import Container from "typedi";
-import { isAuth } from "../../helper/middlewares/auth"
+import {isAuth} from "../../helper/middlewares/auth";
 // import { } from "../controllers";
 // import { } from "../../middlewares/vaildations"
-
 
 const monthRouters = Router();
 
 export default (router: Router) => {
-    router.use("/month", isAuth, monthRouters)
+    router.use("/month", isAuth, monthRouters);
 
-    monthRouters.get("/data", )
-    
-}
+    monthRouters.get("/data");
+};
