@@ -3,7 +3,7 @@
 * 기존 사용 스택: javaScript, nodejs, express, sequelize, mysql
 ### 리팩토링 사용 스택: 
 #### Server: typeScript, javaScript, nodejs, express, typeORM, joi, Jest, typedi, mysql2, Docker
-#### DevOps: AWS (IAM, S3, EC2, RDS, CodeCommit, CodeBuild, CodeDeploy, CodePipeline) + VPC 보안그룹
+#### DevOps: AWS (IAM, S3, EC2, RDS, CodeBuild, CodeDeploy, CodePipeline, ECS, ECR) + VPC 보안그룹
 #### Tools: VScode, ESlint, Git
 
 ### 리팩토링 목적
