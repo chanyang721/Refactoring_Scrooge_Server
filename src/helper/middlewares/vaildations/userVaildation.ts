@@ -1,10 +1,10 @@
-import {Request, Response, NextFunction} from "express";
+import { Request, Response, NextFunction } from "express";
 import Joi from "joi";
 import Container from "typedi";
-import {getRepository} from "typeorm";
-import {UserService} from "src/services/userService";
-import {User} from "../../../database/entity/user";
-import {ErrorFormat} from "../../utils/errorformat";
+import { getRepository } from "typeorm";
+import { UserService } from "src/services/userService";
+import { User } from "../../../database/entity/user";
+import { ErrorFormat } from "../../utils/errorformat";
 import Hashing from "../../utils/hashing";
 
 export const createVaildation = async (
@@ -22,15 +22,15 @@ export const createVaildation = async (
             gender: Joi.number().integer().less(2).required(),
         });
 
-        const {value, error} = schema.validate(req.body);
+        const { value, error } = schema.validate(req.body);
         if (error) throw new ErrorFormat(400, "입력값을 확인해주세요");
 
         req.body = value;
-        const {email, phonenumber} = req.body;
+        const { email, phonenumber } = req.body;
 
         const userRepo = getRepository(User);
-        const duplicEmail = await userRepo.findOne({email});
-        const duplicPhoneNumber = await userRepo.findOne({phonenumber});
+        const duplicEmail = await userRepo.findOne({ email });
+        const duplicPhoneNumber = await userRepo.findOne({ phonenumber });
         // 중복 유저 확인 //
         if (duplicEmail)
             throw new ErrorFormat(403, "이미 사용중인 이메일입니다.");
@@ -41,7 +41,7 @@ export const createVaildation = async (
         next();
     } catch (error) {
         console.log(error);
-        res.status(400).send({error: error.message});
+        res.status(400).send({ error: error.message });
     }
 };
 
@@ -56,14 +56,14 @@ export const loginVaildation = async (
             password: Joi.string().required(),
         });
 
-        const {value, error} = schema.validate(req.body);
+        const { value, error } = schema.validate(req.body);
         if (error) throw new ErrorFormat(400, "입력값을 확인해주세요");
 
         req.body = value;
-        const {email, password} = req.body;
+        const { email, password } = req.body;
 
         const userRepo = getRepository(User);
-        const registeredUser = await userRepo.findOne({email});
+        const registeredUser = await userRepo.findOne({ email });
         // 가입된 유저인지 확인 //
         if (!registeredUser)
             throw new ErrorFormat(403, "가입되지 않은 유저입니다.");
@@ -81,7 +81,7 @@ export const loginVaildation = async (
         next();
     } catch (error) {
         console.log(error);
-        res.status(400).send({error: error.message});
+        res.status(400).send({ error: error.message });
     }
 };
 
@@ -97,14 +97,14 @@ export const passwordVaildation = async (
             newPassword: Joi.ref("password"),
         });
 
-        const {value, error} = schema.validate(req.body, {
+        const { value, error } = schema.validate(req.body, {
             abortEarly: true,
             allowUnknown: true,
         });
         if (error) throw new ErrorFormat(400, "입력값을 확인해주세요");
 
         req.body = value;
-        const {password, newPassword, id} = req.body;
+        const { password, newPassword, id } = req.body;
 
         const userServiceInstance = Container.get(UserService);
         const userInfo = await userServiceInstance.getUserInfoById(id);
@@ -117,6 +117,6 @@ export const passwordVaildation = async (
         next();
     } catch (error) {
         console.log(error);
-        res.status(400).send({error: error.message});
+        res.status(400).send({ error: error.message });
     }
 };

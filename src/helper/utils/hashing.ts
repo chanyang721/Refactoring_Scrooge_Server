@@ -1,5 +1,5 @@
-import {genSaltSync, hashSync, compareSync} from "bcrypt";
-import {Service} from "typedi";
+import { genSaltSync, hashSync, compareSync } from "bcrypt";
+import { Service } from "typedi";
 
 @Service()
 export default class Hashing {

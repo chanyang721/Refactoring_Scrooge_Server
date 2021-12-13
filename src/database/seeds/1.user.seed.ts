@@ -1,6 +1,6 @@
-import {Factory, Seeder} from "typeorm-seeding";
-import {Connection, getRepository} from "typeorm";
-import {User} from "../entity/user";
+import { Factory, Seeder } from "typeorm-seeding";
+import { Connection, getRepository } from "typeorm";
+import { User } from "../entity/user";
 
 export default class CreateUsers implements Seeder {
     public async run(factory: Factory, connection: Connection): Promise<any> {

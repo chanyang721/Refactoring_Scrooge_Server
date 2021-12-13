@@ -7,10 +7,10 @@ import {
     Unique,
     BeforeInsert,
 } from "typeorm";
-import {BaseColumn} from "./default";
-import {User} from "./user";
+import { BaseColumn } from "./default";
+import { User } from "./user";
 
-@Entity({name: "feedback"})
+@Entity({ name: "feedback" })
 export class Feedback extends BaseColumn {
     @Column()
     feedback?: string;
@@ -18,7 +18,7 @@ export class Feedback extends BaseColumn {
     @Column()
     userId?: number;
 
-    @ManyToOne(() => User, (user) => user.feedback, {onDelete: "CASCADE"})
-    @JoinColumn({name: "userId"})
+    @ManyToOne(() => User, (user) => user.feedback, { onDelete: "CASCADE" })
+    @JoinColumn({ name: "userId" })
     user: User[];
 }

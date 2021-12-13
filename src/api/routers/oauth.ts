@@ -1,4 +1,4 @@
-import {Router} from "express";
+import { Router } from "express";
 // import { } from "../controllers";
 // import { } from "../../middlewares/vaildations"
 

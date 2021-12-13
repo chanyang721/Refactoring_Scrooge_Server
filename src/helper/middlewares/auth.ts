@@ -1,12 +1,12 @@
-import {Request, Response, NextFunction} from "express";
-import {promisify} from "util";
-import {Container} from "typedi";
-import {ErrorFormat} from "../utils/errorformat";
+import { Request, Response, NextFunction } from "express";
+import { promisify } from "util";
+import { Container } from "typedi";
+import { ErrorFormat } from "../utils/errorformat";
 import Jwt from "../utils/jwt";
 
 export const isAuth = (req: Request, res: Response, next: NextFunction) => {
     const JwtInstance = Container.get(Jwt);
-    const {authorization} = req.headers;
+    const { authorization } = req.headers;
 
     const token: string = JwtInstance.unpackBearer({
         BearerToken: authorization,

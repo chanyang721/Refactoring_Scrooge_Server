@@ -1,22 +1,23 @@
 {
     "env": {
         "browser": true,
-        "es2021": true
+        "node": true, 
+        "es2020": true
     },
     "extends": [
-        "standard",
-        "eslint:recommended"
-    ],
+        "standard", 
+        "eslint:recommended",
+        "plugin:prettier/recommended" // prettier와 연결
+		],
     "parser": "@typescript-eslint/parser",
-    "parserOptions": {
-        "ecmaVersion": 13,
-        "sourceType": "module"
+    "parserOptions": { // 자바스크립트를 Parsing하는 옵션 설정
+        "ecmaVersion": 11, // ECMA 버전
+        "sourceType": "module" // import, export 사용
     },
     "plugins": [
-        "@typescript-eslint"
+        "@typescript-eslint", 
+        "prettier"
     ],
     "rules": {
-        "no-console": "off",
-        "semicolon": true
     }
 }

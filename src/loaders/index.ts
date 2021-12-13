@@ -1,4 +1,4 @@
-import {Express} from "express";
+import { Express } from "express";
 import expressMiddlewares from "./express";
 import databaseConnection from "./connect";
 

@@ -1,4 +1,4 @@
-import {createConnection, useContainer} from "typeorm";
+import { createConnection, useContainer } from "typeorm";
 import * as typedi from "typedi";
 // import { Container } from "typeorm-typedi-extensions";
 

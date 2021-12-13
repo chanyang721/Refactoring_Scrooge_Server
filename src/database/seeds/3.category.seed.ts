@@ -1,6 +1,6 @@
-import {Factory, Seeder} from "typeorm-seeding";
-import {Connection, getRepository} from "typeorm";
-import {Category} from "../entity/category";
+import { Factory, Seeder } from "typeorm-seeding";
+import { Connection, getRepository } from "typeorm";
+import { Category } from "../entity/category";
 
 export default class CreateCategory implements Seeder {
     public async run(factory: Factory, connection: Connection): Promise<any> {

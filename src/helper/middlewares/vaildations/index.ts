@@ -1,6 +1,6 @@
-import {Request, Response, NextFunction} from "express";
+import { Request, Response, NextFunction } from "express";
 import Joi from "joi";
-import {Container} from "typedi";
+import { Container } from "typedi";
 
 export const defaultVaildations = async (
     req: Request,
@@ -11,13 +11,13 @@ export const defaultVaildations = async (
         email: Joi.string().email().trim().max(30).required(),
     });
 
-    const {value, error} = schema.validate(req.body);
+    const { value, error } = schema.validate(req.body);
     if (error) {
-        return res.status(403).json({error});
+        return res.status(403).json({ error });
     }
 
     req.body = value;
-    const {email} = req.body;
+    const { email } = req.body;
 
     next();
 };

@@ -1,6 +1,6 @@
-import {Router} from "express";
+import { Router } from "express";
 import Container from "typedi";
-import {isAuth} from "../../helper/middlewares/auth";
+import { isAuth } from "../../helper/middlewares/auth";
 import {
     createVaildation,
     loginVaildation,

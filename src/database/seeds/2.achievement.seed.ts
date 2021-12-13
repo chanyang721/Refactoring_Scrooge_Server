@@ -1,6 +1,6 @@
-import {Factory, Seeder} from "typeorm-seeding";
-import {Connection, getRepository} from "typeorm";
-import {Achievement} from "../entity/achievement";
+import { Factory, Seeder } from "typeorm-seeding";
+import { Connection, getRepository } from "typeorm";
+import { Achievement } from "../entity/achievement";
 
 export default class CreateAchievement implements Seeder {
     public async run(factory: Factory, connection: Connection): Promise<any> {

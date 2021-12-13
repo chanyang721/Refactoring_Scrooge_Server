@@ -1,11 +1,11 @@
-import {Service} from "typedi";
+import { Service } from "typedi";
 import AWS from "aws-sdk";
-import {User} from "../database/entity/user";
+import { User } from "../database/entity/user";
 import Jwt from "../helper/utils/jwt";
 import Hashing from "../helper/utils/hashing";
-import {UserDTO} from "./interface/user";
-import {UserRepository} from "../repository/userRepository";
-import {ErrorFormat} from "src/helper/utils/errorformat";
+import { UserDTO } from "./interface/user";
+import { UserRepository } from "../repository/userRepository";
+import { ErrorFormat } from "src/helper/utils/errorformat";
 
 @Service()
 export class UserService {
@@ -18,7 +18,7 @@ export class UserService {
     public async insertUser(data: UserDTO) {
         data.password = await this.hash.hashingPassword(data.password);
         const newUser = await this.repo.insertRow(User, data);
-        return {newUser};
+        return { newUser };
     }
 
     public async login(data: UserDTO) {
@@ -26,29 +26,29 @@ export class UserService {
         const refreshToken = this.jwt.genToken("REFRESH_TOKEN", "90d");
 
         return {
-            accessToken: accessToken({id: data.id}),
-            refreshToken: refreshToken({id: data.id}),
+            accessToken: accessToken({ id: data.id }),
+            refreshToken: refreshToken({ id: data.id }),
         };
     }
 
     public async getUserInfoById(id: string) {
-        const {rowInfo} = await this.repo.fetchRow(User, id);
+        const { rowInfo } = await this.repo.fetchRow(User, id);
         return rowInfo;
     }
 
     public async softDeleteUser(data: UserDTO) {
-        const {affected} = await this.repo.deleteById(User, data);
-        return {affected};
+        const { affected } = await this.repo.deleteById(User, data);
+        return { affected };
     }
 
     public async updateUserInfo(data: UserDTO) {
-        const {affected} = await this.repo.updateRow(User, data);
-        return {affected};
+        const { affected } = await this.repo.updateRow(User, data);
+        return { affected };
     }
 
     public async restoreUser(id: string) {
-        const {affected} = await this.repo.restoreRow(User, id);
-        return {affected};
+        const { affected } = await this.repo.restoreRow(User, id);
+        return { affected };
     }
 
     public async resetPassword(email: string) {
@@ -72,7 +72,7 @@ export class UserService {
         `;
 
         const messageInfo = {
-            Destination: {ToAddresses: [email]},
+            Destination: { ToAddresses: [email] },
             Message: {
                 Body: {
                     Html: {
@@ -89,7 +89,7 @@ export class UserService {
         };
 
         const response = await SES.sendEmail(messageInfo).promise();
-        return {response, newPassword};
+        return { response, newPassword };
     }
 
     public async comparePassword(password: string, hashedPassword: string) {
@@ -108,7 +108,7 @@ export class UserService {
     }
 
     public async checkEmail(email: string) {
-        const {rowInfo} = await this.repo.fetchRowByEmail(User, email);
+        const { rowInfo } = await this.repo.fetchRowByEmail(User, email);
         return rowInfo;
     }
 }
