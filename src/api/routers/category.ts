@@ -7,15 +7,15 @@ import { isAuth } from "../../helper/middlewares/auth";
 const categoryRouters = Router();
 
 export default (router: Router) => {
-    router.use("/category", isAuth, categoryRouters);
+  router.use("/category", isAuth, categoryRouters);
 
-    categoryRouters.post("/");
+  categoryRouters.post("/");
 
-    categoryRouters.put("/");
+  categoryRouters.put("/");
 
-    categoryRouters.delete("/:id");
+  categoryRouters.delete("/:id");
 
-    categoryRouters.post("/sort");
+  categoryRouters.post("/sort");
 
-    categoryRouters.get("/budget");
+  categoryRouters.get("/budget");
 };

@@ -8,15 +8,15 @@ import yearRouters from "./year";
 import oauthRouters from "./oauth";
 
 export default () => {
-    const router = Router();
+  const router = Router();
 
-    userRouters(router);
-    oauthRouters(router);
-    categoryRouters(router);
-    settingRouters(router);
-    dayRouters(router);
-    monthRouters(router);
-    yearRouters(router);
+  userRouters(router);
+  oauthRouters(router);
+  categoryRouters(router);
+  settingRouters(router);
+  dayRouters(router);
+  monthRouters(router);
+  yearRouters(router);
 
-    return router;
+  return router;
 };

@@ -4,16 +4,16 @@ import { User } from "./user";
 
 @Entity()
 export class Achievement extends BaseColumn {
-    @Column()
-    scrooge?: number;
+  @Column()
+  scrooge?: number;
 
-    @Column()
-    leastspend?: number;
+  @Column()
+  leastspend?: number;
 
-    @Column()
-    userId?: number;
+  @Column()
+  userId?: number;
 
-    @ManyToOne(() => User, (user) => user.achievement, { onDelete: "CASCADE" })
-    @JoinColumn({ name: "userId" })
-    user: User[];
+  @ManyToOne(() => User, (user) => user.achievement, { onDelete: "CASCADE" })
+  @JoinColumn({ name: "userId" })
+  user: User[];
 }

@@ -1,22 +1,22 @@
 import {
-    Entity,
-    PrimaryGeneratedColumn,
-    CreateDateColumn,
-    UpdateDateColumn,
-    DeleteDateColumn,
+  Entity,
+  PrimaryGeneratedColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
+  DeleteDateColumn,
 } from "typeorm";
 
 @Entity()
 export class BaseColumn {
-    @PrimaryGeneratedColumn()
-    id: number;
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @CreateDateColumn()
-    createdAt: number;
+  @CreateDateColumn()
+  createdAt: number;
 
-    @UpdateDateColumn()
-    updatedAt: number;
+  @UpdateDateColumn()
+  updatedAt: number;
 
-    @DeleteDateColumn()
-    deletedAt: number;
+  @DeleteDateColumn()
+  deletedAt: number;
 }

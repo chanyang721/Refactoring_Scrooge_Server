@@ -5,22 +5,22 @@ import { User } from "./user";
 
 @Entity({ name: "category" })
 export class Category extends BaseColumn {
-    @Column()
-    name?: string;
+  @Column()
+  name?: string;
 
-    @Column()
-    budget?: number;
+  @Column()
+  budget?: number;
 
-    @Column()
-    emoji?: string;
+  @Column()
+  emoji?: string;
 
-    @Column()
-    userId?: number;
+  @Column()
+  userId?: number;
 
-    @ManyToOne(() => User, (user) => user.category, { onDelete: "CASCADE" })
-    @JoinColumn({ name: "userId" })
-    user: User[];
+  @ManyToOne(() => User, (user) => user.category, { onDelete: "CASCADE" })
+  @JoinColumn({ name: "userId" })
+  user: User[];
 
-    @OneToMany(() => Money, (money) => money.category, { onDelete: "CASCADE" })
-    money: Money[];
+  @OneToMany(() => Money, (money) => money.category, { onDelete: "CASCADE" })
+  money: Money[];
 }

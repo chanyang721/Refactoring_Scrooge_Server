@@ -7,7 +7,7 @@ import { isAuth } from "../../helper/middlewares/auth";
 const yearRouters = Router();
 
 export default (router: Router) => {
-    router.use("/year", isAuth, yearRouters);
+  router.use("/year", isAuth, yearRouters);
 
-    yearRouters.get("/data");
+  yearRouters.get("/data");
 };

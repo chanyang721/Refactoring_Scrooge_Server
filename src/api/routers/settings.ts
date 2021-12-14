@@ -7,13 +7,13 @@ import { isAuth } from "../../helper/middlewares/auth";
 const settingRouters = Router();
 
 export default (router: Router) => {
-    router.use("/setting", isAuth, settingRouters);
+  router.use("/setting", isAuth, settingRouters);
 
-    settingRouters.put("/mainpage");
+  settingRouters.put("/mainpage");
 
-    settingRouters.put("/darkmode");
+  settingRouters.put("/darkmode");
 
-    settingRouters.get("/importexcel");
+  settingRouters.get("/importexcel");
 
-    settingRouters.delete("/data");
+  settingRouters.delete("/data");
 };

@@ -7,7 +7,7 @@ import { isAuth } from "../../helper/middlewares/auth";
 const monthRouters = Router();
 
 export default (router: Router) => {
-    router.use("/month", isAuth, monthRouters);
+  router.use("/month", isAuth, monthRouters);
 
-    monthRouters.get("/data");
+  monthRouters.get("/data");
 };

@@ -4,19 +4,19 @@ import { User } from "./user";
 
 @Entity()
 export class Level extends BaseColumn {
-    @Column()
-    level?: number;
+  @Column()
+  level?: number;
 
-    @Column()
-    theme?: boolean;
+  @Column()
+  theme?: boolean;
 
-    @Column()
-    explore?: boolean;
+  @Column()
+  explore?: boolean;
 
-    @Column()
-    userId?: number;
+  @Column()
+  userId?: number;
 
-    @ManyToOne(() => User, (user) => user.level, { onDelete: "CASCADE" })
-    @JoinColumn({ name: "userId" })
-    user: User[];
+  @ManyToOne(() => User, (user) => user.level, { onDelete: "CASCADE" })
+  @JoinColumn({ name: "userId" })
+  user: User[];
 }
