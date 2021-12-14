@@ -8,7 +8,7 @@
 
 #### DevOps: AWS (IAM, S3, EC2, RDS, CodeBuild, CodeDeploy, CodePipeline, ECS, ECR) + VPC 보안그룹
 
-#### Tools: VScode, ESlint, Git
+#### Tools: Git, VScode, ESlint, Pretter
 
 ### 리팩토링 목적
 
