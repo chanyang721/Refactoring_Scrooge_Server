@@ -6,7 +6,7 @@
 
 #### Server: typeScript, javaScript, nodejs, express, typeORM, joi, Jest, typedi, mysql2, Docker
 
-#### DevOps: AWS (IAM, S3, EC2, RDS, CodeBuild, CodeDeploy, CodePipeline, ECS, ECR) + VPC 보안그룹
+#### DevOps: AWS (IAM, ACM, S3, Route53, ELB, EC2, RDS, CodeBuild, CodeDeploy, CodePipeline, ECS, ECR) + VPC 보안그룹
 
 #### Tools: Git, VScode, ESlint, Prettier
 
