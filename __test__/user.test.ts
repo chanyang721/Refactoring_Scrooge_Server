@@ -1,7 +1,7 @@
-import {createConnection} from "typeorm";
-import {Container} from "typedi";
+import { createConnection } from "typeorm";
+import { Container } from "typedi";
 import request from "supertest";
-import {UserService} from "../src/services/userService";
+import { UserService } from "../src/services/userService";
 
 let connection;
 // beforeAll(async () => {
