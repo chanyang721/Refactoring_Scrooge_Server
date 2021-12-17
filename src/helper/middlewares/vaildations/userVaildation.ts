@@ -11,7 +11,7 @@ export const createVaildation = async (
   req: Request,
   res: Response,
   next: NextFunction
-): Promise<any> => {
+): Promise<void> => {
   try {
     const schema = Joi.object({
       email: Joi.string().email().trim().required(),
@@ -23,7 +23,9 @@ export const createVaildation = async (
     });
 
     const { value, error } = schema.validate(req.body);
-    if (error) throw new ErrorFormat(400, "입력값을 확인해주세요");
+    if (error) {
+      throw new ErrorFormat(400, "입력값을 확인해주세요");
+    }
 
     req.body = value;
     const { email, phonenumber } = req.body;
@@ -32,9 +34,12 @@ export const createVaildation = async (
     const duplicEmail = await userRepo.findOne({ email });
     const duplicPhoneNumber = await userRepo.findOne({ phonenumber });
     // 중복 유저 확인 //
-    if (duplicEmail) throw new ErrorFormat(403, "이미 사용중인 이메일입니다.");
-    if (duplicPhoneNumber)
+    if (duplicEmail) {
+      throw new ErrorFormat(403, "이미 사용중인 이메일입니다.");
+    }
+    if (duplicPhoneNumber) {
       throw new ErrorFormat(403, "이미 등록된 전화번호입니다.");
+    }
     // 해당 핸드폰으로 사용중인 이메일로 인증번호 날리기 //
 
     next();
@@ -48,7 +53,7 @@ export const loginVaildation = async (
   req: Request,
   res: Response,
   next: NextFunction
-): Promise<any> => {
+): Promise<void> => {
   try {
     const schema = Joi.object({
       email: Joi.string().email().trim().required(),
@@ -64,8 +69,9 @@ export const loginVaildation = async (
     const userRepo = getRepository(User);
     const registeredUser = await userRepo.findOne({ email });
     // 가입된 유저인지 확인 //
-    if (!registeredUser)
+    if (!registeredUser) {
       throw new ErrorFormat(403, "가입되지 않은 유저입니다.");
+    }
     req.body.registeredUser = registeredUser;
 
     const hashing = Container.get(Hashing);
@@ -87,7 +93,7 @@ export const passwordVaildation = async (
   req: Request,
   res: Response,
   next: NextFunction
-): Promise<any> => {
+): Promise<void> => {
   try {
     const schema = Joi.object({
       id: Joi.number().optional(),

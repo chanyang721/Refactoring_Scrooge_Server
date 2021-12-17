@@ -27,25 +27,25 @@ export default (router: Router) => {
   userRouters.post(
     "/signup",
     createVaildation,
-    upload.array("photos", 3),
+    upload.single("photo"),
     createUser
-  ); //
+  );
 
-  userRouters.post("/login", loginVaildation, login); //
+  userRouters.post("/login", loginVaildation, login);
 
-  userRouters.get("/refresh", refreshToken); //
+  userRouters.get("/refresh", refreshToken);
 
-  userRouters.get("/find/password/:email", isAuth, sendNewPassword); //
+  userRouters.get("/find/password/:email", isAuth, sendNewPassword);
 
-  userRouters.put("/password", isAuth, passwordVaildation, updatePassword); //
+  userRouters.put("/password", isAuth, passwordVaildation, updatePassword);
 
-  userRouters.put("/Info", isAuth, upload.array("photos", 3), updateUserInfo); //
+  userRouters.put("/Info", isAuth, upload.array("photos", 3), updateUserInfo);
 
-  userRouters.get("/check/:email", checkEmail); //
+  userRouters.get("/check/:email", checkEmail);
 
-  userRouters.delete("/", isAuth, softDeleteUser); //
+  userRouters.delete("/", isAuth, softDeleteUser);
 
-  userRouters.put("/restore/:id", restoreUser); //
+  userRouters.put("/restore/:id", restoreUser);
 
   userRouters.get("/initialize", isAuth);
 

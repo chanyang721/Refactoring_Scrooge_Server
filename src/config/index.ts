@@ -65,5 +65,10 @@ export default {
     region: process.env.S3_REGION,
   },
 
+  multerS3: {
+    bucket: process.env.BUCKET,
+    acl: process.env.ACL,
+  },
+
   AWS_SES: {},
 };
