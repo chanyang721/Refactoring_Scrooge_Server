@@ -1,6 +1,7 @@
 import { Router } from "express";
 import Container from "typedi";
 import { isAuth } from "../../helper/middlewares/auth";
+import upload from "../../helper/middlewares/multer";
 import {
   createVaildation,
   loginVaildation,
@@ -23,7 +24,12 @@ const userRouters = Router();
 export default (router: Router) => {
   router.use("/user", userRouters);
 
-  userRouters.post("/signup", createVaildation, createUser); //
+  userRouters.post(
+    "/signup",
+    createVaildation,
+    upload.array("photos", 3),
+    createUser
+  ); //
 
   userRouters.post("/login", loginVaildation, login); //
 
@@ -33,7 +39,7 @@ export default (router: Router) => {
 
   userRouters.put("/password", isAuth, passwordVaildation, updatePassword); //
 
-  userRouters.put("/Info", isAuth, updateUserInfo); //
+  userRouters.put("/Info", isAuth, upload.array("photos", 3), updateUserInfo); //
 
   userRouters.get("/check/:email", checkEmail); //
 
