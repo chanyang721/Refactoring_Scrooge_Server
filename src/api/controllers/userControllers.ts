@@ -209,3 +209,22 @@ export const checkEmail = async (
     res.status(400).send({ error: error.message });
   }
 };
+
+export const initialize = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { id } = req.body;
+
+    const userServiceInstance = Container.get(UserService);
+
+    const userInfo = await userServiceInstance.getUserInfoById(id);
+
+    res.status(200).send({ userInfo, message: "유저 정보 업데이트 완료" });
+  } catch (error) {
+    console.log(error);
+    res.status(400).send({ error: error.message });
+  }
+};

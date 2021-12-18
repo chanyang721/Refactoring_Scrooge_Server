@@ -17,6 +17,7 @@ import {
   sendNewPassword,
   updatePassword,
   checkEmail,
+  initialize,
 } from "../controllers/userControllers";
 
 const userRouters = Router();
@@ -47,7 +48,7 @@ export default (router: Router) => {
 
   userRouters.put("/restore/:id", restoreUser);
 
-  userRouters.get("/initialize", isAuth);
+  userRouters.get("/initialize", isAuth, initialize);
 
   userRouters.get("/signout", isAuth);
 };
