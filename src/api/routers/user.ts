@@ -1,5 +1,4 @@
 import { Router } from "express";
-import Container from "typedi";
 import { isAuth } from "../../helper/middlewares/auth";
 import upload from "../../helper/middlewares/multer";
 import {
@@ -36,7 +35,7 @@ export default (router: Router) => {
 
   userRouters.get("/refresh", refreshToken);
 
-  userRouters.get("/find/password/:email", isAuth, sendNewPassword);
+  userRouters.get("/password/:email", isAuth, sendNewPassword);
 
   userRouters.put("/password", isAuth, passwordVaildation, updatePassword);
 

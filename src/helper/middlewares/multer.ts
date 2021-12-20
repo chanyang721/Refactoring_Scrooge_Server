@@ -14,19 +14,26 @@ const storage = multerS3({
     cb(null, { fieldName: file.fieldname });
   },
   key: function (req, file, cb) {
-    cb(null, `uploads/${Date.now()}_${file.originalname}`);
+    cb(null, `images/${Date.now()}_${file.originalname}`);
   },
 });
 
+const fileFilter = (req, file, cb) => {
+  const allowType = [".png", ".jpg", ".jpeg"];
+  const fileType = req.file;
+};
+
+const limits = {
+  fieldNameSize: 200,
+  fieldSize: 16777216, //16Mb
+  files: 5,
+  fields: 10,
+};
+
 const upload = multer({
   storage,
-  limits: {
-    fieldNameSize: 200,
-    fieldSize: 1048576, //10Mb
-  },
-  fileFilter: (req, file, cb) => {
-    const acceptableExtensions = [".png", ".jpg"];
-  },
+  limits,
+  // fileFilter
 });
 
 export default upload;
