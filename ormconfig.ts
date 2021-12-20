@@ -10,7 +10,7 @@ export default {
   database: process.env.DATABASE || "test_database",
   synchronize: false,
   logging: false,
-  entities: ["src/database/entity/*.ts", "dist/database/entity/**/*.js"],
+  entities: ["src/database/entity/**/*.ts", "dist/database/entity/**/*.js"],
   migrations: ["src/database/migration/**/*.ts"],
   subscribers: ["src/database/subscriber/**/*.ts"],
 };

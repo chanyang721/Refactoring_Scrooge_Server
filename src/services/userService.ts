@@ -6,13 +6,13 @@ import Hashing from "../helper/utils/hashing";
 import { UserDTO } from "./interface/user";
 import { UserRepository } from "../repository/userRepository";
 import { ErrorFormat } from "../helper/utils/errorformat";
-
+import config from "../config";
 @Service()
 export class UserService {
   constructor(
-    private jwt: Jwt,
-    private hash: Hashing,
-    private repo: UserRepository
+    private readonly jwt: Jwt,
+    private readonly hash: Hashing,
+    private readonly repo: UserRepository
   ) {}
 
   public async insertUser(data: UserDTO) {
@@ -52,11 +52,7 @@ export class UserService {
   }
 
   public async resetPassword(email: string) {
-    const SES = new AWS.SES({
-      region: "ap-northeast-2",
-      apiVersion: "2010-12-01",
-      maxRetries: 2,
-    });
+    const SES = new AWS.SES(config.AWS_SES);
 
     const newPassword = String(
       Math.floor(Math.random() * (100000 - 999999 + 1))

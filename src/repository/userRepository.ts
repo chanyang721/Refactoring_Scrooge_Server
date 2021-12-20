@@ -2,8 +2,10 @@ import { BaseRepository } from "../database/baseRepository";
 import { User } from "../database/entity/user";
 import { UserDTO } from "../services/interface/user";
 import { Service } from "typedi";
+import { EntityRepository } from "typeorm";
 
 @Service()
+@EntityRepository(User)
 export class UserRepository extends BaseRepository<User> {
   public async fetchRow(entity, id: string) {
     const rowInfo = await this.repository

@@ -103,5 +103,5 @@
     /* Skip type checking all .d.ts files. */
   },
   "include": ["./src/**/*", "app.ts"],
-  "exclude": ["__test__", "dist"]
+  "exclude": ["__tests___", "dist"]
 }

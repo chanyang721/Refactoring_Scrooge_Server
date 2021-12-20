@@ -27,10 +27,10 @@ export const login = async (
   next: NextFunction
 ): Promise<any> => {
   try {
-    const { id } = req.body;
-
+    const { id } = req.body.registeredUser;
+    console.log("id :", id);
     const userServiceInstance = Container.get(UserService);
-
+    console.log("userServiceInstance :", userServiceInstance);
     const { accessToken, refreshToken } = await userServiceInstance.login({
       id,
     });

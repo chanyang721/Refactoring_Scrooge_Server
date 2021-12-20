@@ -70,5 +70,9 @@ export default {
     acl: process.env.ACL,
   },
 
-  AWS_SES: {},
+  AWS_SES: {
+    region: "ap-northeast-2",
+    apiVersion: "2010-12-01",
+    maxRetries: 2,
+  },
 };

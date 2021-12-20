@@ -24,7 +24,8 @@ export const createVaildation = async (
 
     const { value, error } = schema.validate(req.body);
     if (error) {
-      throw new ErrorFormat(400, "입력값을 확인해주세요");
+      console.log(error);
+      throw new ErrorFormat(400, "입력값을 확인해주세요", error.message);
     }
 
     req.body = value;
@@ -61,8 +62,10 @@ export const loginVaildation = async (
     });
 
     const { value, error } = schema.validate(req.body);
-    if (error) throw new ErrorFormat(400, "입력값을 확인해주세요");
-
+    if (error) {
+      console.log(error);
+      throw new ErrorFormat(400, "입력값을 확인해주세요", error.message);
+    }
     req.body = value;
     const { email, password } = req.body;
 
@@ -95,6 +98,10 @@ export const passwordVaildation = async (
   next: NextFunction
 ): Promise<void> => {
   try {
+    console.log("---------------------------------");
+    console.log(req.body, req.file);
+    console.log("---------------------------------");
+
     const schema = Joi.object({
       id: Joi.number().optional(),
       password: Joi.string().trim().min(5).max(15).alphanum().optional(),
@@ -105,7 +112,10 @@ export const passwordVaildation = async (
       abortEarly: true,
       allowUnknown: true,
     });
-    if (error) throw new ErrorFormat(400, "입력값을 확인해주세요");
+    if (error) {
+      console.log(error);
+      throw new ErrorFormat(400, "입력값을 확인해주세요", error.message);
+    }
 
     req.body = value;
     const { password, newPassword, id } = req.body;
