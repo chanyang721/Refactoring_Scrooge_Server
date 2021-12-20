@@ -26,7 +26,7 @@ export default (router: Router) => {
 
   userRouters.post(
     "/signup",
-    // upload.single("photo"),
+    upload.single("photo"),
     createVaildation,
     createUser
   );
