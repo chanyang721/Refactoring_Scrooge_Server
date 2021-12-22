@@ -47,6 +47,7 @@ export default {
       migrations: ["src/database/migration/**/*.ts"],
       subscribers: ["src/database/subscriber/**/*.ts"],
     },
+
     AWS_RDS: {
       host: process.env.RDS_HOST,
       port: process.env.RDS_PORT,
