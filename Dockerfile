@@ -1,4 +1,4 @@
-FROM 209490711359.dkr.ecr.ap-northeast-2.amazonaws.com/app_test:latest
+FROM 209490711359.dkr.ecr.ap-northeast-2.amazonaws.com/node:latest
 
 ENV NODE_ENV=production
 
