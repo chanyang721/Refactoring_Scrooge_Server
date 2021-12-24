@@ -30,7 +30,7 @@ export class Achievement {
   @UpdateDateColumn()
   updatedAt?: number;
 
-  @DeleteDateColumn()
+  @DeleteDateColumn({ nullable: true })
   deletedAt?: number;
 
   @ManyToOne(() => User, (user) => user.achievement, { onDelete: "CASCADE" })

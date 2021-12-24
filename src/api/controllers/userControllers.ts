@@ -20,7 +20,11 @@ export const login = async (req: Request, res: Response) => {
   try {
     const { id } = req.body.registeredUser;
     const userServiceInstance = Container.get(UserService);
-
+    console.log(
+      id,
+      "--------------------------------------------",
+      userServiceInstance
+    );
     const { accessToken, refreshToken } = await userServiceInstance.login({
       id,
     });

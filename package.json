@@ -42,7 +42,8 @@
     "mysql2": "^2.3.0",
     "reflect-metadata": "^0.1.13",
     "typedi": "^0.10.0",
-    "typeorm": "^0.2.39"
+    "typeorm": "^0.2.39",
+    "typeorm-typedi-extensions": "^0.4.1"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",

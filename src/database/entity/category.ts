@@ -35,7 +35,7 @@ export class Category {
   @UpdateDateColumn()
   updatedAt?: number;
 
-  @DeleteDateColumn()
+  @DeleteDateColumn({ nullable: true })
   deletedAt?: number;
 
   @ManyToOne(() => User, (user) => user.category, { onDelete: "CASCADE" })

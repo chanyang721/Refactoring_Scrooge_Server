@@ -18,6 +18,7 @@
   "plugins": ["@typescript-eslint", "prettier"],
   "rules": {
     "no-unused-vars": 0,
-    "no-undef": 1
+    "no-undef": 1,
+    "require-yield": 0
   }
 }

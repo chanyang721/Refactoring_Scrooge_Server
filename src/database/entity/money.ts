@@ -29,7 +29,7 @@ export class Money {
   @UpdateDateColumn()
   updatedAt?: number;
 
-  @DeleteDateColumn()
+  @DeleteDateColumn({ nullable: true })
   deletedAt?: number;
 
   @Column()

@@ -7,6 +7,7 @@ import { UserRepository } from "../../../repository/userRepository";
 import { ErrorFormat } from "../../utils/errorformat";
 import Hashing from "../../utils/hashing";
 import { User } from "../../../database/entity/user";
+import { getRepository } from "typeorm";
 
 export const createVaildation = async (
   req: Request,
@@ -32,12 +33,9 @@ export const createVaildation = async (
     req.body = value;
     const { email, phonenumber } = req.body;
 
-    // const userRepo = getRepository(User);
-    // const duplicEmail = await userRepo.find({ where: { email } });
-    // const duplicPhoneNumber = await userRepo.find({ where: { phonenumber } });
-    const userRepo = new UserRepository(User);
-    const duplicEmail = await userRepo.fetchRowByColumn(User, email);
-    const duplicNumber = await userRepo.fetchRowByColumn(User, phonenumber);
+    const userRepo = getRepository(User);
+    const duplicEmail = await userRepo.find({ where: { email } });
+    const duplicNumber = await userRepo.find({ where: { phonenumber } });
     // 중복 유저 확인 //
     if (duplicEmail) {
       throw new ErrorFormat(403, "이미 사용중인 이메일입니다.");
@@ -73,22 +71,21 @@ export const loginVaildation = async (
     req.body = value;
     const { email, password } = req.body;
 
-    // const userRepo = getRepository(User);
-    // const registeredUser = await userRepo.find({ where: { email } });
-    const registeredUser = new UserRepository(User);
+    const userRepo = getRepository(User);
+    const registeredUser = await userRepo.find({ where: { email } });
     // 가입된 유저인지 확인 //
     if (!registeredUser) {
       throw new ErrorFormat(403, "가입되지 않은 유저입니다.");
     }
     req.body.registeredUser = registeredUser;
 
-    const hashing = Container.get(Hashing);
-    const verifyPassword = await hashing.comparePassword(
-      password,
-      registeredUser[0].password
-    );
-    // 비밀번호 일치 확인 //
-    if (!verifyPassword) throw new ErrorFormat(403, "비밀번호를 확인해주세요");
+    // const hashing = Container.get(Hashing);
+    // const verifyPassword = hashing.comparePassword(
+    //   password,
+    //   registeredUser[0].password
+    // );
+    // // 비밀번호 일치 확인 //
+    // if (!verifyPassword) throw new ErrorFormat(403, "비밀번호를 확인해주세요");
 
     next();
   } catch (error) {

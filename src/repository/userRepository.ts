@@ -1,8 +1,11 @@
+import { InjectRepository } from "typeorm-typedi-extensions";
 import { BaseRepository } from "../database/baseRepository";
 import { User } from "../database/entity/user";
 import { Service } from "typedi";
+import { EntityRepository } from "typeorm";
 
 @Service()
+@EntityRepository(User)
 export class UserRepository extends BaseRepository<User> {
   public async fetchRow(entity, id: string) {
     const rowInfo = await this.repository
@@ -13,10 +16,10 @@ export class UserRepository extends BaseRepository<User> {
     return { rowInfo };
   }
 
-  public async fetchRowByColumn(entity, column: string) {
+  public async fetchRowByEmail(entity, email: string) {
     const rowInfo = await this.repository
       .createQueryBuilder()
-      .where(`${column} = :${column}`, { column })
+      .where("email = :email", { email })
       .getOne();
 
     return { rowInfo };

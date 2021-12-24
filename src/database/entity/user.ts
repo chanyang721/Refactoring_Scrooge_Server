@@ -58,7 +58,7 @@ export class User {
   @UpdateDateColumn()
   updatedAt?: number;
 
-  @DeleteDateColumn()
+  @DeleteDateColumn({ nullable: true })
   deletedAt?: number;
 
   @OneToMany(() => Feedback, (feedback) => feedback.user, {

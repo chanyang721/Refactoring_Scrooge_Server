@@ -34,7 +34,7 @@ export class Level {
   @UpdateDateColumn()
   updatedAt?: number;
 
-  @DeleteDateColumn()
+  @DeleteDateColumn({ nullable: true })
   deletedAt?: number;
 
   @ManyToOne(() => User, (user) => user.level, { onDelete: "CASCADE" })

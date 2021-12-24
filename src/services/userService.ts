@@ -1,24 +1,26 @@
-import { Service } from "typedi";
 import AWS from "aws-sdk";
-import { User } from "../database/entity/user";
 import Jwt from "../helper/utils/jwt";
+import { Service } from "typedi";
+import { User } from "../database/entity/user";
 import Hashing from "../helper/utils/hashing";
 import { UserRepository } from "../repository/userRepository";
 import { ErrorFormat } from "../helper/utils/errorformat";
 import config from "../config";
+import { InjectRepository } from "typeorm-typedi-extensions";
 // import { BaseRepository } from "../database/baseRepository";
 
 @Service()
 export class UserService {
   constructor(
-    private jwt: Jwt,
-    private hash: Hashing,
-    private repo: UserRepository
+    @InjectRepository()
+    private readonly userRepository: UserRepository,
+    private readonly jwt: Jwt,
+    private readonly hash: Hashing
   ) {}
 
   public async insertUser(data: User) {
     data.password = await this.hash.hashingPassword(data.password);
-    const newUser = await this.repo.insertRow(User, data);
+    const newUser = await this.userRepository.insertRow(User, data);
     return { newUser };
   }
 
@@ -33,22 +35,22 @@ export class UserService {
   }
 
   public async getUserInfoById(id: string) {
-    const { rowInfo } = await this.repo.fetchRow(User, id);
+    const { rowInfo } = await this.userRepository.fetchRow(User, id);
     return rowInfo;
   }
 
   public async softDeleteUser(data: User) {
-    const { affected } = await this.repo.deleteById(User, data);
+    const { affected } = await this.userRepository.deleteById(User, data);
     return { affected };
   }
 
   public async updateUserInfo(data: User) {
-    const { affected } = await this.repo.updateRow(User, data);
+    const { affected } = await this.userRepository.updateRow(User, data);
     return { affected };
   }
 
   public async restoreUser(id: string) {
-    const { affected } = await this.repo.restoreRow(User, id);
+    const { affected } = await this.userRepository.restoreRow(User, id);
     return { affected };
   }
 
@@ -102,7 +104,7 @@ export class UserService {
   }
 
   public async checkEmail(email: string) {
-    const { rowInfo } = await this.repo.fetchRowByColumn(User, email);
+    const { rowInfo } = await this.userRepository.fetchRowByEmail(User, email);
     return rowInfo;
   }
 }

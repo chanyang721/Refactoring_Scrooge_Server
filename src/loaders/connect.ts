@@ -1,8 +1,10 @@
 import { ErrorFormat } from "../helper/utils/errorformat";
-import { createConnection } from "typeorm";
+import { createConnection, useContainer } from "typeorm";
+import { Container } from "typeorm-typedi-extensions";
 
 const connection = async () => {
   try {
+    useContainer(Container);
     const connection = await createConnection();
     const entities = connection["entityMetadatas"].map(
       (entity: any) => (entity = entity.name)

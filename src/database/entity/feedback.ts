@@ -28,7 +28,7 @@ export class Feedback {
   @UpdateDateColumn()
   updatedAt?: number;
 
-  @DeleteDateColumn()
+  @DeleteDateColumn({ nullable: true })
   deletedAt?: number;
 
   @ManyToOne(() => User, (user) => user.feedback, { onDelete: "CASCADE" })
