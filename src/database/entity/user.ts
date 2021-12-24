@@ -4,9 +4,12 @@ import {
   OneToMany,
   Index,
   Unique,
-  BeforeInsert,
+  PrimaryGeneratedColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
+  DeleteDateColumn,
 } from "typeorm";
-import { BaseColumn } from "./default";
+// import { BaseColumn } from "./default";
 import { Feedback } from "./feedback";
 import { Category } from "./category";
 import { Money } from "./money";
@@ -15,7 +18,10 @@ import { Achievement } from "./achievement";
 
 @Entity({ name: "user" })
 @Index(["email", "phonenumber"], { unique: true })
-export class User extends BaseColumn {
+export class User {
+  @PrimaryGeneratedColumn()
+  id?: number;
+
   @Column()
   name?: string;
 
@@ -46,24 +52,33 @@ export class User extends BaseColumn {
   @Column({ default: 0 })
   experience?: number;
 
+  @CreateDateColumn()
+  createdAt?: number;
+
+  @UpdateDateColumn()
+  updatedAt?: number;
+
+  @DeleteDateColumn()
+  deletedAt?: number;
+
   @OneToMany(() => Feedback, (feedback) => feedback.user, {
     onDelete: "CASCADE",
   })
-  feedback: Feedback[];
+  feedback?: Feedback[];
 
   @OneToMany(() => Money, (money) => money.user, { onDelete: "CASCADE" })
-  money: Money[];
+  money?: Money[];
 
   @OneToMany(() => Category, (category) => category.user, {
     onDelete: "CASCADE",
   })
-  category: Category[];
+  category?: Category[];
 
   @OneToMany(() => Level, (level) => level.user, { onDelete: "CASCADE" })
-  level: Level[];
+  level?: Level[];
 
   @OneToMany(() => Achievement, (achievement) => achievement.user, {
     onDelete: "CASCADE",
   })
-  achievement: Achievement[];
+  achievement?: Achievement[];
 }

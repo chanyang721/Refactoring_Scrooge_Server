@@ -1,36 +1,26 @@
-import { Request, Response, NextFunction } from "express";
+import { Request, Response } from "express";
 import { Container } from "typedi";
-import { ErrorFormat } from "../../helper/utils/errorformat";
 import { UserService } from "../../services/userService";
 import Jwt from "../../helper/utils/jwt";
 
-export const createUser = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-): Promise<any> => {
+export const createUser = async (req: Request, res: Response) => {
   try {
     const userServiceInstance = Container.get(UserService);
 
-    await userServiceInstance.insertUser(req.body);
+    const { newUser } = await userServiceInstance.insertUser(req.body);
 
-    res.status(200).send({ message: "회원가입 성공" });
+    res.status(200).send({ newUser, message: "회원가입 성공" });
   } catch (error) {
     console.log(error);
     res.status(400).send({ error: error.message });
   }
 };
 
-export const login = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-): Promise<any> => {
+export const login = async (req: Request, res: Response) => {
   try {
     const { id } = req.body.registeredUser;
-    console.log("id :", id);
     const userServiceInstance = Container.get(UserService);
-    console.log("userServiceInstance :", userServiceInstance);
+
     const { accessToken, refreshToken } = await userServiceInstance.login({
       id,
     });
@@ -53,11 +43,7 @@ export const login = async (
   }
 };
 
-export const softDeleteUser = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-): Promise<any> => {
+export const softDeleteUser = async (req: Request, res: Response) => {
   try {
     const { id } = req.body;
 
@@ -72,11 +58,7 @@ export const softDeleteUser = async (
   }
 };
 
-export const updateUserInfo = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-): Promise<any> => {
+export const updateUserInfo = async (req: Request, res: Response) => {
   try {
     const userServiceInstance = Container.get(UserService);
 
@@ -89,30 +71,22 @@ export const updateUserInfo = async (
   }
 };
 
-export const restoreUser = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-): Promise<any> => {
+export const restoreUser = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
 
     const userServiceInstance = Container.get(UserService);
 
-    const { affected } = await userServiceInstance.restoreUser(id);
+    // const { affected } = await userServiceInstance.restoreUser(id);
 
-    res.status(200).send({ message: "복구되었습니다", affected });
+    // res.status(200).send({ message: "복구되었습니다", affected });
   } catch (error) {
     console.log(error);
     res.status(400).send({ error: error.message });
   }
 };
 
-export const refreshToken = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+export const refreshToken = async (req: Request, res: Response) => {
   try {
     const JwtInstance = Container.get(Jwt);
 
@@ -134,11 +108,7 @@ export const refreshToken = async (
   }
 };
 
-export const sendNewPassword = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+export const sendNewPassword = async (req: Request, res: Response) => {
   try {
     const {
       params: { email },
@@ -163,23 +133,19 @@ export const sendNewPassword = async (
   }
 };
 
-export const updatePassword = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+export const updatePassword = async (req: Request, res: Response) => {
   try {
     const { id, newPassword } = req.body;
 
     const userServiceInstance = Container.get(UserService);
 
-    const { affected } = await userServiceInstance.updateUserInfo({
-      id,
-      password: newPassword,
-    });
+    // const { affected } = await userServiceInstance.updateUserInfo({
+    //   id,
+    //   password: newPassword,
+    // });
 
     res.status(200).send({
-      affected,
+      // affected,
       message: "비밀번호가 변경되었습니다",
     });
   } catch (error) {
@@ -188,11 +154,7 @@ export const updatePassword = async (
   }
 };
 
-export const checkEmail = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+export const checkEmail = async (req: Request, res: Response) => {
   try {
     const { email } = req.body;
 
@@ -201,7 +163,7 @@ export const checkEmail = async (
     const duplicEmail = await userServiceInstance.checkEmail(email);
 
     res.status(200).send({
-      email: duplicEmail,
+      // email: duplicEmail.email,
       message: "이미 등록된 이메일입니다",
     });
   } catch (error) {
@@ -210,11 +172,7 @@ export const checkEmail = async (
   }
 };
 
-export const initialize = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+export const initialize = async (req: Request, res: Response) => {
   try {
     const { id } = req.body;
 

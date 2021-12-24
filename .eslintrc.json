@@ -2,7 +2,7 @@
   "env": {
     "browser": false,
     "node": true,
-    "es2020": true
+    "es2021": true
   },
   "extends": [
     // 마지막 속성만 적용된다.

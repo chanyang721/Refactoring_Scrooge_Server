@@ -1,13 +1,12 @@
 import { Router } from "express";
-import Container from "typedi";
 import { isAuth } from "../../helper/middlewares/auth";
-// import { } from "../controllers";
+import { getYearlyData } from "../controllers/yearControllers";
 // import { } from "../../middlewares/vaildations"
 
 const yearRouters = Router();
 
 export default (router: Router) => {
-  router.use("/year", isAuth, yearRouters);
+  router.use("/year", yearRouters);
 
-  yearRouters.get("/data");
+  yearRouters.get("/data", getYearlyData);
 };

@@ -1,11 +1,8 @@
 import { BaseRepository } from "../database/baseRepository";
 import { User } from "../database/entity/user";
-import { UserDTO } from "../services/interface/user";
 import { Service } from "typedi";
-import { EntityRepository } from "typeorm";
 
 @Service()
-@EntityRepository(User)
 export class UserRepository extends BaseRepository<User> {
   public async fetchRow(entity, id: string) {
     const rowInfo = await this.repository
@@ -16,16 +13,16 @@ export class UserRepository extends BaseRepository<User> {
     return { rowInfo };
   }
 
-  public async fetchRowByEmail(entity, email: string) {
+  public async fetchRowByColumn(entity, column: string) {
     const rowInfo = await this.repository
       .createQueryBuilder()
-      .where("email = :email", { email })
+      .where(`${column} = :${column}`, { column })
       .getOne();
 
     return { rowInfo };
   }
 
-  public async insertRow(entity, data: UserDTO) {
+  public async insertRow(entity, data: User) {
     const newRow = await this.repository
       .createQueryBuilder()
       .insert()
@@ -36,7 +33,7 @@ export class UserRepository extends BaseRepository<User> {
     return { newRow };
   }
 
-  public async deleteById(entity, data: UserDTO) {
+  public async deleteById(entity, data: User) {
     const { affected } = await this.repository
       .createQueryBuilder()
       .softDelete()
@@ -46,7 +43,7 @@ export class UserRepository extends BaseRepository<User> {
     return { affected };
   }
 
-  public async updateRow(entity, data: UserDTO) {
+  public async updateRow(entity, data: User) {
     const { affected } = await this.repository
       .createQueryBuilder()
       .update(entity)

@@ -20,6 +20,6 @@ export const isAuth = (req: Request, res: Response, next: NextFunction) => {
   if (!auth) throw new ErrorFormat(400, "token expired");
 
   req.body.id = auth.id;
-
+  console.log(auth.id);
   next();
 };

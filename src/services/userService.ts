@@ -3,25 +3,26 @@ import AWS from "aws-sdk";
 import { User } from "../database/entity/user";
 import Jwt from "../helper/utils/jwt";
 import Hashing from "../helper/utils/hashing";
-import { UserDTO } from "./interface/user";
 import { UserRepository } from "../repository/userRepository";
 import { ErrorFormat } from "../helper/utils/errorformat";
 import config from "../config";
+// import { BaseRepository } from "../database/baseRepository";
+
 @Service()
 export class UserService {
   constructor(
-    private readonly jwt: Jwt,
-    private readonly hash: Hashing,
-    private readonly repo: UserRepository
+    private jwt: Jwt,
+    private hash: Hashing,
+    private repo: UserRepository
   ) {}
 
-  public async insertUser(data: UserDTO) {
+  public async insertUser(data: User) {
     data.password = await this.hash.hashingPassword(data.password);
     const newUser = await this.repo.insertRow(User, data);
     return { newUser };
   }
 
-  public async login(data: UserDTO) {
+  public async login(data: User) {
     const accessToken = this.jwt.genToken("ACCESS_TOKEN", "10h");
     const refreshToken = this.jwt.genToken("REFRESH_TOKEN", "90d");
 
@@ -36,12 +37,12 @@ export class UserService {
     return rowInfo;
   }
 
-  public async softDeleteUser(data: UserDTO) {
+  public async softDeleteUser(data: User) {
     const { affected } = await this.repo.deleteById(User, data);
     return { affected };
   }
 
-  public async updateUserInfo(data: UserDTO) {
+  public async updateUserInfo(data: User) {
     const { affected } = await this.repo.updateRow(User, data);
     return { affected };
   }
@@ -101,7 +102,7 @@ export class UserService {
   }
 
   public async checkEmail(email: string) {
-    const { rowInfo } = await this.repo.fetchRowByEmail(User, email);
+    const { rowInfo } = await this.repo.fetchRowByColumn(User, email);
     return rowInfo;
   }
 }

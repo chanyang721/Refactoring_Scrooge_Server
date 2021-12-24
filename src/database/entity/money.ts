@@ -1,15 +1,36 @@
-import { Entity, Column, ManyToOne, JoinColumn } from "typeorm";
+import {
+  Entity,
+  Column,
+  ManyToOne,
+  JoinColumn,
+  PrimaryGeneratedColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
+  DeleteDateColumn,
+} from "typeorm";
+// import { BaseColumn } from "./default";
 import { Category } from "./category";
-import { BaseColumn } from "./default";
 import { User } from "./user";
 
 @Entity({ name: "money" })
-export class Money extends BaseColumn {
+export class Money {
+  @PrimaryGeneratedColumn()
+  key?: number;
+
   @Column()
   cost?: number;
 
   @Column()
   memo?: string;
+
+  @CreateDateColumn()
+  createdAt?: number;
+
+  @UpdateDateColumn()
+  updatedAt?: number;
+
+  @DeleteDateColumn()
+  deletedAt?: number;
 
   @Column()
   categoryId?: number;
@@ -19,11 +40,11 @@ export class Money extends BaseColumn {
 
   @ManyToOne(() => User, (user) => user.money, { onDelete: "CASCADE" })
   @JoinColumn({ name: "userId" })
-  user: User[];
+  user?: User[];
 
   @ManyToOne(() => Category, (category) => category.money, {
     onDelete: "CASCADE",
   })
   @JoinColumn({ name: "categoryId" })
-  category: Category[];
+  category?: Category[];
 }

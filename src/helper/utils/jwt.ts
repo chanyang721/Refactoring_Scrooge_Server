@@ -30,8 +30,8 @@ export default class Jwt {
   };
 
   private tokenGenerator = ({ subject, expiresIn }: TokenDTO) => {
-    const algorithm = config.jwt.algorithm as Algorithm;
-    const jwtOptions: SignOptions = { algorithm, expiresIn, subject };
+    const algorithm = <Algorithm>config.jwt.algorithm;
+    const jwtOptions = <SignOptions>{ algorithm, expiresIn, subject };
 
     if (subject === "ACCESS_TOKEN") {
       return ({ id }) => sign({ id }, config.jwt.secret, jwtOptions);
@@ -44,7 +44,7 @@ export default class Jwt {
   };
 
   public decodeToken = ({ token }: TokenDTO) => {
-    const algorithm = config.jwt.algorithm as Algorithm;
+    const algorithm = <Algorithm>config.jwt.algorithm;
     const jwtOptions: VerifyOptions = { algorithms: [algorithm] };
 
     const decodedToken = verify(token, config.jwt.secret, jwtOptions);

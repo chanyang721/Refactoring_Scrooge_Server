@@ -1,17 +1,18 @@
 import { Request, Response, NextFunction } from "express";
 import Joi from "joi";
 import Container from "typedi";
-import { getRepository } from "typeorm";
+// import { User } from "../../../database/entity/user";
 import { UserService } from "../../../services/userService";
-import { User } from "../../../database/entity/user";
+import { UserRepository } from "../../../repository/userRepository";
 import { ErrorFormat } from "../../utils/errorformat";
 import Hashing from "../../utils/hashing";
+import { User } from "../../../database/entity/user";
 
 export const createVaildation = async (
   req: Request,
   res: Response,
   next: NextFunction
-): Promise<void> => {
+) => {
   try {
     const schema = Joi.object({
       email: Joi.string().email().trim().required(),
@@ -31,14 +32,17 @@ export const createVaildation = async (
     req.body = value;
     const { email, phonenumber } = req.body;
 
-    const userRepo = getRepository(User);
-    const duplicEmail = await userRepo.findOne({ email });
-    const duplicPhoneNumber = await userRepo.findOne({ phonenumber });
+    // const userRepo = getRepository(User);
+    // const duplicEmail = await userRepo.find({ where: { email } });
+    // const duplicPhoneNumber = await userRepo.find({ where: { phonenumber } });
+    const userRepo = new UserRepository(User);
+    const duplicEmail = await userRepo.fetchRowByColumn(User, email);
+    const duplicNumber = await userRepo.fetchRowByColumn(User, phonenumber);
     // 중복 유저 확인 //
     if (duplicEmail) {
       throw new ErrorFormat(403, "이미 사용중인 이메일입니다.");
     }
-    if (duplicPhoneNumber) {
+    if (duplicNumber) {
       throw new ErrorFormat(403, "이미 등록된 전화번호입니다.");
     }
     // 해당 핸드폰으로 사용중인 이메일로 인증번호 날리기 //
@@ -54,7 +58,7 @@ export const loginVaildation = async (
   req: Request,
   res: Response,
   next: NextFunction
-): Promise<void> => {
+) => {
   try {
     const schema = Joi.object({
       email: Joi.string().email().trim().required(),
@@ -69,8 +73,9 @@ export const loginVaildation = async (
     req.body = value;
     const { email, password } = req.body;
 
-    const userRepo = getRepository(User);
-    const registeredUser = await userRepo.findOne({ email });
+    // const userRepo = getRepository(User);
+    // const registeredUser = await userRepo.find({ where: { email } });
+    const registeredUser = new UserRepository(User);
     // 가입된 유저인지 확인 //
     if (!registeredUser) {
       throw new ErrorFormat(403, "가입되지 않은 유저입니다.");
@@ -80,7 +85,7 @@ export const loginVaildation = async (
     const hashing = Container.get(Hashing);
     const verifyPassword = await hashing.comparePassword(
       password,
-      registeredUser.password
+      registeredUser[0].password
     );
     // 비밀번호 일치 확인 //
     if (!verifyPassword) throw new ErrorFormat(403, "비밀번호를 확인해주세요");
@@ -96,12 +101,8 @@ export const passwordVaildation = async (
   req: Request,
   res: Response,
   next: NextFunction
-): Promise<void> => {
+) => {
   try {
-    console.log("---------------------------------");
-    console.log(req.body, req.file);
-    console.log("---------------------------------");
-
     const schema = Joi.object({
       id: Joi.number().optional(),
       password: Joi.string().trim().min(5).max(15).alphanum().optional(),
@@ -122,7 +123,7 @@ export const passwordVaildation = async (
 
     const userServiceInstance = Container.get(UserService);
     const userInfo = await userServiceInstance.getUserInfoById(id);
-    await userServiceInstance.comparePassword(password, userInfo.password);
+    // await userServiceInstance.comparePassword(password, userInfo.password);
     const hashedNewPassword = await userServiceInstance.hashPassword(
       newPassword
     );
