@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
-import { ErrorFormat } from "../utils/errorformat";
+import { BaseError } from "../utils/error/baseError";
+import { StatusCode } from "../utils/error/httpStatusCodes";
 import Jwt from "../utils/jwt";
 
 export const refreshToken = async (
@@ -11,10 +12,22 @@ export const refreshToken = async (
     const { decodeToken, genToken } = new Jwt();
 
     const { refreshToken } = req.cookies;
-    if (!refreshToken) throw new ErrorFormat(403, "refreshToken이 없습니다");
+    if (!refreshToken) {
+      throw new BaseError(
+        "Bad_Request",
+        StatusCode.Bad_Request,
+        "Refresh Token이 없습니다"
+      );
+    }
 
     const decodedToken: any = decodeToken({ token: refreshToken });
-    if (!decodedToken) throw new ErrorFormat(400, "token expired");
+    if (!decodedToken) {
+      throw new BaseError(
+        "Bad_Request",
+        StatusCode.Bad_Request,
+        "Refresh Token expired"
+      );
+    }
 
     const { id } = decodedToken;
 

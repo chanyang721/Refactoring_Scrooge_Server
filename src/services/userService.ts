@@ -1,21 +1,17 @@
 import AWS from "aws-sdk";
-import Jwt from "../helper/utils/jwt";
 import { Service } from "typedi";
+import Jwt from "../helper/utils/jwt";
 import { User } from "../database/entity/user";
 import Hashing from "../helper/utils/hashing";
 import { UserRepository } from "../repository/userRepository";
-import { ErrorFormat } from "../helper/utils/errorformat";
 import config from "../config";
-import { InjectRepository } from "typeorm-typedi-extensions";
-// import { BaseRepository } from "../database/baseRepository";
 
 @Service()
-export class UserService {
+export default class UserService {
   constructor(
-    @InjectRepository()
-    private readonly userRepository: UserRepository,
     private readonly jwt: Jwt,
-    private readonly hash: Hashing
+    private readonly hash: Hashing,
+    private readonly userRepository: UserRepository
   ) {}
 
   public async insertUser(data: User) {
@@ -24,7 +20,7 @@ export class UserService {
     return { newUser };
   }
 
-  public async login(data: User) {
+  public async getToken(data: User) {
     const accessToken = this.jwt.genToken("ACCESS_TOKEN", "10h");
     const refreshToken = this.jwt.genToken("REFRESH_TOKEN", "90d");
 
@@ -93,7 +89,6 @@ export class UserService {
 
   public async comparePassword(password: string, hashedPassword: string) {
     const compareResult = this.hash.comparePassword(password, hashedPassword);
-    if (!compareResult) throw new ErrorFormat(400, "비밀번호가 틀렸습니다");
 
     return compareResult;
   }

@@ -1,13 +1,10 @@
-import { BaseRepository } from "../database/baseRepository";
-import { Money } from "../database/entity/money";
 import { Service } from "typedi";
 import { getRepository } from "typeorm";
+import { Money } from "../database/entity/money";
 
 @Service()
-export class YearService extends BaseRepository<Money> {
-  constructor() {
-    super(Money);
-  }
+export class YearService {
+  constructor() {}
 
   public async getYear(data: Money) {
     const moneyRepo = getRepository(Money);

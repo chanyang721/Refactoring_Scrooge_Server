@@ -1,69 +1,100 @@
-import { InjectRepository } from "typeorm-typedi-extensions";
-import { BaseRepository } from "../database/baseRepository";
-import { User } from "../database/entity/user";
 import { Service } from "typedi";
-import { EntityRepository } from "typeorm";
+import { EntityRepository, Repository } from "typeorm";
+import { User } from "../database/entity/user";
+import { BaseRepository } from "../database/baseRepository";
+import { BaseError } from "../helper/utils/error/baseError";
+import { StatusCode } from "src/helper/utils/error/httpStatusCodes";
 
 @Service()
 @EntityRepository(User)
 export class UserRepository extends BaseRepository<User> {
   public async fetchRow(entity, id: string) {
-    const rowInfo = await this.repository
-      .createQueryBuilder()
-      .where("id = :id", { id })
-      .getOne();
+    try {
+      const rowInfo = await this.repository
+        .createQueryBuilder()
+        .where("id = :id", { id })
+        .getOne();
 
-    return { rowInfo };
+      return { rowInfo };
+    } catch (error) {
+      console.error(error);
+      throw new BaseError("Bad_Request", StatusCode.Bad_Request, error.message);
+    }
   }
 
   public async fetchRowByEmail(entity, email: string) {
-    const rowInfo = await this.repository
-      .createQueryBuilder()
-      .where("email = :email", { email })
-      .getOne();
+    try {
+      const rowInfo = await this.repository
+        .createQueryBuilder()
+        .where("email = :email", { email })
+        .getOne();
 
-    return { rowInfo };
+      return { rowInfo };
+    } catch (error) {
+      console.error(error);
+      throw new BaseError("Bad_Request", StatusCode.Bad_Request, error.message);
+    }
   }
 
   public async insertRow(entity, data: User) {
-    const newRow = await this.repository
-      .createQueryBuilder()
-      .insert()
-      .into(entity)
-      .values(data)
-      .execute();
+    try {
+      const newRow = await this.repository
+        .createQueryBuilder()
+        .insert()
+        .into(entity)
+        .values(data)
+        .execute();
 
-    return { newRow };
+      return { newRow };
+    } catch (error) {
+      console.error(error);
+      throw new BaseError("Bad_Request", StatusCode.Bad_Request, error.message);
+    }
   }
 
   public async deleteById(entity, data: User) {
-    const { affected } = await this.repository
-      .createQueryBuilder()
-      .softDelete()
-      .where("id = :id", { id: data.id })
-      .execute();
+    try {
+      const { affected } = await this.repository
+        .createQueryBuilder()
+        .softDelete()
+        .where("id = :id", { id: data.id })
+        .execute();
 
-    return { affected };
+      return { affected };
+    } catch (error) {
+      console.error(error);
+      throw new BaseError("Bad_Request", StatusCode.Bad_Request, error.message);
+    }
   }
 
   public async updateRow(entity, data: User) {
-    const { affected } = await this.repository
-      .createQueryBuilder()
-      .update(entity)
-      .set(data)
-      .where("id = :id", { id: data.id })
-      .execute();
+    try {
+      const { affected } = await this.repository
+        .createQueryBuilder()
+        .update(entity)
+        .set(data)
+        .where("id = :id", { id: data.id })
+        .execute();
 
-    return { affected };
+      return { affected };
+    } catch (error) {
+      console.error(error);
+      throw new BaseError("Bad_Request", StatusCode.Bad_Request, error.message);
+    }
   }
 
   public async restoreRow(entity, id: string) {
-    const { affected } = await this.repository
-      .createQueryBuilder()
-      .where("id = :id", { id })
-      .restore()
-      .execute();
+    try {
+      const { affected } = await this.repository
+        .createQueryBuilder()
+        .where("id = :id", { id })
+        .restore()
+        .execute();
 
-    return { affected };
+      return { affected };
+    } catch (error) {
+      console.error(error);
+      throw new BaseError("Bad_Request", StatusCode.Bad_Request, error.message);
+    }
   }
 }

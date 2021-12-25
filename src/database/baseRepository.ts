@@ -1,8 +1,10 @@
 import { getRepository, EntityTarget, Repository } from "typeorm";
 
-export class BaseRepository<T> {
-  protected repository: Repository<T>;
-  constructor(entityClass: EntityTarget<T>) {
-    this.repository = getRepository(entityClass);
+export class BaseRepository<entity> extends Repository<entity> {
+  protected readonly repository: Repository<entity>;
+
+  constructor(entity: EntityTarget<entity>) {
+    super();
+    this.repository = getRepository(entity);
   }
 }

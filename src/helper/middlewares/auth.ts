@@ -1,8 +1,9 @@
 import { Request, Response, NextFunction } from "express";
 import { promisify } from "util";
 import { Container } from "typedi";
-import { ErrorFormat } from "../utils/errorformat";
+import { BaseError } from "../utils/error/baseError";
 import Jwt from "../utils/jwt";
+import { StatusCode } from "../utils/error/httpStatusCodes";
 
 export const isAuth = (req: Request, res: Response, next: NextFunction) => {
   const JwtInstance = Container.get(Jwt);
@@ -17,8 +18,13 @@ export const isAuth = (req: Request, res: Response, next: NextFunction) => {
     token,
   });
 
-  if (!auth) throw new ErrorFormat(400, "token expired");
-
+  if (!auth) {
+    throw new BaseError(
+      "Bad_Request",
+      StatusCode.Bad_Request,
+      "Access Token expired"
+    );
+  }
   req.body.id = auth.id;
   console.log(auth.id);
   next();

@@ -18,6 +18,7 @@ import {
   checkEmail,
   initialize,
 } from "../controllers/userControllers";
+import { wrapTryCatch } from "../../helper/utils/wrapTryCatch";
 
 const userRouters = Router();
 
@@ -27,11 +28,15 @@ export default (router: Router) => {
   userRouters.post(
     "/signup",
     upload.single("photo"),
-    createVaildation,
-    createUser
+    wrapTryCatch(createVaildation),
+    wrapTryCatch(createUser)
   );
 
-  userRouters.post("/login", loginVaildation, login);
+  userRouters.post(
+    "/login",
+    wrapTryCatch(loginVaildation),
+    wrapTryCatch(login)
+  );
 
   userRouters.get("/refresh", refreshToken);
 

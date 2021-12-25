@@ -1,5 +1,7 @@
 import { genSaltSync, hashSync, compareSync } from "bcrypt";
 import { Service } from "typedi";
+import { BaseError } from "./error/baseError";
+import { StatusCode } from "./error/httpStatusCodes";
 
 @Service()
 export default class Hashing {
@@ -15,6 +17,13 @@ export default class Hashing {
     hashedPassword: string
   ): boolean => {
     const compare = compareSync(password, hashedPassword);
-    return compare || false;
+    if (!compare)
+      throw new BaseError(
+        "Bad_Request",
+        StatusCode.Bad_Request,
+        "비밀번호가 틀렸습니다"
+      );
+
+    return compare;
   };
 }
