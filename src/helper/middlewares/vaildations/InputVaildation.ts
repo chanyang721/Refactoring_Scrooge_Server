@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import Joi from "joi";
+import { Api409Error } from "../../utils/error/baseError";
 
 export const InputVaildations = async (
   req: Request,
@@ -16,7 +17,8 @@ export const InputVaildations = async (
 
   const { value, error } = schema.validate(req.body);
   if (error) {
-    return res.status(403).json({ error });
+    console.log(error);
+    throw new Api409Error(error.message);
   }
 
   req.body = value;

@@ -30,6 +30,22 @@ export class Api400Error extends BaseError {
   }
 }
 
+export class Api401Error extends BaseError {
+  constructor(
+    message,
+    name = "Unauthorized",
+    statusCode = StatusCode.Unauthorized
+  ) {
+    super(name, statusCode, message);
+  }
+}
+
+export class Api403Error extends BaseError {
+  constructor(message, name = "Forbidden", statusCode = StatusCode.Forbidden) {
+    super(name, statusCode, message);
+  }
+}
+
 export class Api404Error extends BaseError {
   constructor(message, name = "Not Found", statusCode = StatusCode.Not_Found) {
     super(name, statusCode, message);

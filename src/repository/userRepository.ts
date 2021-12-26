@@ -1,9 +1,6 @@
 import { Service } from "typedi";
-import { Repository } from "typeorm";
 import { User } from "../database/entity/user";
 import { BaseRepository } from "../database/baseRepository";
-import { BaseError } from "../helper/utils/error/baseError";
-import { StatusCode } from "src/helper/utils/error/httpStatusCodes";
 
 @Service()
 export class UserRepository extends BaseRepository<User> {

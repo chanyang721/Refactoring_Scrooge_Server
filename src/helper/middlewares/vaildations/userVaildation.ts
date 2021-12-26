@@ -9,7 +9,6 @@ import {
   Api400Error,
   Api404Error,
   Api409Error,
-  BaseError,
 } from "../../utils/error/baseError";
 import { User } from "../../../database/entity/user";
 import { StatusCode } from "src/helper/utils/error/httpStatusCodes";
@@ -32,7 +31,7 @@ export const createVaildation = async (
   const { value, error } = schema.validate(req.body);
   if (error) {
     console.error(error);
-    throw new BaseError("Conflict", StatusCode.Conflict, error.message);
+    throw new Api409Error(error.message);
   }
 
   req.body = value;
@@ -43,10 +42,10 @@ export const createVaildation = async (
   const duplicNumber = await userRepo.find({ where: { phonenumber } });
 
   if (duplicEmail[0]) {
-    throw new Api400Error(`중복된 이메일을 가진 유저가 존재합니다`);
+    throw new Api400Error(`${duplicEmail[0]}은 사용중인 이메일 입니다`);
   }
   if (duplicNumber[0]) {
-    throw new Api400Error(`이미 등록된 핸드폰 번호입니다`);
+    throw new Api400Error(`${duplicNumber[0]}은 등록된 핸드폰 번호입니다`);
   }
   // 해당 핸드폰으로 사용중인 이메일로 인증번호 날리기 //
 

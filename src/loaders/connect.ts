@@ -1,6 +1,5 @@
-import { BaseError } from "../helper/utils/error/baseError";
+import { Api404Error } from "../helper/utils/error/baseError";
 import { createConnection } from "typeorm";
-import { StatusCode } from "src/helper/utils/error/httpStatusCodes";
 
 const connection = async () => {
   try {
@@ -14,7 +13,7 @@ const connection = async () => {
     );
   } catch (error) {
     console.error(error.message);
-    throw new BaseError("Not_Found", StatusCode.Not_Found, error.message);
+    throw new Api404Error(error.message);
   }
 };
 

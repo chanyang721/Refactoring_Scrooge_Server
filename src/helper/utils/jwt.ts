@@ -8,8 +8,7 @@ import {
 } from "jsonwebtoken";
 import { Service } from "typedi";
 import config from "../../config";
-import { BaseError } from "./error/baseError";
-import { StatusCode } from "./error/httpStatusCodes";
+import { Api401Error, Api403Error } from "./error/baseError";
 dotenv.config();
 
 interface TokenDTO {
@@ -22,11 +21,7 @@ interface TokenDTO {
 export default class Jwt {
   public unpackBearer = ({ BearerToken }): string => {
     if (!BearerToken) {
-      throw new BaseError(
-        "Unauthorized",
-        StatusCode.Unauthorized,
-        "인증 토큰이 없습니다"
-      );
+      throw new Api401Error("인증 토큰이 없습니다");
     }
     return BearerToken.split(" ")[1];
   };
@@ -54,9 +49,7 @@ export default class Jwt {
     const jwtOptions: VerifyOptions = { algorithms: [algorithm] };
 
     const decodedToken = verify(token, config.jwt.secret, jwtOptions);
-    if (!decodedToken) {
-      throw new BaseError("Forbidden", StatusCode.Forbidden, "token expired");
-    }
+    if (!decodedToken) throw new Api403Error("token expired");
 
     return decodedToken;
   };
