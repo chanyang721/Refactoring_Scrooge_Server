@@ -1,4 +1,4 @@
-import { getRepository, EntityTarget, Repository } from "typeorm";
+import { getRepository, EntityTarget, Repository, Entity } from "typeorm";
 
 export class BaseRepository<entity> extends Repository<entity> {
   protected readonly repository: Repository<entity>;
