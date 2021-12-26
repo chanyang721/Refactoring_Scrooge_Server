@@ -1,6 +1,7 @@
 import express, { Express, Request, Response, NextFunction } from "express";
 import morgan from "morgan";
 import cors from "cors";
+import helmet from "helmet";
 // import errorHandler from "errorhandler";
 import cookieParser from "cookie-parser";
 import routers from "../api/routers";
@@ -10,6 +11,7 @@ export default async (app: Express) => {
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
   app.use(cookieParser());
+  app.use(helmet());
   app.use(morgan(process.env.NODE_ENV === "development" ? "dev" : "combined"));
   app.use(
     cors({
