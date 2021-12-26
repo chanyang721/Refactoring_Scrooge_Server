@@ -34,7 +34,7 @@ export class UserRepository extends BaseRepository<User> {
       .createQueryBuilder()
       .insert()
       .into(entity)
-      .values(data)
+      .values([data])
       .execute();
 
     return { newRow };

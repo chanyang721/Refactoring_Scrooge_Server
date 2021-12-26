@@ -5,7 +5,12 @@ import { Request, Response, NextFunction } from "express";
 // import { User } from "../../../database/entity/user";
 import Hashing from "../../utils/hashing";
 import UserService from "../../../services/userService";
-import { Api400Error, BaseError } from "../../utils/error/baseError";
+import {
+  Api400Error,
+  Api404Error,
+  Api409Error,
+  BaseError,
+} from "../../utils/error/baseError";
 import { User } from "../../../database/entity/user";
 import { StatusCode } from "src/helper/utils/error/httpStatusCodes";
 import { wrapTryCatch } from "../../utils/wrapTryCatch";
@@ -61,7 +66,7 @@ export const loginVaildation = async (
   const { value, error } = schema.validate(req.body);
   if (error) {
     console.error(error);
-    throw new BaseError("Conflict", StatusCode.Conflict, error.message);
+    throw new Api409Error(error.message);
   }
   req.body = value;
   const { email, password } = req.body;
@@ -70,25 +75,16 @@ export const loginVaildation = async (
   const registeredUser = await userRepo.find({ where: { email } });
   // 가입된 유저인지 확인 //
   if (!registeredUser[0]) {
-    throw new BaseError(
-      "Not_Found",
-      StatusCode.Not_Found,
-      "해당 유저는 존재하지 않습니다"
-    );
+    throw new Api404Error("해당 유저는 존재하지 않습니다");
   }
   req.body.registeredUser = registeredUser[0];
 
-  // const hashing = Container.get(Hashing);
-  // const verifyPassword = wrapTryCatch(
-  //   hashing.comparePassword(password, registeredUser[0].password)
-  // );
-  // // 비밀번호 일치 확인 //
-  // if (!verifyPassword)
-  //   throw new BaseError(
-  //     "Bad_Request",
-  //     StatusCode.Bad_Request,
-  //     "비밀번호를 확인해주세요"
-  //   );
+  const hashing = Container.get(Hashing);
+  const verifyPassword = wrapTryCatch(
+    hashing.comparePassword(password, registeredUser[0].password)
+  );
+  // 비밀번호 일치 확인 //
+  if (!verifyPassword) throw new Api400Error("비밀번호를 확인해주세요");
 
   next();
 };
@@ -110,7 +106,7 @@ export const passwordVaildation = async (
   });
   if (error) {
     console.log(error);
-    throw new BaseError("Conflict", StatusCode.Conflict, error.message);
+    throw new Api409Error(error.message);
   }
 
   req.body = value;

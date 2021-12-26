@@ -38,21 +38,31 @@ export default (router: Router) => {
     wrapTryCatch(login)
   );
 
-  userRouters.get("/refresh", refreshToken);
+  userRouters.get("/refresh", wrapTryCatch(refreshToken));
 
-  userRouters.get("/password/:email", isAuth, sendNewPassword);
+  userRouters.get("/password/:email", isAuth, wrapTryCatch(sendNewPassword));
 
-  userRouters.put("/password", isAuth, passwordVaildation, updatePassword);
+  userRouters.put(
+    "/password",
+    isAuth,
+    wrapTryCatch(passwordVaildation),
+    wrapTryCatch(updatePassword)
+  );
 
-  userRouters.put("/Info", isAuth, upload.array("photos", 3), updateUserInfo);
+  userRouters.put(
+    "/Info",
+    upload.array("photos", 3),
+    isAuth,
+    wrapTryCatch(updateUserInfo)
+  );
 
-  userRouters.get("/check/:email", checkEmail);
+  userRouters.get("/check/:email", wrapTryCatch(checkEmail));
 
-  userRouters.delete("/", isAuth, softDeleteUser);
+  userRouters.delete("/", isAuth, wrapTryCatch(softDeleteUser));
 
-  userRouters.put("/restore/:id", restoreUser);
+  userRouters.put("/restore/:id", wrapTryCatch(restoreUser));
 
-  userRouters.get("/initialize", isAuth, initialize);
+  userRouters.get("/initialize", isAuth, wrapTryCatch(initialize));
 
-  userRouters.get("/signout", isAuth);
+  userRouters.get("/signout", wrapTryCatch(isAuth));
 };

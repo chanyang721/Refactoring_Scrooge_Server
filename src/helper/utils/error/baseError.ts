@@ -29,3 +29,15 @@ export class Api400Error extends BaseError {
     super(name, statusCode, message);
   }
 }
+
+export class Api404Error extends BaseError {
+  constructor(message, name = "Not Found", statusCode = StatusCode.Not_Found) {
+    super(name, statusCode, message);
+  }
+}
+
+export class Api409Error extends BaseError {
+  constructor(message, name = "Conflict", statusCode = StatusCode.Conflict) {
+    super(name, statusCode, message);
+  }
+}

@@ -15,7 +15,7 @@ export const wrapTryCatch = function (layer) {
       await layer(req, res, next);
     } catch (error) {
       console.error(error);
-      const { name, statusCode, message, isOperational } = error;
+      const { name, statusCode, message, isOperational, stack } = error;
       res.status(400).send({ name, statusCode, message, isOperational });
     }
   };
