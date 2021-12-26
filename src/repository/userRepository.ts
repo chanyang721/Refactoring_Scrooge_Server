@@ -7,6 +7,10 @@ import { StatusCode } from "src/helper/utils/error/httpStatusCodes";
 
 @Service()
 export class UserRepository extends BaseRepository<User> {
+  constructor() {
+    super(User);
+  }
+
   public async fetchRow(entity, id: string) {
     const rowInfo = await this.repository
       .createQueryBuilder()
