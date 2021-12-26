@@ -7,7 +7,7 @@ import { StatusCode } from "src/helper/utils/error/httpStatusCodes";
 
 @Service()
 export class UserRepository extends BaseRepository<User> {
-  constructor() {
+  private constructor() {
     super(User);
   }
 

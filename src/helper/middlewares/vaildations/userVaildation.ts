@@ -5,7 +5,7 @@ import { Request, Response, NextFunction } from "express";
 // import { User } from "../../../database/entity/user";
 import Hashing from "../../utils/hashing";
 import UserService from "../../../services/userService";
-import { BaseError } from "../../utils/error/baseError";
+import { Api400Error, BaseError } from "../../utils/error/baseError";
 import { User } from "../../../database/entity/user";
 import { StatusCode } from "src/helper/utils/error/httpStatusCodes";
 import { wrapTryCatch } from "../../utils/wrapTryCatch";
@@ -36,19 +36,12 @@ export const createVaildation = async (
   const userRepo = getRepository(User);
   const duplicEmail = await userRepo.find({ where: { email } });
   const duplicNumber = await userRepo.find({ where: { phonenumber } });
+
   if (duplicEmail[0]) {
-    throw new BaseError(
-      "Bad_Request",
-      StatusCode.Bad_Request,
-      "중복된 이메일을 가진 유저가 존재합니다"
-    );
+    throw new Api400Error(`중복된 이메일을 가진 유저가 존재합니다`);
   }
   if (duplicNumber[0]) {
-    throw new BaseError(
-      "Bad_Request",
-      StatusCode.Bad_Request,
-      "이미 등록된 핸드폰 번호입니다"
-    );
+    throw new Api400Error(`이미 등록된 핸드폰 번호입니다`);
   }
   // 해당 핸드폰으로 사용중인 이메일로 인증번호 날리기 //
 
