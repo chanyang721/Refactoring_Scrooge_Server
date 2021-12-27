@@ -4,6 +4,7 @@ import cors from "cors";
 import helmet from "helmet";
 // import errorHandler from "errorhandler";
 import cookieParser from "cookie-parser";
+import logger from "../config/winston";
 import routers from "../api/routers";
 import config from "../config";
 
@@ -25,7 +26,8 @@ export default async (app: Express) => {
   app.use(config.api.prefix, routers());
 
   app.all("*", (req: Request, res: Response, next: NextFunction) => {
-    res.status(404).json({ message: "Invalid Request" });
+    logger.error("Invaild Request");
+    res.status(404).json({ message: "Invaild Request" });
   });
 
   // app.use(errorHandler)
