@@ -1,6 +1,7 @@
 import { Service } from "typedi";
 import { User } from "../database/entity/user";
 import { BaseRepository } from "../database/baseRepository";
+import { EntityTarget, Entity } from "typeorm";
 
 @Service()
 export class UserRepository extends BaseRepository<User> {
@@ -8,7 +9,7 @@ export class UserRepository extends BaseRepository<User> {
     super(User);
   }
 
-  public async fetchRow(entity, id: string) {
+  public async fetchRow(entity: EntityTarget<unknown>, id: string) {
     const rowInfo = await this.repository
       .createQueryBuilder()
       .where("id = :id", { id })
@@ -17,7 +18,7 @@ export class UserRepository extends BaseRepository<User> {
     return { rowInfo };
   }
 
-  public async fetchRowByEmail(entity, email: string) {
+  public async fetchRowByEmail(entity: EntityTarget<unknown>, email: string) {
     const rowInfo = await this.repository
       .createQueryBuilder()
       .where("email = :email", { email })
@@ -26,7 +27,7 @@ export class UserRepository extends BaseRepository<User> {
     return { rowInfo };
   }
 
-  public async insertRow(entity, data: User) {
+  public async insertRow(entity: EntityTarget<unknown>, data: User) {
     const newRow = await this.repository
       .createQueryBuilder()
       .insert()
@@ -37,7 +38,7 @@ export class UserRepository extends BaseRepository<User> {
     return { newRow };
   }
 
-  public async deleteById(entity, data: User) {
+  public async deleteById(entity: EntityTarget<unknown>, data: User) {
     const { affected } = await this.repository
       .createQueryBuilder()
       .softDelete()
@@ -47,7 +48,7 @@ export class UserRepository extends BaseRepository<User> {
     return { affected };
   }
 
-  public async updateRow(entity, data: User) {
+  public async updateRow(entity: EntityTarget<unknown>, data: User) {
     const { affected } = await this.repository
       .createQueryBuilder()
       .update(entity)
@@ -58,7 +59,7 @@ export class UserRepository extends BaseRepository<User> {
     return { affected };
   }
 
-  public async restoreRow(entity, id: string) {
+  public async restoreRow(entity: EntityTarget<unknown>, id: string) {
     const { affected } = await this.repository
       .createQueryBuilder()
       .where("id = :id", { id })
