@@ -67,6 +67,7 @@ export const loginVaildation = async (
     console.error(error);
     throw new Api409Error(error.message);
   }
+
   req.body = value;
   const { email, password } = req.body;
 

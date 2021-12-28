@@ -1,7 +1,7 @@
 import { Service } from "typedi";
+import { EntityTarget } from "typeorm";
 import { User } from "../database/entity/user";
 import { BaseRepository } from "../database/baseRepository";
-import { EntityTarget, Entity } from "typeorm";
 
 @Service()
 export class UserRepository extends BaseRepository<User> {
@@ -9,7 +9,10 @@ export class UserRepository extends BaseRepository<User> {
     super(User);
   }
 
-  public async fetchRow(entity: EntityTarget<unknown>, id: string) {
+  public async fetchRow(
+    entity: EntityTarget<unknown>,
+    id: string
+  ): Promise<any> {
     const rowInfo = await this.repository
       .createQueryBuilder()
       .where("id = :id", { id })
@@ -18,7 +21,10 @@ export class UserRepository extends BaseRepository<User> {
     return { rowInfo };
   }
 
-  public async fetchRowByEmail(entity: EntityTarget<unknown>, email: string) {
+  public async fetchRowByEmail(
+    entity: EntityTarget<unknown>,
+    email: string
+  ): Promise<any> {
     const rowInfo = await this.repository
       .createQueryBuilder()
       .where("email = :email", { email })
@@ -27,7 +33,10 @@ export class UserRepository extends BaseRepository<User> {
     return { rowInfo };
   }
 
-  public async insertRow(entity: EntityTarget<unknown>, data: User) {
+  public async insertRow(
+    entity: EntityTarget<unknown>,
+    data: User
+  ): Promise<any> {
     const newRow = await this.repository
       .createQueryBuilder()
       .insert()
@@ -38,7 +47,10 @@ export class UserRepository extends BaseRepository<User> {
     return { newRow };
   }
 
-  public async deleteById(entity: EntityTarget<unknown>, data: User) {
+  public async deleteById(
+    entity: EntityTarget<unknown>,
+    data: User
+  ): Promise<{ affected: number }> {
     const { affected } = await this.repository
       .createQueryBuilder()
       .softDelete()
@@ -48,7 +60,10 @@ export class UserRepository extends BaseRepository<User> {
     return { affected };
   }
 
-  public async updateRow(entity: EntityTarget<unknown>, data: User) {
+  public async updateRow(
+    entity: EntityTarget<unknown>,
+    data: User
+  ): Promise<{ affected: number }> {
     const { affected } = await this.repository
       .createQueryBuilder()
       .update(entity)
@@ -59,7 +74,10 @@ export class UserRepository extends BaseRepository<User> {
     return { affected };
   }
 
-  public async restoreRow(entity: EntityTarget<unknown>, id: string) {
+  public async restoreRow(
+    entity: EntityTarget<unknown>,
+    id: string
+  ): Promise<{ affected: number }> {
     const { affected } = await this.repository
       .createQueryBuilder()
       .where("id = :id", { id })

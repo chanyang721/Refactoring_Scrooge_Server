@@ -3,7 +3,6 @@ import { promisify } from "util";
 import { Container } from "typedi";
 import { Api400Error, BaseError } from "../utils/error/baseError";
 import Jwt from "../utils/jwt";
-import { StatusCode } from "../utils/error/httpStatusCodes";
 
 export const isAuth = (req: Request, res: Response, next: NextFunction) => {
   const JwtInstance = Container.get(Jwt);
@@ -21,6 +20,5 @@ export const isAuth = (req: Request, res: Response, next: NextFunction) => {
   if (!auth) throw new Api400Error("Access Token expired");
 
   req.body.id = auth.id;
-  console.log(auth.id);
   next();
 };

@@ -2,7 +2,6 @@ import express, { Express, Request, Response, NextFunction } from "express";
 import morgan from "morgan";
 import cors from "cors";
 import helmet from "helmet";
-// import errorHandler from "errorhandler";
 import cookieParser from "cookie-parser";
 import logger from "../config/winston";
 import routers from "../api/routers";
@@ -29,6 +28,4 @@ export default async (app: Express) => {
     logger.error("Invaild Request");
     res.status(404).json({ message: "Invaild Request" });
   });
-
-  // app.use(errorHandler)
 };

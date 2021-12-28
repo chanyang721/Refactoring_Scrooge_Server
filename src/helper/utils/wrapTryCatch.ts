@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from "express";
+import logger from "../../config/winston";
 
 // export const wrapTryCatch = function (controller) {
 //   return function (req: Request, res: Response, next?: NextFunction) {
@@ -14,7 +15,7 @@ export const wrapTryCatch = function (controller) {
     try {
       await controller(req, res, next);
     } catch (error) {
-      console.error(error);
+      logger.error(error);
       const { name, statusCode, message, isOperational, stack } = error;
       res.status(400).send({ name, statusCode, message, isOperational });
     }

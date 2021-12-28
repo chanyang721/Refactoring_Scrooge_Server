@@ -104,13 +104,13 @@ export const updatePassword = async (req: Request, res: Response) => {
 
   const userServiceInstance = Container.get(UserService);
 
-  // const { affected } = await userServiceInstance.updateUserInfo({
-  //   id,
-  //   password: newPassword,
-  // });
+  const { affected } = await userServiceInstance.updateUserInfo({
+    id,
+    password: newPassword,
+  });
 
   res.status(200).send({
-    // affected,
+    affected,
     message: "비밀번호가 변경되었습니다",
   });
 };
@@ -123,8 +123,7 @@ export const checkEmail = async (req: Request, res: Response) => {
   const duplicEmail = await userServiceInstance.checkEmail(email);
 
   res.status(200).send({
-    // email: duplicEmail.email,
-    message: "이미 등록된 이메일입니다",
+    message: `${duplicEmail.email}은 이미 등록된 이메일입니다`,
   });
 };
 

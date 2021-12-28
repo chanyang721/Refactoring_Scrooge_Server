@@ -22,7 +22,7 @@ export class BaseError extends Error {
 
 export class Api400Error extends BaseError {
   constructor(
-    message,
+    message: string,
     name = "Bad Request",
     statusCode = StatusCode.Bad_Request
   ) {
@@ -32,7 +32,7 @@ export class Api400Error extends BaseError {
 
 export class Api401Error extends BaseError {
   constructor(
-    message,
+    message: string,
     name = "Unauthorized",
     statusCode = StatusCode.Unauthorized
   ) {
@@ -41,19 +41,31 @@ export class Api401Error extends BaseError {
 }
 
 export class Api403Error extends BaseError {
-  constructor(message, name = "Forbidden", statusCode = StatusCode.Forbidden) {
+  constructor(
+    message: string,
+    name = "Forbidden",
+    statusCode = StatusCode.Forbidden
+  ) {
     super(name, statusCode, message);
   }
 }
 
 export class Api404Error extends BaseError {
-  constructor(message, name = "Not Found", statusCode = StatusCode.Not_Found) {
+  constructor(
+    message: string,
+    name = "Not Found",
+    statusCode = StatusCode.Not_Found
+  ) {
     super(name, statusCode, message);
   }
 }
 
 export class Api409Error extends BaseError {
-  constructor(message, name = "Conflict", statusCode = StatusCode.Conflict) {
+  constructor(
+    message: string,
+    name = "Conflict",
+    statusCode = StatusCode.Conflict
+  ) {
     super(name, statusCode, message);
   }
 }
