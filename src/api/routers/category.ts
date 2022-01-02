@@ -1,5 +1,4 @@
 import { Router } from "express";
-import Container from "typedi";
 import { isAuth } from "../../helper/middlewares/auth";
 // import { } from "../controllers";
 // import { } from "../../middlewares/vaildations"

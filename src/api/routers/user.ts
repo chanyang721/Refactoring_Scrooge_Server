@@ -64,5 +64,5 @@ export default (router: Router) => {
 
   userRouters.get("/initialize", isAuth, wrapTryCatch(initialize));
 
-  userRouters.get("/signout", wrapTryCatch(isAuth));
+  userRouters.get("/signout", isAuth);
 };
