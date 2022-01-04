@@ -9,7 +9,7 @@
   * Testing: jest
   * Vaildation: joi
   * Logging: winston, morgan
-  * API Documents: swagger
+  * API Documents: postman
   * Code Convention: eslint, prettier
 
 #### DevOps: 
