@@ -16,8 +16,8 @@ export default class UserService {
 
   public async insertUser(data: User) {
     data.password = await this.hash.hashingPassword(data.password);
-    const newUser = await this.userRepository.insertRow(User, data);
-    return { newUser };
+    const { generatedMaps } = await this.userRepository.insertRow(User, data);
+    return { newUser: generatedMaps[0] };
   }
 
   public async getToken(data: User) {

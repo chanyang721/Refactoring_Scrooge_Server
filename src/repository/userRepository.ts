@@ -37,14 +37,14 @@ export class UserRepository extends BaseRepository<User> {
     entity: EntityTarget<unknown>,
     data: User
   ): Promise<any> {
-    const newRow = await this.repository
+    const { generatedMaps } = await this.repository
       .createQueryBuilder()
       .insert()
       .into(entity)
       .values([data])
       .execute();
 
-    return { newRow };
+    return { generatedMaps };
   }
 
   public async deleteById(
