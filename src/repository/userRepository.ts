@@ -67,7 +67,7 @@ export class UserRepository extends BaseRepository<User> {
     const { affected } = await this.repository
       .createQueryBuilder()
       .update(entity)
-      .set(data)
+      .set({ ...data })
       .where("id = :id", { id: data.id })
       .execute();
 

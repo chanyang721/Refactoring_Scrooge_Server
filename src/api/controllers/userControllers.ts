@@ -47,6 +47,8 @@ export const softDeleteUser = async (req: Request, res: Response) => {
 export const updateUserInfo = async (req: Request, res: Response) => {
   const userServiceInstance = Container.get(UserService);
 
+  if (req.files) req.body.photos = req.files[0].location;
+
   await userServiceInstance.updateUserInfo(req.body);
 
   res.status(200).send({ message: "수정되었습니다" });
@@ -64,11 +66,10 @@ export const restoreUser = async (req: Request, res: Response) => {
 
 export const refreshToken = async (req: Request, res: Response) => {
   const JwtInstance = Container.get(Jwt);
-
-  const refreshToken = JwtInstance.unpackBearer({
-    BearerToken: req.cookies.refreshToken,
-  });
-
+  // const refreshToken = JwtInstance.unpackBearer({
+  //   BearerToken: req.cookies.refreshToken,
+  // });
+  const { refreshToken } = req.cookies;
   const { id }: any = JwtInstance.decodeToken({ token: refreshToken });
 
   const newAccessToken = JwtInstance.genToken("ACCESS_TOKEN", "10h");
@@ -116,7 +117,7 @@ export const updatePassword = async (req: Request, res: Response) => {
 };
 
 export const checkEmail = async (req: Request, res: Response) => {
-  const { email } = req.body;
+  const { email } = req.params;
 
   const userServiceInstance = Container.get(UserService);
 
@@ -127,12 +128,14 @@ export const checkEmail = async (req: Request, res: Response) => {
   });
 };
 
-export const initialize = async (req: Request, res: Response) => {
+export const getUserInfo = async (req: Request, res: Response) => {
   const { id } = req.body;
 
   const userServiceInstance = Container.get(UserService);
 
   const userInfo = await userServiceInstance.getUserInfoById(id);
 
-  res.status(200).send({ userInfo, message: "유저 정보 업데이트 완료" });
+  res
+    .status(200)
+    .send({ userInfo, message: `${userInfo.name} 회원님의 정보 입니다` });
 };

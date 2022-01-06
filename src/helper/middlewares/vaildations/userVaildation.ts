@@ -13,6 +13,7 @@ import {
 import { User } from "../../../database/entity/user";
 import { StatusCode } from "src/helper/utils/error/httpStatusCodes";
 import { wrapTryCatch } from "../../utils/wrapTryCatch";
+import logger from "../../../config/winston";
 
 export const createVaildation = async (
   req: Request,
@@ -95,9 +96,9 @@ export const passwordVaildation = async (
   next: NextFunction
 ) => {
   const schema = Joi.object({
-    id: Joi.number().optional(),
-    password: Joi.string().trim().min(5).max(15).alphanum().optional(),
-    newPassword: Joi.ref("password"),
+    id: Joi.number().required(),
+    password: Joi.string().trim().min(4).max(15).alphanum().required(),
+    newPassword: Joi.string().trim().min(4).max(15).alphanum().required(),
   });
 
   const { value, error } = schema.validate(req.body, {
@@ -105,7 +106,7 @@ export const passwordVaildation = async (
     allowUnknown: true,
   });
   if (error) {
-    console.log(error);
+    logger.error(error);
     throw new Api409Error(error.message);
   }
 

@@ -32,6 +32,7 @@ export default class UserService {
 
   public async getUserInfoById(id: string) {
     const { rowInfo } = await this.userRepository.fetchRow(User, id);
+    delete rowInfo.password;
     return rowInfo;
   }
 

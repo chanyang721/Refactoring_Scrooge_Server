@@ -16,7 +16,7 @@ import {
   sendNewPassword,
   updatePassword,
   checkEmail,
-  initialize,
+  getUserInfo,
 } from "../controllers/userControllers";
 import { wrapTryCatch } from "../../helper/utils/wrapTryCatch";
 
@@ -50,7 +50,7 @@ export default (router: Router) => {
   );
 
   userRouters.put(
-    "/Info",
+    "/info",
     upload.array("photos", 3),
     isAuth,
     wrapTryCatch(updateUserInfo)
@@ -62,7 +62,7 @@ export default (router: Router) => {
 
   userRouters.put("/restore/:id", wrapTryCatch(restoreUser));
 
-  userRouters.get("/initialize", isAuth, wrapTryCatch(initialize));
+  userRouters.get("/info", isAuth, wrapTryCatch(getUserInfo));
 
   userRouters.get("/signout", isAuth);
 };
