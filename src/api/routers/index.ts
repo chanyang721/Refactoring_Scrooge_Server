@@ -2,9 +2,7 @@ import { Router } from "express";
 import userRouters from "./user";
 import categoryRouters from "./category";
 import settingRouters from "./settings";
-import dayRouters from "./day";
-import monthRouters from "./month";
-import yearRouters from "./year";
+import moneyRouters from "./money";
 import oauthRouters from "./oauth";
 
 export default () => {
@@ -14,9 +12,7 @@ export default () => {
   oauthRouters(router);
   categoryRouters(router);
   settingRouters(router);
-  dayRouters(router);
-  monthRouters(router);
-  yearRouters(router);
+  moneyRouters(router);
 
   return router;
 };

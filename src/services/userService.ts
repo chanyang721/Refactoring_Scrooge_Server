@@ -37,7 +37,7 @@ export default class UserService {
   }
 
   public async softDeleteUser(data: User) {
-    const { affected } = await this.userRepository.deleteById(User, data);
+    const { affected } = await this.userRepository.softDeleteById(User, data);
     return { affected };
   }
 

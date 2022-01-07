@@ -47,19 +47,6 @@ export class UserRepository extends BaseRepository<User> {
     return { generatedMaps };
   }
 
-  public async deleteById(
-    entity: EntityTarget<unknown>,
-    data: User
-  ): Promise<{ affected: number }> {
-    const { affected } = await this.repository
-      .createQueryBuilder()
-      .softDelete()
-      .where("id = :id", { id: data.id })
-      .execute();
-
-    return { affected };
-  }
-
   public async updateRow(
     entity: EntityTarget<unknown>,
     data: User
@@ -68,6 +55,19 @@ export class UserRepository extends BaseRepository<User> {
       .createQueryBuilder()
       .update(entity)
       .set({ ...data })
+      .where("id = :id", { id: data.id })
+      .execute();
+
+    return { affected };
+  }
+
+  public async softDeleteById(
+    entity: EntityTarget<unknown>,
+    data: User
+  ): Promise<{ affected: number }> {
+    const { affected } = await this.repository
+      .createQueryBuilder()
+      .softDelete()
       .where("id = :id", { id: data.id })
       .execute();
 

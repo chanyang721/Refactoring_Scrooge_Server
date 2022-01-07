@@ -8,11 +8,13 @@ const categoryRouters = Router();
 export default (router: Router) => {
   router.use("/category", isAuth, categoryRouters);
 
+  categoryRouters.get("/");
+
   categoryRouters.post("/");
 
   categoryRouters.put("/");
 
-  categoryRouters.delete("/:id");
+  categoryRouters.delete("/");
 
   categoryRouters.post("/sort");
 

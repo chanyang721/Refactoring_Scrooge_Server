@@ -8,11 +8,9 @@ const settingRouters = Router();
 export default (router: Router) => {
   router.use("/setting", isAuth, settingRouters);
 
-  settingRouters.put("/mainpage");
+  settingRouters.put("/option");
 
-  settingRouters.put("/darkmode");
+  settingRouters.get("/excel");
 
-  settingRouters.get("/importexcel");
-
-  settingRouters.delete("/data");
+  settingRouters.delete("/all");
 };

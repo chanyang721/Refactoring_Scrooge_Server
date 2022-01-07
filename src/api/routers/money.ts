@@ -3,16 +3,16 @@ import { isAuth } from "../../helper/middlewares/auth";
 // import { } from "../controllers";
 // import { } from "../../middlewares/vaildations"
 
-const dayRouters = Router();
+const moneyRouters = Router();
 
 export default (router: Router) => {
-  router.use("/day", isAuth, dayRouters);
+  router.use("/money", isAuth, moneyRouters);
 
-  dayRouters.post("/spend");
+  moneyRouters.get("/page");
 
-  dayRouters.delete("/spend/:id");
+  moneyRouters.post("/spend");
 
-  dayRouters.put("/spend");
+  moneyRouters.put("/spend");
 
-  dayRouters.get("/page");
+  moneyRouters.delete("/spend");
 };
