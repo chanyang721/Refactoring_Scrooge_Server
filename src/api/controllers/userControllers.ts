@@ -12,12 +12,13 @@ export const createUser = async (req: Request, res: Response) => {
 };
 
 export const login = async (req: Request, res: Response) => {
-  const { id } = req.body.registeredUser;
+  const { id, agency_key } = req.body.registeredUser;
 
   const userServiceInstance = Container.get(UserService);
 
   const { accessToken, refreshToken } = await userServiceInstance.getToken({
     id,
+    agency_key,
   });
 
   res
@@ -70,12 +71,14 @@ export const refreshToken = async (req: Request, res: Response) => {
   //   BearerToken: req.cookies.refreshToken,
   // });
   const { refreshToken } = req.cookies;
-  const { id }: any = JwtInstance.decodeToken({ token: refreshToken });
+  const { id, agency_key }: any = JwtInstance.decodeToken({
+    token: refreshToken,
+  });
 
   const newAccessToken = JwtInstance.genToken("ACCESS_TOKEN", "10h");
 
   res.status(200).send({
-    accessToken: newAccessToken({ id }),
+    accessToken: newAccessToken({ id, agency_key }),
     message: "토큰 재발급 성공",
   });
 };

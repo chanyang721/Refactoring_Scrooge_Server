@@ -8,6 +8,8 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   DeleteDateColumn,
+  ManyToOne,
+  JoinColumn,
 } from "typeorm";
 // import { BaseColumn } from "./default";
 import { Feedback } from "./feedback";
@@ -15,6 +17,8 @@ import { Category } from "./category";
 import { Money } from "./money";
 import { Level } from "./level";
 import { Achievement } from "./achievement";
+import { Agency } from "./agency";
+import { Enterprise } from "./enterprise";
 
 @Entity({ name: "user" })
 @Index(["email", "phonenumber"], { unique: true })
@@ -52,6 +56,12 @@ export class User {
   @Column({ default: 0 })
   experience?: number;
 
+  @Column({ nullable: true })
+  agency_key?: number;
+
+  @Column({ nullable: true })
+  enterprise_key?: number;
+
   @CreateDateColumn()
   createdAt?: number;
 
@@ -81,4 +91,12 @@ export class User {
     onDelete: "CASCADE",
   })
   achievement?: Achievement[];
+
+  @ManyToOne(() => Agency, (agency) => agency.user, {})
+  @JoinColumn({ name: "agency_key" })
+  agency?: Agency[];
+
+  @ManyToOne(() => Enterprise, (enterprise) => enterprise.user, {})
+  @JoinColumn({ name: "enterprise_key" })
+  enterprise?: Enterprise[];
 }

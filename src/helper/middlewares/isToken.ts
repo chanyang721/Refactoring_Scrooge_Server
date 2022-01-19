@@ -16,12 +16,12 @@ export const refreshToken = async (
     const decodedToken: any = decodeToken({ token: refreshToken });
     if (!decodedToken) throw new Api400Error("Refresh Token이 없습니다");
 
-    const { id } = decodedToken;
+    const { id, agency_key } = decodedToken;
 
     const newAccessToken = genToken("ACCESS_TOKEN", "10h");
 
     res.status(200).send({
-      newAccessToken: newAccessToken({ id }),
+      newAccessToken: newAccessToken({ id, agency_key }),
       message: "토큰 재발급 성공",
     });
   } catch (error) {

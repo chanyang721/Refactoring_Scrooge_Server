@@ -35,10 +35,12 @@ export default class Jwt {
     const jwtOptions = <SignOptions>{ algorithm, expiresIn, subject };
 
     if (subject === "ACCESS_TOKEN") {
-      return ({ id }) => sign({ id }, config.jwt.secret, jwtOptions);
+      return ({ id, agency_key }) =>
+        sign({ id, agency_key }, config.jwt.secret, jwtOptions);
     }
     if (subject === "REFRESH_TOKEN") {
-      return ({ id }) => sign({ id }, config.jwt.secret, jwtOptions);
+      return ({ id, agency_key }) =>
+        sign({ id, agency_key }, config.jwt.secret, jwtOptions);
     }
 
     return () => sign({}, config.jwt.secret, jwtOptions);

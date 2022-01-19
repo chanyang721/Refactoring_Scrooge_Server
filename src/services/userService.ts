@@ -20,13 +20,14 @@ export default class UserService {
     return { newUser: generatedMaps[0] };
   }
 
-  public async getToken(data: User) {
+  public async getToken(tokenOptions: User) {
+    const { id, agency_key } = tokenOptions;
     const accessToken = this.jwt.genToken("ACCESS_TOKEN", "10h");
     const refreshToken = this.jwt.genToken("REFRESH_TOKEN", "90d");
 
     return {
-      accessToken: accessToken({ id: data.id }),
-      refreshToken: refreshToken({ id: data.id }),
+      accessToken: accessToken({ id, agency_key }),
+      refreshToken: refreshToken({ id, agency_key }),
     };
   }
 
