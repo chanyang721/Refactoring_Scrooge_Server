@@ -52,7 +52,7 @@ export default class Jwt {
 
     const decodedToken = verify(token, config.jwt.secret, jwtOptions);
     if (!decodedToken) throw new Api403Error("token expired");
-
+    console.log(decodedToken);
     return decodedToken;
   };
 }

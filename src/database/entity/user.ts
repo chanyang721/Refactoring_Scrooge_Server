@@ -10,8 +10,9 @@ import {
   DeleteDateColumn,
   ManyToOne,
   JoinColumn,
+  OneToOne,
 } from "typeorm";
-// import { BaseColumn } from "./default";
+
 import { Feedback } from "./feedback";
 import { Category } from "./category";
 import { Money } from "./money";
@@ -20,14 +21,19 @@ import { Achievement } from "./achievement";
 import { Agency } from "./agency";
 import { Enterprise } from "./enterprise";
 
-@Entity({ name: "user" })
-@Index(["email", "phonenumber"], { unique: true })
+@Entity({
+  name: "user",
+  orderBy: {
+    createdAt: "ASC",
+  },
+})
+@Index(["email", "phone"], { unique: true })
 export class User {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn({ type: "bigint" })
   id?: number;
 
-  @Column()
-  name?: string;
+  @Column("simple-json")
+  profile?: { name?: string; nickname?: string };
 
   @Column()
   email?: string;
@@ -39,7 +45,7 @@ export class User {
   birthday?: string;
 
   @Column({ default: "010-1234-1234" })
-  phonenumber?: string;
+  phone?: string;
 
   @Column({ default: "남" })
   gender?: string;
@@ -58,9 +64,6 @@ export class User {
 
   @Column({ nullable: true })
   agency_key?: number;
-
-  @Column({ nullable: true })
-  enterprise_key?: number;
 
   @CreateDateColumn()
   createdAt?: number;
@@ -96,7 +99,6 @@ export class User {
   @JoinColumn({ name: "agency_key" })
   agency?: Agency[];
 
-  @ManyToOne(() => Enterprise, (enterprise) => enterprise.user, {})
-  @JoinColumn({ name: "enterprise_key" })
+  @OneToOne(() => Enterprise, (enterprise) => enterprise.user, {})
   enterprise?: Enterprise[];
 }

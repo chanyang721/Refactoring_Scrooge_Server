@@ -3,8 +3,10 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  JoinColumn,
   ManyToOne,
   OneToMany,
+  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from "typeorm";
@@ -40,9 +42,10 @@ export class Enterprise {
   @DeleteDateColumn({ type: "timestamp" })
   deletedAt?: Date;
 
-  @OneToMany(() => User, (user) => user.enterprise, {})
-  user: User[];
-
   @ManyToOne(() => Agency, (agency) => agency.enterprise, {})
   agency: Agency[];
+
+  @OneToOne(() => User, (user) => user.experience, {})
+  @JoinColumn({ name: "user_id" })
+  user: User[];
 }

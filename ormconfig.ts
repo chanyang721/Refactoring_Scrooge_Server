@@ -10,6 +10,8 @@ export default {
   database: process.env.DATABASE || "test_database",
   synchronize: true,
   logging: false,
+  supportBigNumbers: true,
+  bigNumberStrings: false,
   entities: ["src/database/entity/**/*.ts", "dist/database/entity/**/*.js"],
   migrations: ["src/database/migration/**/*.ts"],
   subscribers: ["src/database/subscriber/**/*.ts"],

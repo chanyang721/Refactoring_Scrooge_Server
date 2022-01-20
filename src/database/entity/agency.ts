@@ -5,12 +5,14 @@ import {
   Entity,
   OneToMany,
   PrimaryGeneratedColumn,
+  Unique,
   UpdateDateColumn,
 } from "typeorm";
 import { Enterprise } from "./enterprise";
 import { User } from "./user";
 
 @Entity({ name: "Agency" })
+@Unique(["name"])
 export class Agency {
   @PrimaryGeneratedColumn({ type: "bigint" })
   key?: number;
@@ -22,7 +24,7 @@ export class Agency {
   access_code?: string;
 
   @Column()
-  type?: string;
+  agency_type?: string;
 
   @CreateDateColumn({ type: "timestamp" })
   createdAt?: Date;
