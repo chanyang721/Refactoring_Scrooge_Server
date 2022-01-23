@@ -17,9 +17,18 @@ interface TokenDTO {
   token?: string;
 }
 
+interface TokenDataDTO {
+  id: number;
+  agency_key: number;
+}
+
+interface BearerTokenDTO {
+  BearerToken: string | undefined;
+}
+
 @Service()
 export default class Jwt {
-  public unpackBearer = ({ BearerToken }): string => {
+  public unpackBearer = ({ BearerToken }: BearerTokenDTO): string => {
     if (!BearerToken) {
       throw new Api401Error("인증 토큰이 없습니다");
     }
@@ -35,24 +44,24 @@ export default class Jwt {
     const jwtOptions = <SignOptions>{ algorithm, expiresIn, subject };
 
     if (subject === "ACCESS_TOKEN") {
-      return ({ id, agency_key }) =>
+      return ({ id, agency_key }: TokenDataDTO) =>
         sign({ id, agency_key }, config.jwt.secret, jwtOptions);
     }
     if (subject === "REFRESH_TOKEN") {
-      return ({ id, agency_key }) =>
+      return ({ id, agency_key }: TokenDataDTO) =>
         sign({ id, agency_key }, config.jwt.secret, jwtOptions);
     }
 
     return () => sign({}, config.jwt.secret, jwtOptions);
   };
 
-  public decodeToken = ({ token }: TokenDTO) => {
+  public decodeToken = ({ token }: { token: string }) => {
     const algorithm = <Algorithm>config.jwt.algorithm;
     const jwtOptions: VerifyOptions = { algorithms: [algorithm] };
 
     const decodedToken = verify(token, config.jwt.secret, jwtOptions);
     if (!decodedToken) throw new Api403Error("token expired");
-    console.log(decodedToken);
+
     return decodedToken;
   };
 }

@@ -50,7 +50,7 @@ export class UserRepository extends BaseRepository<User> {
   public async updateRow(
     entity: EntityTarget<unknown>,
     data: User
-  ): Promise<{ affected: number }> {
+  ): Promise<{ affected: number | undefined }> {
     const { affected } = await this.repository
       .createQueryBuilder()
       .update(entity)
@@ -64,7 +64,7 @@ export class UserRepository extends BaseRepository<User> {
   public async softDeleteById(
     entity: EntityTarget<unknown>,
     data: User
-  ): Promise<{ affected: number }> {
+  ): Promise<{ affected: number | undefined }> {
     const { affected } = await this.repository
       .createQueryBuilder()
       .softDelete()
@@ -77,7 +77,7 @@ export class UserRepository extends BaseRepository<User> {
   public async restoreRow(
     entity: EntityTarget<unknown>,
     id: string
-  ): Promise<{ affected: number }> {
+  ): Promise<{ affected: number | undefined }> {
     const { affected } = await this.repository
       .createQueryBuilder()
       .where("id = :id", { id })

@@ -13,7 +13,6 @@ export const isAuth = (req: Request, res: Response, next: NextFunction) => {
   });
 
   const auth: any = JwtInstance.decodeToken({
-    subject: "ACCESS_TOKEN",
     token,
   });
 

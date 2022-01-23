@@ -82,7 +82,10 @@ export const loginVaildation = async (
 
   const hashing = Container.get(Hashing);
   const verifyPassword = wrapTryCatch(
-    hashing.comparePassword(password, registeredUser[0].password)
+    hashing.comparePassword({
+      password,
+      hashedPassword: registeredUser[0].password!,
+    })
   );
   // 비밀번호 일치 확인 //
   if (!verifyPassword) throw new Api400Error("비밀번호를 확인해주세요");
