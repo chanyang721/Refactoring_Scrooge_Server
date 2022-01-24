@@ -9,7 +9,7 @@ interface PasswordDTO {
 
 @Service()
 export default class Hashing {
-  public hashingPassword = async (password: string) => {
+  public hashingPassword = async (password: string): Promise<string> => {
     const salt = genSaltSync(11, "a");
     const hashedPassword = hashSync(password, salt);
 

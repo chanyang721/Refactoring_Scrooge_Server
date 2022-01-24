@@ -8,7 +8,7 @@ const s3 = new AWS.S3(config.s3);
 
 const storage = multerS3({
   s3,
-  bucket: config.multerS3.bucket,
+  bucket: config.multerS3.bucket!,
   contentType: multerS3.AUTO_CONTENT_TYPE,
   acl: config.multerS3.acl,
   // metadata: function (req, file, cb) {

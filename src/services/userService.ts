@@ -15,7 +15,7 @@ export default class UserService {
   ) {}
 
   public async insertUser(data: User) {
-    data.password = await this.hash.hashingPassword(data.password);
+    data.password = await this.hash.hashingPassword(data.password!);
     const { generatedMaps } = await this.userRepository.insertRow(User, data);
     return { newUser: generatedMaps[0] };
   }
@@ -89,13 +89,19 @@ export default class UserService {
     return { response, newPassword };
   }
 
-  public async comparePassword(password: string, hashedPassword: string) {
-    const compareResult = this.hash.comparePassword(password, hashedPassword);
+  public async comparePassword(
+    password: string,
+    hashedPassword: string
+  ): Promise<boolean> {
+    const compareResult = this.hash.comparePassword({
+      password,
+      hashedPassword,
+    });
 
     return compareResult;
   }
 
-  public async hashPassword(password: string) {
+  public async hashPassword(password: string): Promise<string> {
     const hashed = await this.hash.hashingPassword(password);
     return String(hashed);
   }

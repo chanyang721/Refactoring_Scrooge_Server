@@ -12,8 +12,8 @@ const connection = async () => {
       entities.length <= 0 ? "[ FALSE ]" : "[ TRUE ]"
     );
   } catch (error) {
-    console.error(error.message);
-    throw new Api404Error(error.message);
+    console.error(error);
+    throw new Api404Error(<string>error);
   }
 };
 

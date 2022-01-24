@@ -35,7 +35,7 @@ export default class Jwt {
     return BearerToken.split(" ")[1];
   };
 
-  public genToken = (subject: string, expiresIn: string) => {
+  public genToken = (subject: string, expiresIn: string): Function => {
     return this.tokenGenerator({ subject, expiresIn });
   };
 

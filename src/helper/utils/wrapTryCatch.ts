@@ -11,17 +11,22 @@ import { BaseError, BaseErrorDTO } from "./error/baseError";
 // export const wrapTryCatch = (action) => (req, res, next) =>
 //   action(req, res).catch(next);
 interface TryCatchDTO {
-  (req: Request, res: Response, next: NextFunction): void | BaseErrorDTO;
+  (req: Request, res: Response, next: NextFunction): Response;
 }
 
-export const wrapTryCatch = function (controller: TryCatchDTO) {
+export const wrapTryCatch = function (controller) {
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
       controller(req, res, next);
     } catch (error) {
       logger.error(error);
-      const { name, statusCode, message, isOperational }: BaseErrorDTO = error;
-      res.status(400).send({ name, statusCode, message, isOperational });
+      //   // const { name, statusCode, message, isOperational } = error;
+      //   res.status(400).send({
+      //     name: error,
+      //     statusCode,
+      //     message,
+      //     isOperational,
+      //   });
     }
   };
 };
