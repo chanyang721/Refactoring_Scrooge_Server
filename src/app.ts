@@ -1,7 +1,6 @@
 import "reflect-metadata";
 import express from "express";
 import loaders from "./loaders";
-import { addItem } from "./config/notion_calender";
 
 const server = async () => {
   const app = express();

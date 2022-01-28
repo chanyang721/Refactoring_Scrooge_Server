@@ -22,6 +22,7 @@ export async function addItem(text: string) {
         },
       },
     });
+
     console.log(response);
     console.log("Success! Entry added.");
   } catch (error) {
