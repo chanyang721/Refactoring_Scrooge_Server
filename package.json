@@ -29,6 +29,7 @@
   "homepage": "https://github.com/chanyang721/Refactoring_Scrooge_Server#readme",
   "dependencies": {
     "@googleapis/calendar": "^1.0.1",
+    "@notionhq/client": "^0.4.13",
     "aws-sdk": "^2.1029.0",
     "axios": "^0.22.0",
     "bcrypt": "^5.0.1",
