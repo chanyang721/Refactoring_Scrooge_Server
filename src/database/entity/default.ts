@@ -8,15 +8,15 @@ import {
 
 @Entity()
 export class BaseColumn {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn({ type: "bigint" })
   id: number;
 
-  @CreateDateColumn()
-  createdAt: number;
+  @CreateDateColumn({ type: "timestamp" })
+  createdAt?: Date;
 
-  @UpdateDateColumn()
-  updatedAt: number;
+  @UpdateDateColumn({ type: "timestamp" })
+  updatedAt?: Date;
 
-  @DeleteDateColumn()
-  deletedAt: number;
+  @DeleteDateColumn({ type: "timestamp", nullable: true })
+  deletedAt?: Date;
 }

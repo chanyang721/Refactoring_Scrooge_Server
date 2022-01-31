@@ -13,23 +13,23 @@ import { User } from "./user";
 
 @Entity({ name: "feedback" })
 export class Feedback {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn({ type: "bigint" })
   key?: number;
 
   @Column()
   feedback?: string;
 
-  @Column()
+  @Column({ type: "bigint" })
   userId?: number;
 
-  @CreateDateColumn()
-  createdAt?: number;
+  @CreateDateColumn({ type: "timestamp" })
+  createdAt?: Date;
 
-  @UpdateDateColumn()
-  updatedAt?: number;
+  @UpdateDateColumn({ type: "timestamp" })
+  updatedAt?: Date;
 
-  @DeleteDateColumn({ nullable: true })
-  deletedAt?: number;
+  @DeleteDateColumn({ type: "timestamp", nullable: true })
+  deletedAt?: Date;
 
   @ManyToOne(() => User, (user) => user.feedback, { onDelete: "CASCADE" })
   @JoinColumn({ name: "userId" })

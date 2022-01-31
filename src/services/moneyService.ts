@@ -3,5 +3,5 @@ import { MoneyRepository } from "../repository/moneyRepository";
 
 @Service()
 export default class MoneyService {
-  constructor(private readonly moenyRepository: MoneyRepository) {}
+  constructor(private readonly moneyRepository: MoneyRepository) {}
 }

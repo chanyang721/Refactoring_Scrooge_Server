@@ -31,7 +31,7 @@ export const createVaildation = async (
 
   const { value, error } = schema.validate(req.body);
   if (error) {
-    console.error(error);
+    logger.error(error);
     throw new Api409Error(error.message);
   }
 
@@ -65,7 +65,7 @@ export const loginVaildation = async (
 
   const { value, error } = schema.validate(req.body);
   if (error) {
-    console.error(error);
+    logger.error(error);
     throw new Api409Error(error.message);
   }
 

@@ -15,7 +15,7 @@ export default async (app: Express) => {
   app.use(morgan(process.env.NODE_ENV === "development" ? "dev" : "combined"));
   app.use(
     cors({
-      origin: "*",
+      origin: ["http://localhost:3000", "https://scrooge.life"],
       methods: ["GET", "POST", "PATCH", "PUT", "DELETE", "OPTIONS"],
       maxAge: 3600 * 5,
       credentials: true,

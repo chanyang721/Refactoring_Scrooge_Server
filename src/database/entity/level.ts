@@ -25,17 +25,17 @@ export class Level {
   @Column()
   explore?: boolean;
 
-  @Column()
+  @Column({ type: "bigint" })
   userId?: number;
 
-  @CreateDateColumn()
-  createdAt?: number;
+  @CreateDateColumn({ type: "timestamp" })
+  createdAt?: Date;
 
-  @UpdateDateColumn()
-  updatedAt?: number;
+  @UpdateDateColumn({ type: "timestamp" })
+  updatedAt?: Date;
 
-  @DeleteDateColumn({ nullable: true })
-  deletedAt?: number;
+  @DeleteDateColumn({ type: "timestamp", nullable: true })
+  deletedAt?: Date;
 
   @ManyToOne(() => User, (user) => user.level, { onDelete: "CASCADE" })
   @JoinColumn({ name: "userId" })

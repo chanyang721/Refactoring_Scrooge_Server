@@ -41,8 +41,8 @@ export class User {
   @Column()
   password?: string;
 
-  @Column()
-  birthday?: string;
+  @Column({ type: "date" })
+  birthday?: Date;
 
   @Column({ default: "010-1234-1234" })
   phone?: string;
@@ -65,14 +65,14 @@ export class User {
   @Column({ nullable: true })
   agency_key?: number;
 
-  @CreateDateColumn()
-  createdAt?: number;
+  @CreateDateColumn({ type: "timestamp" })
+  createdAt?: Date;
 
-  @UpdateDateColumn()
-  updatedAt?: number;
+  @UpdateDateColumn({ type: "timestamp" })
+  updatedAt?: Date;
 
-  @DeleteDateColumn({ nullable: true })
-  deletedAt?: number;
+  @DeleteDateColumn({ type: "timestamp", nullable: true })
+  deletedAt?: Date;
 
   @OneToMany(() => Feedback, (feedback) => feedback.user, {
     onDelete: "CASCADE",

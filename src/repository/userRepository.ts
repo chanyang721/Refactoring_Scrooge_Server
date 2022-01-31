@@ -24,7 +24,7 @@ export class UserRepository extends BaseRepository<User> {
   public async fetchRowByEmail(
     entity: EntityTarget<unknown>,
     email: string
-  ): Promise<any> {
+  ): Promise<{ rowInfo: User }> {
     const rowInfo = await this.repository
       .createQueryBuilder()
       .where("email = :email", { email })
@@ -50,7 +50,7 @@ export class UserRepository extends BaseRepository<User> {
   public async updateRow(
     entity: EntityTarget<unknown>,
     data: User
-  ): Promise<{ affected: number | undefined }> {
+  ): Promise<{ affected: number }> {
     const { affected } = await this.repository
       .createQueryBuilder()
       .update(entity)
@@ -58,32 +58,32 @@ export class UserRepository extends BaseRepository<User> {
       .where("id = :id", { id: data.id })
       .execute();
 
-    return { affected };
+    return { affected: affected! };
   }
 
   public async softDeleteById(
     entity: EntityTarget<unknown>,
     data: User
-  ): Promise<{ affected: number | undefined }> {
+  ): Promise<{ affected: number }> {
     const { affected } = await this.repository
       .createQueryBuilder()
       .softDelete()
       .where("id = :id", { id: data.id })
       .execute();
 
-    return { affected };
+    return { affected: affected! };
   }
 
   public async restoreRow(
     entity: EntityTarget<unknown>,
     id: string
-  ): Promise<{ affected: number | undefined }> {
+  ): Promise<{ affected: number }> {
     const { affected } = await this.repository
       .createQueryBuilder()
       .where("id = :id", { id })
       .restore()
       .execute();
 
-    return { affected };
+    return { affected: affected! };
   }
 }

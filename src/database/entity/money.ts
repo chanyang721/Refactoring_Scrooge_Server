@@ -14,7 +14,7 @@ import { User } from "./user";
 
 @Entity({ name: "money" })
 export class Money {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn({ type: "bigint" })
   key?: number;
 
   @Column()
@@ -23,19 +23,19 @@ export class Money {
   @Column()
   memo?: string;
 
-  @CreateDateColumn()
-  createdAt?: number;
+  @CreateDateColumn({ type: "timestamp" })
+  createdAt?: Date;
 
-  @UpdateDateColumn()
-  updatedAt?: number;
+  @UpdateDateColumn({ type: "timestamp" })
+  updatedAt?: Date;
 
-  @DeleteDateColumn({ nullable: true })
-  deletedAt?: number;
+  @DeleteDateColumn({ type: "timestamp", nullable: true })
+  deletedAt?: Date;
 
-  @Column()
+  @Column({ type: "bigint" })
   categoryId?: number;
 
-  @Column()
+  @Column({ type: "bigint" })
   userId?: number;
 
   @ManyToOne(() => User, (user) => user.money, { onDelete: "CASCADE" })

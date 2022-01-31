@@ -5,6 +5,7 @@ import {
   Algorithm,
   SignOptions,
   VerifyOptions,
+  JwtPayload,
 } from "jsonwebtoken";
 import { Service } from "typedi";
 import config from "../../config";
@@ -57,7 +58,7 @@ export default class Jwt {
 
   public decodeToken = ({ token }: { token: string }) => {
     const algorithm = <Algorithm>config.jwt.algorithm;
-    const jwtOptions: VerifyOptions = { algorithms: [algorithm] };
+    const jwtOptions = <VerifyOptions>{ algorithms: [algorithm] };
 
     const decodedToken = verify(token, config.jwt.secret, jwtOptions);
     if (!decodedToken) throw new Api403Error("token expired");

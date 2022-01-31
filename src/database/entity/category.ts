@@ -14,7 +14,7 @@ import { User } from "./user";
 
 @Entity({ name: "category" })
 export class Category {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn({ type: "bigint" })
   key?: number;
 
   @Column()
@@ -26,18 +26,17 @@ export class Category {
   @Column()
   emoji?: string;
 
-  @Column()
+  @Column({ type: "bigint" })
   userId?: number;
 
-  @CreateDateColumn()
-  createdAt?: number;
+  @CreateDateColumn({ type: "timestamp" })
+  createdAt?: Date;
 
-  @UpdateDateColumn()
-  updatedAt?: number;
+  @UpdateDateColumn({ type: "timestamp" })
+  updatedAt?: Date;
 
-  @DeleteDateColumn({ nullable: true })
-  deletedAt?: number;
-
+  @DeleteDateColumn({ type: "timestamp", nullable: true })
+  deletedAt?: Date;
   @ManyToOne(() => User, (user) => user.category, { onDelete: "CASCADE" })
   @JoinColumn({ name: "userId" })
   user?: User[];

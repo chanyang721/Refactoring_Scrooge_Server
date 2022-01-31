@@ -29,9 +29,9 @@ export const login = async (req: Request, res: Response) => {
       httpOnly: true,
     })
     .send({
+      message: "로그인 성공",
       accessToken,
       refreshToken,
-      message: "로그인 성공",
     });
 };
 
@@ -48,8 +48,7 @@ export const softDeleteUser = async (req: Request, res: Response) => {
 export const updateUserInfo = async (req: Request, res: Response) => {
   const userServiceInstance = Container.get(UserService);
 
-  // if (req.files) req.body.photos = req.files[0].location;
-  if (req.files) req.body.photos = req.files;
+  if (req.files) req.body.photos = req.files[0].location!;
 
   await userServiceInstance.updateUserInfo(req.body);
 
