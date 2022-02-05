@@ -13,7 +13,7 @@ const options = {
     basePath: "/",
   },
 
-  apis: ["../api/routers/*.ts"],
+  apis: ["../api/routers/*.ts", "../../swagger.json"],
 };
 
 const specs = swaggerJsdoc(options);
