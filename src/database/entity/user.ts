@@ -102,3 +102,35 @@ export class User {
   @OneToOne(() => Enterprise, (enterprise) => enterprise.user, {})
   enterprise?: Enterprise[];
 }
+
+export const SwaggerUserProperties = {
+  id: {
+    type: "integer",
+    format: "int64",
+  },
+  name: {
+    type: "string",
+  },
+  email: {
+    type: "string",
+    example: "exampleD@gmail.com",
+  },
+  password: {
+    type: "string",
+    example: "대소문자 영문 + 숫자 + 특수문자",
+  },
+  gender: {
+    type: "string",
+  },
+  phonenumber: {
+    type: "string",
+    example: "010-1234-5678",
+  },
+};
+
+export const SwaggerUserPropertiesRequired = [
+  "name",
+  "email",
+  "password",
+  "birthday",
+];
