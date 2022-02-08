@@ -3,11 +3,6 @@ export const SwaggerUserRouters = {
     put: {
       tags: ["Users"],
       summary: "Update user information",
-      security: [
-        {
-          Authorization: ["Token"],
-        },
-      ],
       parameters: [
         {
           name: "body",
