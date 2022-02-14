@@ -17,6 +17,23 @@ export const SwaggerUserRouters = {
         },
       ],
     },
+    get: {
+      tags: ["Users"],
+      summary: "Update user information",
+      parameters: [
+        {
+          name: "body",
+          in: "body",
+          required: true,
+          description: "수정중",
+          allowEmptyValue: true,
+          schema: {
+            $ref: "#/components/schemas/user",
+          },
+          style: "simple",
+        },
+      ],
+    },
   },
   "/signup": {},
   "/login": {},
